@@ -36,12 +36,6 @@
                 $(function makeDiv(){
                     var divx = (300);
                     var divy = (412);
-                    var mouseX;
-                    var mouseY;
-                    $(document).mousemove( function(e) {
-                       mouseX = e.pageX; 
-                       mouseY = e.pageY;
-                    }); 
                     var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg'];
                     $newdiv = $('<div/>').css({
                         'width': divx + 'px',
@@ -53,11 +47,11 @@
                 
                     var posx = (Math.random() * ($(document).width() - divx)).toFixed();
                     var posy = (Math.random() * ($(document).height() - divy)).toFixed();
-                
+                    
                     $newdiv.css({
                         'position':'absolute',
-                        'left':posx+'px',
-                        'top':posy+'px',
+                        'left': event.pageX + 'px',
+                        'top': event.pageY + 'px',
                         'display':'none'
                     }).appendTo( 'body' ).fadeIn(100).delay(10000).fadeOut(200, function(){
                        $(this).remove();
