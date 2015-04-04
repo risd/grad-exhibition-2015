@@ -23,7 +23,9 @@
 
         <!-- Add your site or application content here -->
         <div id="container">
-            <h1>RISD Graduate Show<br>May 20 &ndash; 30, 2015<br>RI Convention Center<br>CLICK HERE!</h1>
+            <div class="text">
+                <h1>RISD Graduate Show<br>May 20 &ndash; 30, 2015<br>RI Convention Center<br>CLICK HERE!</h1>
+            </div>
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -49,18 +51,19 @@
                         'z-index': (-1)
                     });
                 
-                    var posx = (Math.random() * ($(document).width() - divx)).toFixed();
-                    var posy = (Math.random() * ($(document).height() - divy)).toFixed();
+                    var posx = (Math.random() * ($(window).width() - divx)).toFixed();
+                    var posy = (Math.random() * ($(window).height() - divy)).toFixed();
                     
                     $newdiv.css({
                         'position':'absolute',
-                        'left': event.pageX + 'px',
-                        'top': event.pageY + 'px',
+                        'left': posx + 'px',
+                        'top': posy + 'px',
                         'display':'none'
-                    }).appendTo( 'body' ).fadeIn(100).delay(5000).fadeOut(200, function(){
+                    }).appendTo( 'body' ).fadeIn(100).delay(10000).fadeOut(200, function(){
                        $(this).remove();
                     }); 
                 })();
+
             });
         </script>
 
