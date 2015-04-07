@@ -102,8 +102,10 @@ textarea {
 }
 
 .text {
+    position: relative;
     margin-top: 30%;
     padding: 5% 5%;
+    z-index: -9999;
     -webkit-user-select: none; /* Chrome/Safari */        
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+ */
@@ -114,7 +116,6 @@ img {
 }
 
 h1 {
-    z-index: -3;
     text-align: center;
     -webkit-user-select: none; /* Chrome/Safari */        
     -moz-user-select: none; /* Firefox */
@@ -125,7 +126,6 @@ h1 {
 .outline1, .outline2, .outline3, .outline4, .outline5 {
     width: 310px;
     height: 423px;
-    z-index: 0;
     /*display: none;*/
     position: absolute;
     cursor: pointer;
