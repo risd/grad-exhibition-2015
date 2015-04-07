@@ -23,9 +23,13 @@
 
         <!-- Add your site or application content here -->
         <div id="container">
-            <h1>RISD Graduate Show<br>May 20 &ndash; 30, 2015<br>RI Convention Center<br>CLICK HERE!</h1>
+            <div class="outline1"><div class="text"><h1>Rhode Island School of Design</h1></div></div>
+            <div class="outline2"><div class="text"><h1>Opening May 19, 6 &ndash; 8pm</h1></div></div>
+            <div class="outline3"><div class="text"><h1>Graduate Thesis Show 2015</h1></div></div>
+            <div class="outline4"><div class="text"><h1>May 20 &ndash; 30, 2015<br>Open 12 &ndash; 5 Daily</h1></div></div>
+            <div class="outline5"><div class="text"><h1>Rhode Island Convention Center</h1></div></div>
         </div>
-
+        
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
@@ -36,32 +40,73 @@
                 var windowHeight = $(window).height(); //retrieve current window height
                 $( "#container" ).css({width: windowWidth + 'px', height: windowHeight + 'px'});
             });
+
+            // $( document ).ready(function() {
+            //     var divx = (300);
+            //     var divy = (413);
+            //     var posx1 = (Math.random() * ($(document).width() - divx)).toFixed();
+            //     var posy1 = (Math.random() * ($(document).height() - divy)).toFixed();
+            //     var posx2 = (Math.random() * ($(document).width() - divx)).toFixed();
+            //     var posy2 = (Math.random() * ($(document).height() - divy)).toFixed();
+            //     var posx3 = (Math.random() * ($(document).width() - divx)).toFixed();
+            //     var posy3 = (Math.random() * ($(document).height() - divy)).toFixed();
+            //     var posx4 = (Math.random() * ($(document).width() - divx)).toFixed();
+            //     var posy4 = (Math.random() * ($(document).height() - divy)).toFixed();
+            //     var posx5 = (Math.random() * ($(document).width() - divx)).toFixed();
+            //     var posy5 = (Math.random() * ($(document).height() - divy)).toFixed();
+
+            //     $( "div.outline1" ).css({
+            //         'left': posx1 + 'px',
+            //         'top': posy1 + 'px',
+            //     }).fadeIn(100);
+            //     $( "div.outline2" ).css({
+            //         'left': posx2 + 'px',
+            //         'top': posy2 + 'px',
+            //     }).fadeIn(100); 
+            //     $( "div.outline3" ).css({
+            //         'left': posx3 + 'px',
+            //         'top': posy3 + 'px',
+            //     }).fadeIn(100); 
+            //     $( "div.outline4" ).css({
+            //         'left': posx4 + 'px',
+            //         'top': posy4 + 'px',
+            //     }).fadeIn(100); 
+            //     $( "div.outline5" ).css({
+            //         'left': posx5 + 'px',
+            //         'top': posy5 + 'px',
+            //     }).fadeIn(100); 
+            // });
+
             document.getElementById('container').addEventListener( 'click', function() {
                 $(function makeDiv(){
                     var divx = (300);
-                    var divy = (412);
+                    var divy = (413);
                     var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg'];
                     $newdiv = $('<div/>').css({
                         'width': divx + 'px',
                         'height': divy + 'px',
-                        'background-color': 'none',
                         'background-image': 'url(img/' + images[Math.floor(Math.random() * images.length)] + ')',
                         'z-index': (-1)
                     });
+
+                    var w = (150);
+
+                    var h = (206.5);
                 
                     var posx = (Math.random() * ($(document).width() - divx)).toFixed();
                     var posy = (Math.random() * ($(document).height() - divy)).toFixed();
-                    
+
                     $newdiv.css({
                         'position':'absolute',
-                        'left': event.pageX + 'px',
-                        'top': event.pageY + 'px',
+                        'left': event.pageX - w + 'px',
+                        'top': event.pageY - h + 'px',
                         'display':'none'
                     }).appendTo( 'body' ).fadeIn(100).delay(5000).fadeOut(200, function(){
                        $(this).remove();
                     }); 
                 })();
             });
+
         </script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
