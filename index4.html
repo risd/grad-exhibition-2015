@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main_alt.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <div id="container">
+            <div id="stickr"></div>
+            <div id="capr"><h6>R</h6></div>
+            <div id="itop"></div>
+            <div id="ibottom"></div>
+            <div id="sticki"></div>
+            <div id="capi"><h6>I</h6></div>
+            <div id="sticks"></div>
+            <div id="caps"><h6>S</h6></div>
+            <div id="stickd"></div>
+            <div id="capd"><h6>D</h6></div>
+            <div class="outline1"><div class="text"><h1>Rhode Island School of Design</h1></div></div>
+            <div class="outline2"><div class="text"><h1>Opening May 19, 6 &ndash; 8pm</h1></div></div>
+            <div class="outline3"><div class="text"><h1>Graduate Thesis Show 2015</h1></div></div>
+            <div class="outline4"><div class="text"><h1>May 20 &ndash; 30, 2015<br>Open 12 &ndash; 5 Daily</h1></div></div>
+            <div class="outline5"><div class="text"><h1>Rhode Island Convention Center</h1></div></div>
+        </div>
+        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+        <script type="text/javascript">
+            // $( document ).mousemove(function() {
+            //     var windowWidth = $(window).width(); //retrieve current window width
+            //     var windowHeight = $(window).height(); //retrieve current window height
+            //     $( "#container" ).css({width: windowWidth + 'px', height: windowHeight + 'px'});
+            // });
+
+            // $( document ).ready(function() {
+            //     var divx = (300);
+            //     var divy = (413);
+            //     var posx1 = (Math.random() * ($(document).width() - divx)).toFixed();
+            //     var posy1 = (Math.random() * ($(document).height() - divy)).toFixed();
+            //     var posx2 = (Math.random() * ($(document).width() - divx)).toFixed();
+            //     var posy2 = (Math.random() * ($(document).height() - divy)).toFixed();
+            //     var posx3 = (Math.random() * ($(document).width() - divx)).toFixed();
+            //     var posy3 = (Math.random() * ($(document).height() - divy)).toFixed();
+            //     var posx4 = (Math.random() * ($(document).width() - divx)).toFixed();
+            //     var posy4 = (Math.random() * ($(document).height() - divy)).toFixed();
+            //     var posx5 = (Math.random() * ($(document).width() - divx)).toFixed();
+            //     var posy5 = (Math.random() * ($(document).height() - divy)).toFixed();
+
+            //     $( "div.outline1" ).css({
+            //         'left': posx1 + 'px',
+            //         'top': posy1 + 'px',
+            //     }).fadeIn(100);
+            //     $( "div.outline2" ).css({
+            //         'left': posx2 + 'px',
+            //         'top': posy2 + 'px',
+            //     }).fadeIn(100); 
+            //     $( "div.outline3" ).css({
+            //         'left': posx3 + 'px',
+            //         'top': posy3 + 'px',
+            //     }).fadeIn(100); 
+            //     $( "div.outline4" ).css({
+            //         'left': posx4 + 'px',
+            //         'top': posy4 + 'px',
+            //     }).fadeIn(100); 
+            //     $( "div.outline5" ).css({
+            //         'left': posx5 + 'px',
+            //         'top': posy5 + 'px',
+            //     }).fadeIn(100); 
+            // });
+
+            document.getElementById('container').addEventListener( 'click', function() {
+                $(function makeDiv(){
+                    var divx = (300);
+                    var divy = (413);
+                    var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg'];
+                    $newdiv = $('<div/>').css({
+                        'width': divx + 'px',
+                        'height': divy + 'px',
+                        'background-image': 'url(img/' + images[Math.floor(Math.random() * images.length)] + ')',
+                        'z-index': (-1)
+                    });
+
+                    var w = (150);
+
+                    var h = (206.5);
+                
+                    var posx = (Math.random() * ($(document).width() - divx)).toFixed();
+                    var posy = (Math.random() * ($(document).height() - divy)).toFixed();
+
+                    $newdiv.css({
+                        'position':'absolute',
+                        'left': event.pageX - w + 'px',
+                        'top': event.pageY - h + 'px',
+                        'display':'none'
+                    }).appendTo( 'body' ).fadeIn(100).delay(5000).fadeOut(200, function(){
+                       $(this).remove();
+                    }); 
+                })();
+            });
+
+        </script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+    </body>
+</html>
