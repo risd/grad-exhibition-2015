@@ -109,6 +109,7 @@ textarea {
      -webkit-user-select: none; /* Chrome/Safari */        
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+ */
+    cursor: default;
 }
 
 .text {
@@ -128,23 +129,17 @@ h1 {
     -webkit-user-select: none; /* Chrome/Safari */        
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+ */
-    cursor: pointer;
 }
 
 .outline1, .outline2, .outline3, .outline4, .outline5 {
     width: 270px;
     /*display: none;*/
     position: absolute;
-    cursor: pointer;
     /*border: 3px dotted black;*/
     color: black;
     -webkit-transition: all 500ms ease;
     -moz-transition: all 500ms ease;
     -ms-transition: all 500ms ease;
-}
-.outline1:hover, .outline2:hover, .outline3:hover, .outline4:hover, .outline5:hover {
-    /*border: 3px dotted rgb(181, 181, 181);*/
-    color: rgb(181,181,181);
 }
 
 .outline1 {
