@@ -1,9 +1,25 @@
 @import 'normalize.scss';
 @import 'main.scss';
 
+// Colors
+// ------
+$white: white;
 $grey: rgb(181, 181, 181);
 $blue: rgb(0, 161, 223);
 $red: rgb(240, 83, 103);
+
+
+@mixin type--body {
+    font: {
+        family: "Founders Grotesk Text Bold";
+        size: 15pt;
+        weight: normal;
+    }
+    line-height: 17pt;
+    letter-spacing: -0.3em;
+    color: $white;
+}
+
 
 .poster {
     box-sizing: border-box;
@@ -16,11 +32,167 @@ $red: rgb(240, 83, 103);
 
     font-size: 16px;
 
-    // Mobile
+    header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        background-color: $grey;
+
+        blend-mode: multiply;
+
+        .mobile,
+        .tablet,
+        .desktopn {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;            
+        }
+
+        .mobile {
+            display: block;
+        }
+        .desktop,
+        .tablet {
+            display: none;
+        }
+
+        @media only screen and (min-width: 768px) {
+            .tablet {
+                display: block;
+            }
+            .mobile,
+            .desktop {
+                display: none;
+            }
+        }
+
+        @media only screen and (min-width: 1024px) {
+            .desktop {
+                display: block;
+            }
+            .mobile,
+            .tablet {
+                display: none;
+            }
+        }
+
+        .two,
+        .zero,
+        .one,
+        .five {
+            position: absolute;
+            blend-mode: multiply;
+        }
+        .two {
+            top: 0;
+            left: 24px;
+        }
+        .zero {
+            top: 24px;
+            right: 0px;
+        }
+        .one {
+            bottom: 24px;
+            left: 0;
+        }
+        .five {
+            bottom: 0;
+            right: 24px;
+        }
+
+        .risd {
+            // 248/320
+            width: 77.5%;
+            position: absolute;
+
+            // (320-248)/2/320
+            top: 11.25%;
+            left: 11.25%;
+
+            svg {
+                width: 100%;
+            }
+        }
+    }
+
+    article {
+        box-sizing: border-box;
+        position: relative;
+        width: auto;
+        // height: calc(100vh - 48px);
+
+        // margin: 24px;
+        // padding-top: 30%;
+        // padding-bottom: 30%;
+        // display: flex;
+        // flex-direction: row;
+        // flex-wrap: nowrap;
+        // justify-content: flex-start;
+
+        h1 {
+            margin-bottom: 0;
+            margin-top: 0;
+
+            font: {
+                family: "Founders Grotesk Text Bold";
+                size: 37pt;
+                weight: normal;
+            }
+
+            line-height: 1em;
+            letter-spacing: -0.1em;
+            color: $grey;
+
+            text-transform: uppercase;
+            text-align: left;
+        }
+
+        .risd {
+            width: 70%;
+            margin-left: 30%;
+        }
+        .grad {
+            width: 90%;
+            margin-left: 10%;
+        }
+        .show {
+            width: 60%;
+            margin-left: 40%;
+        }
+        .year {
+            width: 80%;
+            margin-left: 20%;
+        }
+    }
+
+
+    // Tablet
     // ------
+    @media only screen and (min-width: 768px) { }
+
+    // Desktop
+    // ------
+    @media only screen and (min-width: 1024px) { }
+}
+
+.info {
+
+    font: {
+        family: "Founders Grotesk Text Bold";
+        size: 14pt;
+        // line-height: 17pt; ???
+        weight: normal;
+        text-transform: uppercase;
+    }
+    color: $grey;
     
 
-
+    
     // Tablet
     // ------
     @media only screen and (min-width: 768px) {
@@ -29,21 +201,6 @@ $red: rgb(240, 83, 103);
 
     // Desktop
     // ------
-    @media only screen and (min-width: 1024px) {
-        
-    }
-}
-
-.info {
-    // mobile
-    
-
-    // tablet
-    @media only screen and (min-width: 768px) {
-        
-    }
-
-    // desktop
     @media only screen and (min-width: 1024px) {
         
     }

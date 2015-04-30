@@ -635,4 +635,87 @@ h1 {
   padding: 0;
   margin: 0;
   font-size: 16px; }
+  .poster header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #b5b5b5;
+    blend-mode: multiply; }
+    .poster header .mobile, .poster header .tablet, .poster header .desktopn {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%; }
+    .poster header .mobile {
+      display: block; }
+    .poster header .desktop, .poster header .tablet {
+      display: none; }
+    @media only screen and (min-width: 768px) {
+      .poster header .tablet {
+        display: block; }
+      .poster header .mobile, .poster header .desktop {
+        display: none; } }
+    @media only screen and (min-width: 1024px) {
+      .poster header .desktop {
+        display: block; }
+      .poster header .mobile, .poster header .tablet {
+        display: none; } }
+    .poster header .two, .poster header .zero, .poster header .one, .poster header .five {
+      position: absolute;
+      blend-mode: multiply; }
+    .poster header .two {
+      top: 0;
+      left: 24px; }
+    .poster header .zero {
+      top: 24px;
+      right: 0px; }
+    .poster header .one {
+      bottom: 24px;
+      left: 0; }
+    .poster header .five {
+      bottom: 0;
+      right: 24px; }
+    .poster header .risd {
+      width: 77.5%;
+      position: absolute;
+      top: 11.25%;
+      left: 11.25%; }
+      .poster header .risd svg {
+        width: 100%; }
+  .poster article {
+    box-sizing: border-box;
+    position: relative;
+    width: auto; }
+    .poster article h1 {
+      margin-bottom: 0;
+      margin-top: 0;
+      font-family: "Founders Grotesk Text Bold";
+      font-size: 37pt;
+      font-weight: normal;
+      line-height: 1em;
+      letter-spacing: -0.1em;
+      color: #b5b5b5;
+      text-transform: uppercase;
+      text-align: left; }
+    .poster article .risd {
+      width: 70%;
+      margin-left: 30%; }
+    .poster article .grad {
+      width: 90%;
+      margin-left: 10%; }
+    .poster article .show {
+      width: 60%;
+      margin-left: 40%; }
+    .poster article .year {
+      width: 80%;
+      margin-left: 20%; }
 
+.info {
+  font-family: "Founders Grotesk Text Bold";
+  font-size: 14pt;
+  font-weight: normal;
+  font-text-transform: uppercase;
+  color: #b5b5b5; }
