@@ -6,9 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-js": "browserify script/index.js -o static/script.js",
-    "build-css": "sass style/site.scss -o static/style.css",
+    "build-css": "node-sass style/site.scss static/style.css",
     "watch-js": "watchify script/index.js -o static/script.js",
-    "watch-css": "sass -w style/site.scss -o static/style.css"
+    "watch-css": "node-sass -w style/site.scss static/style.css",
+    "dev": "nf --procfile Procfile.dev start"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,15 @@
   "bugs": {
     "url": "https://github.com/risd/grad-exhibition-2015/issues"
   },
-  "homepage": "https://github.com/risd/grad-exhibition-2015"
+  "homepage": "https://github.com/risd/grad-exhibition-2015",
+  "dependencies": {
+    "browserify": "^10.0.0",
+    "d3": "^3.5.5",
+    "node-sass": "^2.1.1",
+    "request": "^2.55.0"
+  },
+  "devDependencies": {
+    "foreman": "^1.3.0",
+    "watchify": "^3.2.1"
+  }
 }
