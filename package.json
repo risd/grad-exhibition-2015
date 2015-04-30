@@ -1,0 +1,23 @@
+{
+  "name": "risd-grad-thesis-exhibition-2015",
+  "version": "1.0.0",
+  "description": "HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.",
+  "main": "script/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-js": "browserify script/index.js -o static/script.js",
+    "build-css": "sass style/site.scss -o static/style.css",
+    "watch-js": "watchify script/index.js -o static/script.js",
+    "watch-css": "sass -w style/site.scss -o static/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/risd/grad-exhibition-2015.git"
+  },
+  "author": "Ruben Rodriguez <mail@rubenrodriguez.me> (http://rubenrodriguez.me/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/risd/grad-exhibition-2015/issues"
+  },
+  "homepage": "https://github.com/risd/grad-exhibition-2015"
+}

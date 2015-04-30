@@ -12,9 +12,7 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/main.css">
-        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <link rel="stylesheet" href="static/style.css">
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -26,43 +24,7 @@
             <h1>RISD Graduate Show<br>May 20 &ndash; 30, 2015<br>RI Convention Center<br>CLICK HERE!</h1>
         </div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
-        <script type="text/javascript">
-            $( document ).mousemove(function() {
-                var windowWidth = $(window).width(); //retrieve current window width
-                var windowHeight = $(window).height(); //retrieve current window height
-                $( "#container" ).css({width: windowWidth + 'px', height: windowHeight + 'px'});
-            });
-            document.getElementById('container').addEventListener( 'click', function() {
-                $(function makeDiv(){
-                    var divx = (300);
-                    var divy = (412);
-                    var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg'];
-                    $newdiv = $('<div/>').css({
-                        'width': divx + 'px',
-                        'height': divy + 'px',
-                        'background-color': 'none',
-                        'background-image': 'url(img/' + images[Math.floor(Math.random() * images.length)] + ')',
-                        'z-index': (-1)
-                    });
-                
-                    var posx = (Math.random() * ($(document).width() - divx)).toFixed();
-                    var posy = (Math.random() * ($(document).height() - divy)).toFixed();
-                    
-                    $newdiv.css({
-                        'position':'absolute',
-                        'left': event.pageX + 'px',
-                        'top': event.pageY + 'px',
-                        'display':'none'
-                    }).appendTo( 'body' ).fadeIn(100).delay(5000).fadeOut(200, function(){
-                       $(this).remove();
-                    }); 
-                })();
-            });
-        </script>
+        <script src="static/script.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
