@@ -717,5 +717,19 @@ h1 {
   font-family: "Founders Grotesk Text Bold";
   font-size: 14pt;
   font-weight: normal;
-  font-text-transform: uppercase;
-  color: #b5b5b5; }
+  color: #b5b5b5;
+  background-color: #00a1df;
+  position: fixed;
+  left: 88.75%;
+  top: 11.25%;
+  bottom: 11.25%;
+  width: 88.75%;
+  overflow-x: hidden; }
+  .info .handle {
+    position: absolute;
+    height: 100%;
+    width: 91.55%; }
+    .info .handle .label {
+      transform: rotate(90deg); }
+    .info .handle p {
+      text-transform: uppercase; }

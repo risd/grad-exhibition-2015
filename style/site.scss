@@ -187,9 +187,36 @@ $red: rgb(240, 83, 103);
         size: 14pt;
         // line-height: 17pt; ???
         weight: normal;
-        text-transform: uppercase;
     }
     color: $grey;
+
+    background-color: $blue;
+
+    position: fixed;
+    // (320-36)/320*100
+    left: 88.75%;
+    // 36/320*100
+    top: 11.25%;
+    bottom: 11.25%;
+
+    // (320-36)/320*100
+    width: 88.75%;
+
+    overflow-x: hidden;
+
+    .handle {
+        position: absolute;
+        height: 100%;
+        // ((320-36)-24)/(320-36)*100
+        width: 91.55%;
+        .label {
+            transform: rotate(90deg);
+        }
+        p {
+            text-transform: uppercase;
+        }
+    }
+
     
 
     
