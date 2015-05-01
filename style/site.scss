@@ -11,7 +11,7 @@ $red: rgb(240, 83, 103);
 
 @mixin type--body {
     font: {
-        family: "Founders Grotesk Text Bold";
+        family: "Founders Grotesk Text Bold", sans-serif;
         size: 15pt;
         weight: normal;
     }
@@ -111,7 +111,7 @@ $red: rgb(240, 83, 103);
             margin-top: 0;
 
             font: {
-                family: "Founders Grotesk Text Bold";
+                family: "Founders Grotesk Text Bold", sans-serif;
                 size: 37pt;
                 weight: normal;
             }
@@ -152,10 +152,9 @@ $red: rgb(240, 83, 103);
     @media only screen and (min-width: 1024px) { }
 }
 
-.info {
-
+@mixin slide-in {
     font: {
-        family: "Founders Grotesk Text Bold";
+        family: "Founders Grotesk Text Bold", sans-serif;
         size: 14pt;
         // line-height: 17pt; ???
         weight: normal;
@@ -172,6 +171,60 @@ $red: rgb(240, 83, 103);
 
     overflow-x: hidden;
 
+    background-blend-mode: multiply;
+    mix-blend-mode: multiply;
+}
+
+.statement {
+    @include slide-in;
+
+    
+
+    &.inActive {
+        // (320-36)/320*100
+        right: 88.75%;
+    }
+    &.active {
+        right: 11.25%;
+    }
+
+    .handle {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+
+        // ((320-36)-24)/(320-36)*100
+        width: 10%;
+
+        .label {
+            position: absolute;
+            top: 42%;
+            left: -41px;
+            transform: rotate(-90deg);
+        }
+        p {
+            text-transform: uppercase;
+        }
+    }
+
+    article {
+        width: 65%;
+        margin-left: 15%;
+        mix-blend-mode: normal;
+        p {
+            mix-blend-mode: normal;
+        }
+    }
+
+    a {
+        text-decoration: none;
+        color: $grey;
+    }
+}
+.info {
+    @include slide-in;
+
     &.inActive {
         // (320-36)/320*100
         left: 88.75%;
@@ -180,16 +233,13 @@ $red: rgb(240, 83, 103);
         left: 11.25%;
     }
 
-    background-blend-mode: multiply;
-    mix-blend-mode: multiply;
-
     .handle {
         position: absolute;
         top: 0;
         left: 0;
         height: 100%;
         // ((320-36)-24)/(320-36)*100
-        width: 91.55%;
+        width: 10%;
         .label {
             position: absolute;
             top: 42%;

@@ -6845,6 +6845,7 @@ module.exports.obj = through2(function (options, transform, flush) {
 },{"_process":9,"readable-stream/transform":34,"util":24,"xtend":35}],37:[function(require,module,exports){
 var Poster = require('./poster.js')('.poster');
 var Info = require('./information.js')('.info');
+var Statement = require('./statement.js')('.statement');
 
 var Router = require('routes');
 var router = Router();
@@ -6853,6 +6854,9 @@ router.addRoute('/', function () {
     console.log('route: /');
 
     Info.inActive();
+    
+    Statement.inActive();
+    
     routeClicks();
 });
 
@@ -6860,6 +6864,19 @@ router.addRoute('/info', function () {
     console.log('route: /info');
     
     Info.active();
+    
+    Statement.inActive();
+    
+    routeClicks();
+});
+
+router.addRoute('/statement', function () {
+    console.log('route: /info');
+    
+    Statement.active();
+
+    Info.inActive();
+    
     routeClicks();
 });
 
@@ -6921,7 +6938,7 @@ function routeClicks () {
 	    else return findAnchor(el.parentNode);
 	}
 }
-},{"./information.js":38,"./poster.js":39,"routes":25}],38:[function(require,module,exports){
+},{"./information.js":38,"./poster.js":39,"./statement.js":40,"routes":25}],38:[function(require,module,exports){
 var through = require('through2');
 
 module.exports = Information;
@@ -6961,4 +6978,32 @@ function Poster (selector) {
     this.selector = selector;
     this.el = document.querySelector(selector);
 }
+},{"through2":36}],40:[function(require,module,exports){
+var through = require('through2');
+
+module.exports = Statement;
+
+function Statement (selector) {
+    if (!(this instanceof Statement)) return new Statement(selector);
+    if (!selector) throw new Error('Requires selector.');
+
+    this.selector = selector;
+    this.el = document.querySelector(selector);
+    this.anchor = this.el.querySelector('a');
+}
+
+Statement.prototype.inActive = function () {
+    var self = this;
+    this.anchor.href = '/statement';
+    this.el.classList.add('inActive');
+    this.el.classList.remove('active');
+};
+
+Statement.prototype.active = function () {
+    var self = this;
+    this.anchor.href = '/';
+    this.el.classList.add('active');
+    this.el.classList.remove('inActive');
+};
+
 },{"through2":36}]},{},[37]);

@@ -682,7 +682,7 @@ h1 {
     .poster article h1 {
       margin-bottom: 0;
       margin-top: 0;
-      font-family: "Founders Grotesk Text Bold";
+      font-family: "Founders Grotesk Text Bold", sans-serif;
       font-size: 37pt;
       font-weight: normal;
       line-height: 1em;
@@ -703,8 +703,47 @@ h1 {
       width: 80%;
       margin-left: 20%; }
 
+.statement {
+  font-family: "Founders Grotesk Text Bold", sans-serif;
+  font-size: 14pt;
+  font-weight: normal;
+  background-color: #00a1df;
+  position: fixed;
+  top: 11.25%;
+  bottom: 11.25%;
+  width: 88.75%;
+  overflow-x: hidden;
+  background-blend-mode: multiply;
+  mix-blend-mode: multiply; }
+  .statement.inActive {
+    right: 88.75%; }
+  .statement.active {
+    right: 11.25%; }
+  .statement .handle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 10%; }
+    .statement .handle .label {
+      position: absolute;
+      top: 42%;
+      left: -41px;
+      transform: rotate(-90deg); }
+    .statement .handle p {
+      text-transform: uppercase; }
+  .statement article {
+    width: 65%;
+    margin-left: 15%;
+    mix-blend-mode: normal; }
+    .statement article p {
+      mix-blend-mode: normal; }
+  .statement a {
+    text-decoration: none;
+    color: #b5b5b5; }
+
 .info {
-  font-family: "Founders Grotesk Text Bold";
+  font-family: "Founders Grotesk Text Bold", sans-serif;
   font-size: 14pt;
   font-weight: normal;
   background-color: #00a1df;
@@ -724,7 +763,7 @@ h1 {
     top: 0;
     left: 0;
     height: 100%;
-    width: 91.55%; }
+    width: 10%; }
     .info .handle .label {
       position: absolute;
       top: 42%;

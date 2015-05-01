@@ -1,5 +1,6 @@
 var Poster = require('./poster.js')('.poster');
 var Info = require('./information.js')('.info');
+var Statement = require('./statement.js')('.statement');
 
 var Router = require('routes');
 var router = Router();
@@ -8,6 +9,9 @@ router.addRoute('/', function () {
     console.log('route: /');
 
     Info.inActive();
+    
+    Statement.inActive();
+    
     routeClicks();
 });
 
@@ -15,6 +19,19 @@ router.addRoute('/info', function () {
     console.log('route: /info');
     
     Info.active();
+    
+    Statement.inActive();
+    
+    routeClicks();
+});
+
+router.addRoute('/statement', function () {
+    console.log('route: /info');
+    
+    Statement.active();
+
+    Info.inActive();
+    
     routeClicks();
 });
 
