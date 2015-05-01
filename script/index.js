@@ -1,5 +1,5 @@
 var Poster = require('./poster.js')('.poster');
-var Info = require('./info.js')('.info');
+var Info = require('./information.js')('.info');
 
 var Router = require('routes');
 var router = Router();
@@ -7,10 +7,15 @@ var router = Router();
 router.addRoute('/', function () {
     console.log('route: /');
 
+    Info.inActive();
+    routeClicks();
 });
 
 router.addRoute('/info', function () {
     console.log('route: /info');
+    
+    Info.active();
+    routeClicks();
 });
 
 
@@ -65,4 +70,9 @@ function routeClicks () {
 
         return false;
     }
+
+    function findAnchor (el) {
+	    if (el.nodeName === 'A') return el;
+	    else return findAnchor(el.parentNode);
+	}
 }

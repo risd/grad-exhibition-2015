@@ -642,53 +642,43 @@ h1 {
     width: 100%;
     height: 100%;
     background-color: #b5b5b5;
-    blend-mode: multiply; }
-    .poster header .mobile, .poster header .tablet, .poster header .desktopn {
+    background-blend-mode: multiply;
+    mix-blend-mode: multiply; }
+    .poster header .two-mobile, .poster header .zero-mobile, .poster header .one-mobile, .poster header .five-mobile {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%; }
-    .poster header .mobile {
-      display: block; }
-    .poster header .desktop, .poster header .tablet {
-      display: none; }
-    @media only screen and (min-width: 768px) {
-      .poster header .tablet {
-        display: block; }
-      .poster header .mobile, .poster header .desktop {
-        display: none; } }
-    @media only screen and (min-width: 1024px) {
-      .poster header .desktop {
-        display: block; }
-      .poster header .mobile, .poster header .tablet {
-        display: none; } }
-    .poster header .two, .poster header .zero, .poster header .one, .poster header .five {
-      position: absolute;
-      blend-mode: multiply; }
-    .poster header .two {
+      height: 170px;
+      width: 170px;
+      background-blend-mode: multiply; }
+    .poster header .two-mobile {
+      background-image: url('/static/svg/phone/LandingNumbers-01.svg');
       top: 0;
       left: 24px; }
-    .poster header .zero {
+    .poster header .zero-mobile {
+      background-image: url('/static/svg/phone/LandingNumbers-02.svg');
       top: 24px;
       right: 0px; }
-    .poster header .one {
+    .poster header .one-mobile {
+      background-image: url('/static/svg/phone/LandingNumbers-03.svg');
       bottom: 24px;
       left: 0; }
-    .poster header .five {
+    .poster header .five-mobile {
+      background-image: url('/static/svg/phone/LandingNumbers-04.svg');
       bottom: 0;
       right: 24px; }
-    .poster header .risd {
+    .poster header .risd-mobile {
       width: 77.5%;
+      height: 77.5%;
       position: absolute;
+      background-repeat: no-repeat;
       top: 11.25%;
-      left: 11.25%; }
-      .poster header .risd svg {
-        width: 100%; }
+      left: 11.25%;
+      background-image: url('/static/svg/phone/LandingRISD.svg'); }
   .poster article {
     box-sizing: border-box;
     position: relative;
-    width: auto; }
+    width: auto;
+    background-blend-mode: multiply;
+    mix-blend-mode: multiply; }
     .poster article h1 {
       margin-bottom: 0;
       margin-top: 0;
@@ -717,19 +707,37 @@ h1 {
   font-family: "Founders Grotesk Text Bold";
   font-size: 14pt;
   font-weight: normal;
-  color: #b5b5b5;
   background-color: #00a1df;
   position: fixed;
-  left: 88.75%;
   top: 11.25%;
   bottom: 11.25%;
   width: 88.75%;
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  background-blend-mode: multiply;
+  mix-blend-mode: multiply; }
+  .info.inActive {
+    left: 88.75%; }
+  .info.active {
+    left: 11.25%; }
   .info .handle {
     position: absolute;
+    top: 0;
+    left: 0;
     height: 100%;
     width: 91.55%; }
     .info .handle .label {
+      position: absolute;
+      top: 42%;
+      left: -41px;
       transform: rotate(90deg); }
     .info .handle p {
       text-transform: uppercase; }
+  .info article {
+    width: 65%;
+    margin-left: 15%;
+    mix-blend-mode: normal; }
+    .info article p {
+      mix-blend-mode: normal; }
+  .info a {
+    text-decoration: none;
+    color: #b5b5b5; }
