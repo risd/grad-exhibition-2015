@@ -36,61 +36,60 @@ $red: rgb(240, 83, 103);
 
     font-size: 16px;
 
-    header {
+    background-color: $grey;
+
+    .two-mobile,
+    .zero-mobile,
+    .one-mobile,
+    .five-mobile {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-
-        background-color: $grey;
-
         background-blend-mode: multiply;
-        mix-blend-mode: multiply;
+    }
+    .two-mobile {
+        background-image: url('/static/svg/phone/2.svg');
+        top: 0;
+        left: 24px;
+        
+        width: 86px;
+        height: 167px;
+    }
+    .zero-mobile {
+        background-image: url('/static/svg/phone/0.svg');
+        top: 24px;
+        right: 0px;
+        
+        width: 142px;
+        height: 95px;
+    }
+    .one-mobile {
+        background-image: url('/static/svg/phone/1.svg');
+        bottom: 24px;
+        left: 0;
 
-        .two-mobile,
-        .zero-mobile,
-        .one-mobile,
-        .five-mobile {
-            position: absolute;
-            height: 170px;
-            width: 170px;
-            background-blend-mode: multiply;
-        }
-        .two-mobile {
-            background-image: url('/static/svg/phone/2.svg');
-            top: 0;
-            left: 24px;
-        }
-        .zero-mobile {
-            background-image: url('/static/svg/phone/0.svg');
-            top: 24px;
-            right: 0px;
-        }
-        .one-mobile {
-            background-image: url('/static/svg/phone/1.svg');
-            bottom: 24px;
-            left: 0;
-        }
-        .five-mobile {
-            background-image: url('/static/svg/phone/5.svg');
-            bottom: 0;
-            right: 24px;
-        }
+        width: 117px;
+        height: 91px;
+    }
+    .five-mobile {
+        background-image: url('/static/svg/phone/5.svg');
+        bottom: 0;
+        right: 24px;
 
-        .risd-mobile {
-            // 248/320
-            width: 77.5%;
-            height: 77.5%;
-            position: absolute;
-            background-repeat: no-repeat;
+        width: 84px;
+        height: 155px;
+    }
 
-            // (320-248)/2/320
-            top: 11.25%;
-            left: 11.25%;
+    .risd-mobile {
+        // 248/320
+        width: 77.5%;
+        height: 77.5%;
+        position: absolute;
+        background-repeat: no-repeat;
 
-            background-image: url('/static/svg/phone/LandingRISD.svg');
-        }
+        // (320-248)/2/320
+        top: 11.25%;
+        left: 11.25%;
+
+        background-image: url('/static/svg/phone/LandingRISD.svg');
     }
 
 
@@ -111,7 +110,7 @@ $red: rgb(240, 83, 103);
     position: absolute;
     box-sizing: border-box;
     width: 100%;
-    height: 100vh;
+    height: 100%;
 
     top: 0;
     left: 0;
@@ -121,6 +120,44 @@ $red: rgb(240, 83, 103);
 
     font-size: 16px;
 
+    background-blend-mode: multiply;
+    mix-blend-mode: multiply;
+
+    article {
+        position: absolute;
+        box-sizing: border-box;
+
+        // 320-(36*2)
+        // 248
+        // 248/320
+        // 0.78
+        width: 78%;
+        // 320-(24*2)
+        // 272
+        // 272/320
+        // 0.85
+        height: 85%;
+
+        top: 7.5%;
+        bottom: 7.5%;
+        left: 11%;
+        right: 11%;
+
+        padding: 0;
+        margin: 0;
+
+        background-color: $red;
+
+        background-blend-mode: multiply;
+        mix-blend-mode: multiply;
+    }
+
+    .r-mobile,
+    .i-mobile,
+    .s-mobile,
+    .d-mobile {
+        position: absolute;
+    }
 }
 
 
@@ -138,7 +175,7 @@ $red: rgb(240, 83, 103);
     top: 0;
     left: 0;
 
-    background-color: $white;
+    // background-color: $white;
 
     article {
         display: flex;
@@ -192,8 +229,8 @@ $red: rgb(240, 83, 103);
 
     position: fixed;
     // 36/320*100
-    top: 11.25%;
-    bottom: 11.25%;
+    top: 7.5%;
+    bottom: 7.5%;
     // (320-36)/320*100
     width: 88.75%;
 
