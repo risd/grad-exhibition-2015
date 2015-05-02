@@ -96,29 +96,71 @@ textarea {
 /* ==========================================================================
    Author's custom styles should be MOBILE FIRST
    ========================================================================== */
+
 #container {
     width: 100%;
 }
 
 .text {
-    width: 80%;
-    margin: 0 auto;
-    margin-top: %;
-
-}
-img {
-    width: 100%;
-}
-h1 {
-    z-index: -3;
-    text-align: center;
+    position: relative;
+    margin-top: 30%;
+    padding: 5% 5%;
+    z-index: -9999;
     -webkit-user-select: none; /* Chrome/Safari */        
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+ */
 }
 
+img {
+    width: 100%;
+}
 
+h1 {
+    text-align: center;
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+    cursor: pointer;
+    background-color: white;
+}
 
+.outline1, .outline2, .outline3, .outline4, .outline5 {
+    width: 310px;
+    height: 423px;
+    /*display: none;*/
+    position: absolute;
+    cursor: pointer;
+    border: 3px dotted black;
+    color: black;
+    -webkit-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -ms-transition: all 500ms ease;
+}
+.outline1:hover, .outline2:hover, .outline3:hover, .outline4:hover, .outline5:hover {
+    border: 3px dotted rgb(181, 181, 181);
+    color: rgb(181,181,181);
+}
+
+.outline1 {
+    top: 5vh;
+    left: 5vw;
+}
+.outline2 {
+    top: 44vh;
+    left: 17vw;
+}
+.outline3 {
+    top: 25vh;
+    left: 37vw;
+}
+.outline4 {
+    top: 9vh;
+    left: 60vw;
+}
+.outline5 {
+    top: 44vh;
+    left: 76vw;
+}
 
 
 
