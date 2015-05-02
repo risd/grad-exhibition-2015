@@ -642,35 +642,27 @@ h1 {
   .poster-year .two-mobile {
     background-image: url('/static/svg/phone/2.svg');
     top: 0;
-    left: 24px;
+    left: calc(11% + 18px);
     width: 86px;
     height: 167px; }
   .poster-year .zero-mobile {
     background-image: url('/static/svg/phone/0.svg');
-    top: 24px;
+    top: calc(7.5% + 24px);
     right: 0px;
     width: 142px;
     height: 95px; }
   .poster-year .one-mobile {
     background-image: url('/static/svg/phone/1.svg');
-    bottom: 24px;
+    bottom: calc(7.5% + 13px);
     left: 0;
     width: 117px;
     height: 91px; }
   .poster-year .five-mobile {
     background-image: url('/static/svg/phone/5.svg');
     bottom: 0;
-    right: 24px;
+    right: calc(11% + 22px);
     width: 84px;
     height: 155px; }
-  .poster-year .risd-mobile {
-    width: 77.5%;
-    height: 77.5%;
-    position: absolute;
-    background-repeat: no-repeat;
-    top: 11.25%;
-    left: 11.25%;
-    background-image: url('/static/svg/phone/LandingRISD.svg'); }
 
 .poster-risd {
   z-index: 2;
@@ -700,7 +692,32 @@ h1 {
     background-blend-mode: multiply;
     mix-blend-mode: multiply; }
   .poster-risd .r-mobile, .poster-risd .i-mobile, .poster-risd .s-mobile, .poster-risd .d-mobile {
-    position: absolute; }
+    position: absolute;
+    background-blend-mode: normal; }
+  .poster-risd .r-mobile {
+    background-image: url('/static/svg/phone/R.svg');
+    top: 0;
+    left: 0;
+    width: 109px;
+    height: 137px; }
+  .poster-risd .i-mobile {
+    background-image: url('/static/svg/phone/I.svg');
+    top: 0;
+    right: 0;
+    width: 101px;
+    height: 126px; }
+  .poster-risd .s-mobile {
+    background-image: url('/static/svg/phone/S.svg');
+    bottom: 0;
+    left: 0;
+    width: 97px;
+    height: 118px; }
+  .poster-risd .d-mobile {
+    background-image: url('/static/svg/phone/D.svg');
+    bottom: 0;
+    right: 0;
+    width: 109px;
+    height: 124px; }
 
 .poster-show-name {
   z-index: 3;
@@ -749,86 +766,114 @@ h1 {
     width: 70%;
     margin-left: 30%; }
 
-.statement {
+.statement-background {
   z-index: 4;
   font-family: "Founders Grotesk Text Bold", sans-serif;
   font-size: 14pt;
   font-weight: normal;
-  background-color: #00a1df;
   position: fixed;
   top: 7.5%;
   bottom: 7.5%;
-  width: 88.75%;
   overflow-x: hidden;
-  background-blend-mode: multiply;
+  width: 92.5%;
   mix-blend-mode: multiply; }
-  .statement.inActive {
-    right: 88.75%; }
-  .statement.active {
-    right: 11.25%; }
-  .statement .handle {
+  .statement-background.inActive {
+    right: 92.5%; }
+  .statement-background.active {
+    right: 11%; }
+  .statement-background .handle {
+    background-color: #00a1df;
     position: absolute;
     top: 0;
     right: 0;
     height: 100%;
-    width: 10%; }
-    .statement .handle .label {
+    width: 100%; }
+    .statement-background .handle .label {
       position: absolute;
-      top: 42%;
-      left: -41px;
+      top: 43%;
+      right: -42px;
       -webkit-transform: rotate(-90deg);
           -ms-transform: rotate(-90deg);
               transform: rotate(-90deg); }
-    .statement .handle p {
+    .statement-background .handle p {
       text-transform: uppercase; }
-  .statement article {
-    width: 65%;
-    margin-left: 15%;
-    mix-blend-mode: normal; }
-    .statement article p {
-      mix-blend-mode: normal; }
-  .statement a {
+  .statement-background a {
     text-decoration: none;
     color: #b5b5b5; }
 
-.info {
+.statement-foreground {
   z-index: 4;
   font-family: "Founders Grotesk Text Bold", sans-serif;
   font-size: 14pt;
   font-weight: normal;
-  background-color: #00a1df;
   position: fixed;
   top: 7.5%;
   bottom: 7.5%;
-  width: 88.75%;
   overflow-x: hidden;
-  background-blend-mode: multiply;
+  width: 67.5%; }
+  .statement-foreground.inActive {
+    right: 103.5%; }
+  .statement-foreground.active {
+    right: 18%; }
+  .statement-foreground article {
+    mix-blend-mode: normal;
+    position: absolute;
+    width: 81.5%; }
+    .statement-foreground article p {
+      color: white; }
+
+.info-background {
+  z-index: 4;
+  font-family: "Founders Grotesk Text Bold", sans-serif;
+  font-size: 14pt;
+  font-weight: normal;
+  position: fixed;
+  top: 7.5%;
+  bottom: 7.5%;
+  overflow-x: hidden;
+  width: 92.5%;
   mix-blend-mode: multiply; }
-  .info.inActive {
-    left: 88.75%; }
-  .info.active {
-    left: 11.25%; }
-  .info .handle {
+  .info-background.inActive {
+    left: 92.5%; }
+  .info-background.active {
+    left: 11%; }
+  .info-background .handle {
+    background-color: #00a1df;
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
-    width: 10%; }
-    .info .handle .label {
+    width: 100%; }
+    .info-background .handle .label {
       position: absolute;
       top: 42%;
-      left: -41px;
+      left: -51px;
       -webkit-transform: rotate(90deg);
           -ms-transform: rotate(90deg);
               transform: rotate(90deg); }
-    .info .handle p {
+    .info-background .handle p {
       text-transform: uppercase; }
-  .info article {
-    width: 65%;
-    margin-left: 15%;
-    mix-blend-mode: normal; }
-    .info article p {
-      mix-blend-mode: normal; }
-  .info a {
+  .info-background a {
     text-decoration: none;
     color: #b5b5b5; }
+
+.info-foreground {
+  z-index: 4;
+  font-family: "Founders Grotesk Text Bold", sans-serif;
+  font-size: 14pt;
+  font-weight: normal;
+  position: fixed;
+  top: 7.5%;
+  bottom: 7.5%;
+  overflow-x: hidden;
+  width: 67%; }
+  .info-foreground.inActive {
+    left: 103.5%; }
+  .info-foreground.active {
+    left: 20%; }
+  .info-foreground article {
+    mix-blend-mode: normal;
+    position: absolute;
+    width: 100%; }
+    .info-foreground article p {
+      color: white; }

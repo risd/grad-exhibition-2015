@@ -6948,22 +6948,27 @@ function Information (selector) {
     if (!selector) throw new Error('Requires selector.');
 
     this.selector = selector;
-    this.el = document.querySelector(selector);
-    this.anchor = this.el.querySelector('a');
+    this.background = document.querySelector(selector + '-background');
+    this.foreground = document.querySelector(selector + '-foreground');
+    this.anchor = this.background.querySelector('a');
 }
 
 Information.prototype.inActive = function () {
     var self = this;
     this.anchor.href = '/info';
-    this.el.classList.add('inActive');
-    this.el.classList.remove('active');
+    this.background.classList.add('inActive');
+    this.foreground.classList.add('inActive');
+    this.background.classList.remove('active');
+    this.foreground.classList.remove('active');
 };
 
 Information.prototype.active = function () {
     var self = this;
     this.anchor.href = '/';
-    this.el.classList.add('active');
-    this.el.classList.remove('inActive');
+    this.background.classList.add('active');
+    this.foreground.classList.add('active');
+    this.background.classList.remove('inActive');
+    this.foreground.classList.remove('inActive');
 };
 
 },{"through2":36}],39:[function(require,module,exports){
@@ -6988,22 +6993,27 @@ function Statement (selector) {
     if (!selector) throw new Error('Requires selector.');
 
     this.selector = selector;
-    this.el = document.querySelector(selector);
-    this.anchor = this.el.querySelector('a');
+    this.background = document.querySelector(selector + '-background');
+    this.foreground = document.querySelector(selector + '-foreground');
+    this.anchor = this.background.querySelector('a');
 }
 
 Statement.prototype.inActive = function () {
     var self = this;
     this.anchor.href = '/statement';
-    this.el.classList.add('inActive');
-    this.el.classList.remove('active');
+    this.background.classList.add('inActive');
+    this.foreground.classList.add('inActive');
+    this.background.classList.remove('active');
+    this.foreground.classList.remove('active');
 };
 
 Statement.prototype.active = function () {
     var self = this;
     this.anchor.href = '/';
-    this.el.classList.add('active');
-    this.el.classList.remove('inActive');
+    this.background.classList.add('active');
+    this.foreground.classList.add('active');
+    this.background.classList.remove('inActive');
+    this.foreground.classList.remove('inActive');
 };
 
 },{"through2":36}]},{},[37]);
