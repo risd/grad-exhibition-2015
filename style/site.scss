@@ -20,12 +20,16 @@ $red: rgb(240, 83, 103);
     color: $white;
 }
 
+.poster-year {
+    z-index: 1;
 
-.poster {
     box-sizing: border-box;
-    position: relative;
+    position: absolute;
     width: 100%;
     height: 100vh;
+
+    top: 0;
+    left: 0;
 
     padding: 0;
     margin: 0;
@@ -54,22 +58,22 @@ $red: rgb(240, 83, 103);
             background-blend-mode: multiply;
         }
         .two-mobile {
-            background-image: url('/static/svg/phone/LandingNumbers-01.svg');
+            background-image: url('/static/svg/phone/2.svg');
             top: 0;
             left: 24px;
         }
         .zero-mobile {
-            background-image: url('/static/svg/phone/LandingNumbers-02.svg');
+            background-image: url('/static/svg/phone/0.svg');
             top: 24px;
             right: 0px;
         }
         .one-mobile {
-            background-image: url('/static/svg/phone/LandingNumbers-03.svg');
+            background-image: url('/static/svg/phone/1.svg');
             bottom: 24px;
             left: 0;
         }
         .five-mobile {
-            background-image: url('/static/svg/phone/LandingNumbers-04.svg');
+            background-image: url('/static/svg/phone/5.svg');
             bottom: 0;
             right: 24px;
         }
@@ -89,59 +93,6 @@ $red: rgb(240, 83, 103);
         }
     }
 
-    article {
-        box-sizing: border-box;
-        position: relative;
-        width: auto;
-        // height: calc(100vh - 48px);
-
-        background-blend-mode: multiply;
-        mix-blend-mode: multiply;
-
-        // margin: 24px;
-        // padding-top: 30%;
-        // padding-bottom: 30%;
-        // display: flex;
-        // flex-direction: row;
-        // flex-wrap: nowrap;
-        // justify-content: flex-start;
-
-        h1 {
-            margin-bottom: 0;
-            margin-top: 0;
-
-            font: {
-                family: "Founders Grotesk Text Bold", sans-serif;
-                size: 37pt;
-                weight: normal;
-            }
-
-            line-height: 1em;
-            letter-spacing: -0.1em;
-            color: $grey;
-
-            text-transform: uppercase;
-            text-align: left;
-        }
-
-        .risd {
-            width: 70%;
-            margin-left: 30%;
-        }
-        .grad {
-            width: 90%;
-            margin-left: 10%;
-        }
-        .show {
-            width: 60%;
-            margin-left: 40%;
-        }
-        .year {
-            width: 80%;
-            margin-left: 20%;
-        }
-    }
-
 
     // Tablet
     // ------
@@ -152,7 +103,84 @@ $red: rgb(240, 83, 103);
     @media only screen and (min-width: 1024px) { }
 }
 
+
+
+.poster-risd {
+    z-index: 2;
+
+    position: absolute;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100vh;
+
+    top: 0;
+    left: 0;
+
+    padding: 0;
+    margin: 0;
+
+    font-size: 16px;
+
+}
+
+
+.poster-show-name {
+    z-index: 3;
+
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+
+    padding: 0;
+    margin: 0;
+
+    top: 0;
+    left: 0;
+
+    background-color: $white;
+
+    article {
+        display: flex;
+        flex-flow: column wrap;
+        justify-content:center;
+
+        height: 100%;
+    }
+
+    h1 {
+        color: $grey;
+        z-index: 3;
+
+        flex: initial;
+        text-align: left;
+
+        text-transform: uppercase;
+        margin-top: 0.4em;
+        margin-bottom: 0.4em;
+    }
+
+    .risd {
+        width: 60%;
+        margin-left: 40%;
+    }
+    .grad {
+        width: 80%;
+        margin-left: 20%;
+    }
+    .show {
+        width: 45%;
+        margin-left: 55%;
+    }
+    .year {
+        width: 70%;
+        margin-left: 30%;
+    }
+}
+
 @mixin slide-in {
+    z-index: 4;
+
     font: {
         family: "Founders Grotesk Text Bold", sans-serif;
         size: 14pt;

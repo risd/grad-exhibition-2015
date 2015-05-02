@@ -8,7 +8,7 @@
     "build-js": "browserify script/index.js -o static/script.js",
     "build-css": "node-sass style/site.scss static/style.css",
     "watch-js": "watchify script/index.js -o static/script.js",
-    "watch-css": "node-sass -w -o static/ style/site.scss",
+    "watch-css": "watch 'node-sass style/site.scss static/site.css  && autoprefixer -o static/site.css static/site.css' style/",
     "dev": "nf --procfile Procfile.dev start"
   },
   "repository": {
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/risd/grad-exhibition-2015",
   "dependencies": {
+    "autoprefixer": "^5.1.1",
     "browserify": "^10.0.0",
     "d3": "^3.5.5",
     "node-sass": "^2.1.1",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "foreman": "^1.3.0",
+    "watch": "^0.16.0",
     "watchify": "^3.2.1"
   }
 }
