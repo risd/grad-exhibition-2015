@@ -12,66 +12,100 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/main.css">
-        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <link rel="stylesheet" href="static/site.css">
     </head>
     <body>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <!-- Add your site or application content here -->
-        <div id="container">
-            <h1>RISD Graduate Show<br>May 20 &ndash; 30, 2015<br>RI Convention Center<br>CLICK HERE!</h1>
-        </div>
+        <!-- layer 1 -->
+        <!-- slides in under layer 3 -->\
+        <section class="poster-year">
+            <div class="two-mobile"></div>
+            <div class="zero-mobile"></div>
+            <div class="one-mobile"></div>
+            <div class="five-mobile"></div>
+        </section>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
-        <script type="text/javascript">
-            $( document ).mousemove(function() {
-                var windowWidth = $(window).width(); //retrieve current window width
-                var windowHeight = $(window).height(); //retrieve current window height
-                $( "#container" ).css({width: windowWidth + 'px', height: windowHeight + 'px'});
-            });
-            document.getElementById('container').addEventListener( 'click', function() {
-                $(function makeDiv(){
-                    var divx = (300);
-                    var divy = (412);
-                    var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg'];
-                    $newdiv = $('<div/>').css({
-                        'width': divx + 'px',
-                        'height': divy + 'px',
-                        'background-color': 'none',
-                        'background-image': 'url(img/' + images[Math.floor(Math.random() * images.length)] + ')',
-                        'z-index': (-1)
-                    });
+        <!-- layer 2 -->
+        <!-- slides in over layer 1 -->
+        <section class="poster-risd">
+            <article>
+                <div class="r-mobile"></div>
+                <div class="i-mobile"></div>
+                <div class="s-mobile"></div>
+                <div class="d-mobile"></div>
+            </article>
+        </section>
+
+        <!-- layer 3 -->
+        <!-- always the same -->
+        <section class="poster-show-name">
+            <article>
+                <h1 class="risd">RISD</h1>
+                <h1 class="grad">Grad</h1>
+                <h1 class="show">Show</h1>
+                <h1 class="year">2015</h1>
+            </article>
+        </section>
+
+        <!-- layer 4 -->
+        <!-- slides in on click -->
+        <section class="info-background">
+            <a href="/info">
+                <div class="handle">
+                    <div class="label">
+                        <p>Information</p>
+                    </div>
+                </div>
                 
-                    var posx = (Math.random() * ($(document).width() - divx)).toFixed();
-                    var posy = (Math.random() * ($(document).height() - divy)).toFixed();
-                    
-                    $newdiv.css({
-                        'position':'absolute',
-                        'left': event.pageX + 'px',
-                        'top': event.pageY + 'px',
-                        'display':'none'
-                    }).appendTo( 'body' ).fadeIn(100).delay(5000).fadeOut(200, function(){
-                       $(this).remove();
-                    }); 
-                })();
-            });
-        </script>
+            </a>
+        </section>
+
+        <section class="statement-background">
+            <a href="/statement">
+                <div class="handle">
+                    <div class="label">
+                        <p>Statement</p>
+                    </div>
+                </div>
+            </a>
+        </section>
+
+        <section class="info-foreground">
+            <article>
+                <p>RISD’s annual Graduate Thesis Exhibition features work in a wide range of media created by 178 master’s degree candidates graduating on May 30. Opening May 19, 6–8pm.</p>
+
+                <p>Daily noon–5pm<br/ >May 20–30<br />Free/open to the public</p>
+
+                <p>RI Convention Center<br />Exhibition Hall A<br />One Sabin Street, Providence</p>
+
+                <p>#RISDGradShow15 Press Release<br />Invite Friends with Facebook</p>
+
+                <p>A selection of additional graduate student work is on view from May 29–June 1 at Sol Koffler Graduate Student Gallery, 169 Weybosset St.</p>
+            </article>
+        </section>
+        <section class="statement-foreground">
+            <article>
+                <p>The Graduate Thesis Exhibition offers the opportunity to experience an expansive range of inquiry animated by a deep commitment to making. This culmination of a graduate education at RISD showcases the vibrant ideas of engaged artists and designers who will guide us into the future.</p>
+                <p>Patricia C. Phillips<br />Dean of Graduate Studies + Research</p>
+            </article>
+        </section>
+
+        <!-- layer 5 -->
+        <!-- moves with layer 4 background counterpart -->
+
+        <script src="static/script.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X');ga('send','pageview');
+            // (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            // function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            // e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            // e.src='//www.google-analytics.com/analytics.js';
+            // r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            // ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
     </body>
 </html>

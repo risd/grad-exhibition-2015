@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1280 800" enable-background="new 0 0 1280 800" xml:space="preserve">
+
+	<g id="background-normal">
+		<rect fill="#999999" width="1280" height="800"/>
+	</g>
+	<g id="redBox-multiply">
+		<rect x="362.6" y="134.6" fill="#FF5D6A" width="510.3" height="582.1"/>
+	</g>
+	<g id="knockoutText-lighten">
+		<rect x="665.6" y="104.2" fill="#999999" width="123.9" height="89.7"/>
+	</g>
+	<g id="whiteText-overlay">
+		<rect x="741.7" fill="#FFFFFF" width="23.9" height="230.7"/>
+	</g>
+	<g id="blueBox-multiply">
+		<rect x="982.7" y="65.7" fill="#2E3192" width="323.9" height="674.4"/>
+	</g>
+
+</svg>
