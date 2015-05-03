@@ -686,25 +686,25 @@ h1 {
   .poster-year .two-mobile {
     background-image: url('/static/svg/phone/2.svg');
     top: 0;
-    left: calc(11% + 18px);
+    left: calc(24px + 12px + 16px);
     width: 86px;
     height: 167px; }
   .poster-year .zero-mobile {
     background-image: url('/static/svg/phone/0.svg');
-    top: calc(7.5% + 24px);
+    top: calc(24px + 12px + 24px);
     right: 0px;
     width: 142px;
     height: 95px; }
   .poster-year .one-mobile {
     background-image: url('/static/svg/phone/1.svg');
-    bottom: calc(7.5% + 13px);
+    bottom: calc(24px + 12px + 13px);
     left: 0;
     width: 117px;
     height: 91px; }
   .poster-year .five-mobile {
     background-image: url('/static/svg/phone/5.svg');
     bottom: 0;
-    right: calc(11% + 22px);
+    right: calc(24px + 12px + 14px);
     width: 84px;
     height: 155px; }
 
@@ -725,11 +725,11 @@ h1 {
     position: absolute;
     box-sizing: border-box;
     width: calc(100% - 72px);
-    height: 85%;
-    top: 7.5%;
-    bottom: 7.5%;
-    left: 36px;
-    right: 36px;
+    height: calc(100% - 72px);
+    top: calc(24px + 12px);
+    bottom: calc(24px + 12px);
+    left: calc(24px + 12px);
+    right: calc(24px + 12px);
     padding: 0;
     margin: 0;
     background-color: #f05367;
@@ -817,10 +817,11 @@ h1 {
   font-size: 14pt;
   font-weight: normal;
   position: fixed;
-  top: 7.5%;
-  bottom: 7.5%;
+  top: 36px;
+  bottom: 36px;
   overflow-x: hidden;
   width: calc(100% - 36px);
+  height: calc(100% - 72px);
   mix-blend-mode: multiply; }
   .statement-background.inActive {
     right: calc(100% - 24px); }
@@ -852,10 +853,11 @@ h1 {
   font-size: 14pt;
   font-weight: normal;
   position: fixed;
-  top: 7.5%;
-  bottom: 7.5%;
+  top: 36px;
+  bottom: 36px;
   overflow-x: hidden;
-  width: calc(100% - 108px); }
+  width: calc(100% - 108px);
+  height: calc(100% - 72px); }
   .statement-foreground.inActive {
     right: calc(100% + 60px); }
   .statement-foreground.active {
@@ -873,10 +875,11 @@ h1 {
   font-size: 14pt;
   font-weight: normal;
   position: fixed;
-  top: 7.5%;
-  bottom: 7.5%;
+  top: 36px;
+  bottom: 36px;
   overflow-x: hidden;
   width: calc(100% - 36px);
+  height: calc(100% - 72px);
   mix-blend-mode: multiply; }
   .info-background.inActive {
     left: calc(100% - 24px); }
@@ -908,10 +911,11 @@ h1 {
   font-size: 14pt;
   font-weight: normal;
   position: fixed;
-  top: 7.5%;
-  bottom: 7.5%;
+  top: 36px;
+  bottom: 36px;
   overflow-x: hidden;
-  width: calc(100% - 108px); }
+  width: calc(100% - 108px);
+  height: calc(100% - 72px); }
   .info-foreground.inActive {
     left: 100%; }
   .info-foreground.active {

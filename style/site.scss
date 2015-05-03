@@ -11,21 +11,22 @@ $red: rgb(240, 83, 103);
 
 // Spacing
 // -------
-$handle-width-mobile: 24px;
-$handle-gutter-mobile: 12px; 
-$conainter-width-mobile: calc(100% - 72px);
+$mobile-handle: 24px;
+$mobile-content-gutter: 12px;
+$mobile-single-handle-gutter: $mobile-handle + $mobile-content-gutter;
+$mobile-combined-handle-single-gutter: ($mobile-handle * 2) + $mobile-content-gutter;
+$mobile-combined-handle-gutter: ($mobile-handle * 2) + ($mobile-content-gutter * 2);
+$mobile-foreground-total-margin: ($mobile-handle + $mobile-content-gutter + $mobile-handle) + ($mobile-content-gutter + $mobile-content-gutter + $mobile-handle);
+
+$mobile-poster-year-two-offset: 16px;
+$mobile-poster-year-zero-offset: 24px;
+$mobile-poster-year-one-offset: 13px;
+$mobile-poster-year-five-offset: 14px;
 
 
-@mixin type--body {
-    font: {
-        family: "Founders Grotesk Text Bold", sans-serif;
-        size: 15pt;
-        weight: normal;
-    }
-    line-height: 17pt;
-    letter-spacing: -0.3em;
-    color: $white;
-}
+
+// Font
+// ----
 
 .poster-year {
     z-index: 1;
@@ -55,14 +56,15 @@ $conainter-width-mobile: calc(100% - 72px);
     .two-mobile {
         background-image: url('/static/svg/phone/2.svg');
         top: 0;
-        left: calc(11% + 18px);
+        // 36 + 16
+        left: calc(#{$mobile-handle} + #{$mobile-content-gutter} + #{$mobile-poster-year-two-offset});
         
         width: 86px;
         height: 167px;
     }
     .zero-mobile {
         background-image: url('/static/svg/phone/0.svg');
-        top: calc(7.5% + 24px);
+        top: calc(#{$mobile-handle} + #{$mobile-content-gutter} + #{$mobile-poster-year-zero-offset});
         right: 0px;
         
         width: 142px;
@@ -70,7 +72,7 @@ $conainter-width-mobile: calc(100% - 72px);
     }
     .one-mobile {
         background-image: url('/static/svg/phone/1.svg');
-        bottom: calc(7.5% + 13px);
+        bottom: calc(#{$mobile-handle} + #{$mobile-content-gutter} + #{$mobile-poster-year-one-offset});
         left: 0;
 
         width: 117px;
@@ -79,7 +81,8 @@ $conainter-width-mobile: calc(100% - 72px);
     .five-mobile {
         background-image: url('/static/svg/phone/5.svg');
         bottom: 0;
-        right: calc(11% + 22px);
+
+        right: calc(#{$mobile-handle} + #{$mobile-content-gutter} + #{$mobile-poster-year-five-offset});
 
         width: 84px;
         height: 155px;
@@ -120,19 +123,17 @@ $conainter-width-mobile: calc(100% - 72px);
         position: absolute;
         box-sizing: border-box;
 
-        // (36*2)
-        // 72
-        width: calc(100% - 72px);
+        width: calc(100% - #{$mobile-combined-handle-gutter});
         // 320-(24*2)
         // 272
         // 272/320
         // 0.85
-        height: 85%;
+        height: calc(100% - #{$mobile-combined-handle-gutter});
 
-        top: 7.5%;
-        bottom: 7.5%;
-        left: 36px;
-        right: 36px;
+        top: calc(#{$mobile-handle} + #{$mobile-content-gutter});
+        bottom: calc(#{$mobile-handle} + #{$mobile-content-gutter});
+        left: calc(#{$mobile-handle} + #{$mobile-content-gutter});
+        right: calc(#{$mobile-handle} + #{$mobile-content-gutter});
 
         padding: 0;
         margin: 0;
@@ -246,9 +247,8 @@ $conainter-width-mobile: calc(100% - 72px);
     }
 
     position: fixed;
-    // 24/320*100
-    top: 7.5%;
-    bottom: 7.5%;
+    top: $mobile-single-handle-gutter;
+    bottom: $mobile-single-handle-gutter;
 
     overflow-x: hidden;
 }
@@ -256,34 +256,25 @@ $conainter-width-mobile: calc(100% - 72px);
 @mixin slide-in-background {
     @include slide-in;
 
-    // 24+12
-    // 36
-    width: calc(100% - 36px);
+    width: calc(100% - #{$mobile-single-handle-gutter});
+    height: calc(100% - #{$mobile-combined-handle-gutter});
 }
 
 @mixin slide-in-foreground {
     @include slide-in;
 
-    // 24+12+24 +12+12+24
-    // 108
-    width: calc(100% - 108px);
+    width: calc(100% - #{$mobile-foreground-total-margin});
+    height: calc(100% - #{$mobile-combined-handle-gutter});
 }
 
 .statement-background {
     @include slide-in-background;
 
-    // 88.75%
-
     &.inActive {
-        // (320-24)/320*100
-        // $handle-width-mobile: 24px;
-        // $handle-gutter-mobile: 12px;
-        // 24+12
-        // 36
-        right: calc(100% - 24px);
+        right: calc(100% - #{$mobile-handle});
     }
     &.active {
-        right: 36px;
+        right: $mobile-single-handle-gutter;
     }
 
     mix-blend-mode: multiply;
@@ -319,13 +310,10 @@ $conainter-width-mobile: calc(100% - 72px);
     @include slide-in-foreground;
     
     &.inActive {
-        // (320-24)/320*100
-        right: calc(100% + 60px);
+        right: calc(100% + #{$mobile-combined-handle-single-gutter});
     }
     &.active {
-        // 24+12+24
-        // 60
-        right: 60px;
+        right: $mobile-combined-handle-single-gutter;
     }
     article {
         mix-blend-mode: normal;
@@ -341,13 +329,12 @@ $conainter-width-mobile: calc(100% - 72px);
     @include slide-in-background;
     
     &.inActive {
-        // 24
-        left: calc(100% - 24px);
+        left: calc(100% - #{$mobile-handle});
     }
     &.active {
         // 24+12
         // 36
-        left: 36px;
+        left: #{$mobile-single-handle-gutter};
     }
 
     mix-blend-mode: multiply;
@@ -361,7 +348,6 @@ $conainter-width-mobile: calc(100% - 72px);
         top: 0;
         left: 0;
         height: 100%;
-        // ((320-36)-24)/(320-36)*100
         width: 100%;
         .label {
             position: absolute;
@@ -388,7 +374,7 @@ $conainter-width-mobile: calc(100% - 72px);
     &.active {
         // 24+12+12+24
         // 72
-        left: 72px;
+        left: $mobile-combined-handle-gutter;
     }
     article {
         mix-blend-mode: normal;
