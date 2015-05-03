@@ -18,6 +18,14 @@ $mobile-combined-handle-single-gutter: ($mobile-handle * 2) + $mobile-content-gu
 $mobile-combined-handle-gutter: ($mobile-handle * 2) + ($mobile-content-gutter * 2);
 $mobile-foreground-total-margin: ($mobile-handle + $mobile-content-gutter + $mobile-handle) + ($mobile-content-gutter + $mobile-content-gutter + $mobile-handle);
 
+$tablet-handle: 50px;
+$tablet-content-gutter: $mobile-content-gutter;
+$tablet-single-handle-gutter: $tablet-handle + $tablet-content-gutter;
+$tablet-combined-handle-single-gutter: ($tablet-handle * 2) + $tablet-content-gutter;
+$tablet-combined-handle-gutter: ($tablet-handle * 2) + ($tablet-content-gutter * 2);
+$tablet-foreground-total-margin: ($tablet-handle + $tablet-content-gutter + $tablet-handle) + ($tablet-content-gutter + $tablet-content-gutter + $tablet-handle);
+
+
 $mobile-poster-year-two-offset: 16px;
 $mobile-poster-year-zero-offset: 24px;
 $mobile-poster-year-one-offset: 13px;
@@ -123,18 +131,6 @@ $mobile-poster-year-five-offset: 14px;
         position: absolute;
         box-sizing: border-box;
 
-        width: calc(100% - #{$mobile-combined-handle-gutter});
-        // 320-(24*2)
-        // 272
-        // 272/320
-        // 0.85
-        height: calc(100% - #{$mobile-combined-handle-gutter});
-
-        top: calc(#{$mobile-handle} + #{$mobile-content-gutter});
-        bottom: calc(#{$mobile-handle} + #{$mobile-content-gutter});
-        left: calc(#{$mobile-handle} + #{$mobile-content-gutter});
-        right: calc(#{$mobile-handle} + #{$mobile-content-gutter});
-
         padding: 0;
         margin: 0;
 
@@ -142,6 +138,24 @@ $mobile-poster-year-five-offset: 14px;
 
         background-blend-mode: multiply;
         mix-blend-mode: multiply;
+
+        width: calc(100% - #{$mobile-combined-handle-gutter});
+        height: calc(100% - #{$mobile-combined-handle-gutter});
+
+        top: calc(#{$mobile-handle} + #{$mobile-content-gutter});
+        bottom: calc(#{$mobile-handle} + #{$mobile-content-gutter});
+        left: calc(#{$mobile-handle} + #{$mobile-content-gutter});
+        right: calc(#{$mobile-handle} + #{$mobile-content-gutter});
+
+        @media screen and (min-width: 1024px) {
+            width: calc(100% - #{$tablet-combined-handle-gutter});
+            height: calc(100% - #{$tablet-combined-handle-gutter});
+
+            // top: calc(#{$tablet-handle} + #{$tablet-content-gutter});
+            bottom: calc(#{$tablet-handle} + #{$tablet-content-gutter});
+            left: calc(#{$tablet-handle} + #{$tablet-content-gutter});
+            right: calc(#{$tablet-handle} + #{$tablet-content-gutter});            
+        }
     }
 
     .r-mobile,
@@ -258,6 +272,11 @@ $mobile-poster-year-five-offset: 14px;
 
     width: calc(100% - #{$mobile-single-handle-gutter});
     height: calc(100% - #{$mobile-combined-handle-gutter});
+
+    @media screen and (min-width: 1024px) {
+        width: calc(100% - #{$tablet-single-handle-gutter});
+        height: calc(100% - #{$tablet-combined-handle-gutter});
+    }
 }
 
 @mixin slide-in-foreground {
@@ -265,6 +284,11 @@ $mobile-poster-year-five-offset: 14px;
 
     width: calc(100% - #{$mobile-foreground-total-margin});
     height: calc(100% - #{$mobile-combined-handle-gutter});
+
+    @media screen and (min-width: 1024px) {
+        width: calc(100% - #{$tablet-foreground-total-margin});
+        height: calc(100% - #{$tablet-combined-handle-gutter});        
+    }
 }
 
 .statement-background {
@@ -272,9 +296,17 @@ $mobile-poster-year-five-offset: 14px;
 
     &.inActive {
         right: calc(100% - #{$mobile-handle});
+
+        @media screen and (min-width: 1024px) {
+            right: calc(100% - #{$tablet-handle});
+        }
     }
     &.active {
         right: $mobile-single-handle-gutter;
+
+        @media screen and (min-width: 1024px) {
+            right: $tablet-single-handle-gutter;
+        }
     }
 
     mix-blend-mode: multiply;
@@ -311,9 +343,17 @@ $mobile-poster-year-five-offset: 14px;
     
     &.inActive {
         right: calc(100% + #{$mobile-combined-handle-single-gutter});
+
+        @media screen and (min-width: 1024px) {
+            right: calc(100% + #{$tablet-combined-handle-single-gutter});
+        }
     }
     &.active {
         right: $mobile-combined-handle-single-gutter;
+
+        @media screen and (min-width: 1024px) {
+            right: $tablet-combined-handle-single-gutter;
+        }
     }
     article {
         mix-blend-mode: normal;
@@ -330,11 +370,17 @@ $mobile-poster-year-five-offset: 14px;
     
     &.inActive {
         left: calc(100% - #{$mobile-handle});
+
+        @media screen and (min-width: 1024px) {
+            left: calc(100% - #{$tablet-handle});
+        }
     }
     &.active {
-        // 24+12
-        // 36
         left: #{$mobile-single-handle-gutter};
+
+        @media screen and (min-width: 1024px) {
+            left: #{$tablet-single-handle-gutter};
+        }
     }
 
     mix-blend-mode: multiply;
@@ -375,6 +421,10 @@ $mobile-poster-year-five-offset: 14px;
         // 24+12+12+24
         // 72
         left: $mobile-combined-handle-gutter;
+
+        @media screen and (min-width: 1024px) {
+            left: $tablet-combined-handle-gutter;
+        }
     }
     article {
         mix-blend-mode: normal;

@@ -724,17 +724,24 @@ h1 {
   .poster-risd article {
     position: absolute;
     box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    background-color: #f05367;
+    background-blend-mode: multiply;
+    mix-blend-mode: multiply;
     width: calc(100% - 72px);
     height: calc(100% - 72px);
     top: calc(24px + 12px);
     bottom: calc(24px + 12px);
     left: calc(24px + 12px);
-    right: calc(24px + 12px);
-    padding: 0;
-    margin: 0;
-    background-color: #f05367;
-    background-blend-mode: multiply;
-    mix-blend-mode: multiply; }
+    right: calc(24px + 12px); }
+    @media screen and (min-width: 1024px) {
+      .poster-risd article {
+        width: calc(100% - 124px);
+        height: calc(100% - 124px);
+        bottom: calc(50px + 12px);
+        left: calc(50px + 12px);
+        right: calc(50px + 12px); } }
   .poster-risd .r-mobile, .poster-risd .i-mobile, .poster-risd .s-mobile, .poster-risd .d-mobile {
     position: absolute;
     background-blend-mode: normal; }
@@ -823,10 +830,20 @@ h1 {
   width: calc(100% - 36px);
   height: calc(100% - 72px);
   mix-blend-mode: multiply; }
+  @media screen and (min-width: 1024px) {
+    .statement-background {
+      width: calc(100% - 62px);
+      height: calc(100% - 124px); } }
   .statement-background.inActive {
     right: calc(100% - 24px); }
+    @media screen and (min-width: 1024px) {
+      .statement-background.inActive {
+        right: calc(100% - 50px); } }
   .statement-background.active {
     right: 36px; }
+    @media screen and (min-width: 1024px) {
+      .statement-background.active {
+        right: 62px; } }
   .statement-background .handle {
     background-color: #00a1df;
     position: absolute;
@@ -858,10 +875,20 @@ h1 {
   overflow-x: hidden;
   width: calc(100% - 108px);
   height: calc(100% - 72px); }
+  @media screen and (min-width: 1024px) {
+    .statement-foreground {
+      width: calc(100% - 186px);
+      height: calc(100% - 124px); } }
   .statement-foreground.inActive {
     right: calc(100% + 60px); }
+    @media screen and (min-width: 1024px) {
+      .statement-foreground.inActive {
+        right: calc(100% + 112px); } }
   .statement-foreground.active {
     right: 60px; }
+    @media screen and (min-width: 1024px) {
+      .statement-foreground.active {
+        right: 112px; } }
   .statement-foreground article {
     mix-blend-mode: normal;
     position: absolute;
@@ -881,10 +908,20 @@ h1 {
   width: calc(100% - 36px);
   height: calc(100% - 72px);
   mix-blend-mode: multiply; }
+  @media screen and (min-width: 1024px) {
+    .info-background {
+      width: calc(100% - 62px);
+      height: calc(100% - 124px); } }
   .info-background.inActive {
     left: calc(100% - 24px); }
+    @media screen and (min-width: 1024px) {
+      .info-background.inActive {
+        left: calc(100% - 50px); } }
   .info-background.active {
     left: 36px; }
+    @media screen and (min-width: 1024px) {
+      .info-background.active {
+        left: 62px; } }
   .info-background .handle {
     background-color: #00a1df;
     position: absolute;
@@ -916,10 +953,17 @@ h1 {
   overflow-x: hidden;
   width: calc(100% - 108px);
   height: calc(100% - 72px); }
+  @media screen and (min-width: 1024px) {
+    .info-foreground {
+      width: calc(100% - 186px);
+      height: calc(100% - 124px); } }
   .info-foreground.inActive {
     left: 100%; }
   .info-foreground.active {
     left: 72px; }
+    @media screen and (min-width: 1024px) {
+      .info-foreground.active {
+        left: 124px; } }
   .info-foreground article {
     mix-blend-mode: normal;
     position: absolute;
