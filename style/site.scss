@@ -9,6 +9,13 @@ $blue: rgb(0, 161, 223);
 $red: rgb(240, 83, 103);
 
 
+// Spacing
+// -------
+$handle-width-mobile: 24px;
+$handle-gutter-mobile: 12px; 
+$conainter-width-mobile: calc(100% - 72px);
+
+
 @mixin type--body {
     font: {
         family: "Founders Grotesk Text Bold", sans-serif;
@@ -113,11 +120,9 @@ $red: rgb(240, 83, 103);
         position: absolute;
         box-sizing: border-box;
 
-        // 320-(36*2)
-        // 248
-        // 248/320
-        // 0.78
-        width: 78%;
+        // (36*2)
+        // 72
+        width: calc(100% - 72px);
         // 320-(24*2)
         // 272
         // 272/320
@@ -126,8 +131,8 @@ $red: rgb(240, 83, 103);
 
         top: 7.5%;
         bottom: 7.5%;
-        left: 11%;
-        right: 11%;
+        left: 36px;
+        right: 36px;
 
         padding: 0;
         margin: 0;
@@ -191,8 +196,6 @@ $red: rgb(240, 83, 103);
     top: 0;
     left: 0;
 
-    // background-color: $white;
-
     article {
         display: flex;
         flex-flow: column wrap;
@@ -202,6 +205,7 @@ $red: rgb(240, 83, 103);
     }
 
     h1 {
+        background-color: transparent;
         color: $grey;
         z-index: 3;
 
@@ -252,11 +256,17 @@ $red: rgb(240, 83, 103);
 @mixin slide-in-background {
     @include slide-in;
 
-    width: 92.50%;
+    // 24+12
+    // 36
+    width: calc(100% - 36px);
 }
 
 @mixin slide-in-foreground {
     @include slide-in;
+
+    // 24+12+24 +12+12+24
+    // 108
+    width: calc(100% - 108px);
 }
 
 .statement-background {
@@ -266,10 +276,14 @@ $red: rgb(240, 83, 103);
 
     &.inActive {
         // (320-24)/320*100
-        right: 92.50%;
+        // $handle-width-mobile: 24px;
+        // $handle-gutter-mobile: 12px;
+        // 24+12
+        // 36
+        right: calc(100% - 24px);
     }
     &.active {
-        right: 11%;
+        right: 36px;
     }
 
     mix-blend-mode: multiply;
@@ -303,19 +317,21 @@ $red: rgb(240, 83, 103);
 }
 .statement-foreground {
     @include slide-in-foreground;
-    width: 67.50%;
+    
     &.inActive {
         // (320-24)/320*100
-        right: 103.50%;
+        right: calc(100% + 60px);
     }
     &.active {
-        right: 18%;
+        // 24+12+24
+        // 60
+        right: 60px;
     }
     article {
         mix-blend-mode: normal;
 
         position: absolute;
-        width: 81.5%;
+        width: 100%;
         p {
             color: $white;
         }
@@ -325,12 +341,13 @@ $red: rgb(240, 83, 103);
     @include slide-in-background;
     
     &.inActive {
-        // (320-24)/320*100
-        // 92.50
-        left: 92.50%;
+        // 24
+        left: calc(100% - 24px);
     }
     &.active {
-        left: 11%;
+        // 24+12
+        // 36
+        left: 36px;
     }
 
     mix-blend-mode: multiply;
@@ -364,12 +381,14 @@ $red: rgb(240, 83, 103);
 }
 .info-foreground {
     @include slide-in-foreground;
-    width: 67%;
+
     &.inActive {
-        left: 103.50%;
+        left: 100%;
     }
     &.active {
-        left: 20%;
+        // 24+12+12+24
+        // 72
+        left: 72px;
     }
     article {
         mix-blend-mode: normal;
@@ -378,6 +397,11 @@ $red: rgb(240, 83, 103);
         width: 100%;
         p {
             color: $white;
+        }
+        a {
+            text-decoration: none;
+            color: $white;
+            // border-bottom: 1px solid white;
         }
     }
 }

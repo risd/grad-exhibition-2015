@@ -477,22 +477,66 @@ textarea {
   width: 100%; }
 
 .text {
-  width: 80%;
-  margin: 0 auto;
-  margin-top: %; }
-
-img {
-  width: 100%; }
-
-h1 {
-  z-index: -3;
-  text-align: center;
+  position: relative;
+  margin-top: 30%;
+  padding: 5% 5%;
+  z-index: -9999;
   -webkit-user-select: none;
   /* Chrome/Safari */
   -moz-user-select: none;
   /* Firefox */
   -ms-user-select: none;
   /* IE10+ */ }
+
+img {
+  width: 100%; }
+
+h1 {
+  text-align: center;
+  -webkit-user-select: none;
+  /* Chrome/Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+ */
+  cursor: pointer;
+  background-color: white; }
+
+.outline1, .outline2, .outline3, .outline4, .outline5 {
+  width: 310px;
+  height: 423px;
+  /*display: none;*/
+  position: absolute;
+  cursor: pointer;
+  border: 3px dotted black;
+  color: black;
+  -webkit-transition: all 500ms ease;
+  -moz-transition: all 500ms ease;
+  -ms-transition: all 500ms ease; }
+
+.outline1:hover, .outline2:hover, .outline3:hover, .outline4:hover, .outline5:hover {
+  border: 3px dotted #b5b5b5;
+  color: #b5b5b5; }
+
+.outline1 {
+  top: 5vh;
+  left: 5vw; }
+
+.outline2 {
+  top: 44vh;
+  left: 17vw; }
+
+.outline3 {
+  top: 25vh;
+  left: 37vw; }
+
+.outline4 {
+  top: 9vh;
+  left: 60vw; }
+
+.outline5 {
+  top: 44vh;
+  left: 76vw; }
 
 /* ==========================================================================
    Helper classes
@@ -680,12 +724,12 @@ h1 {
   .poster-risd article {
     position: absolute;
     box-sizing: border-box;
-    width: 78%;
+    width: calc(100% - 72px);
     height: 85%;
     top: 7.5%;
     bottom: 7.5%;
-    left: 11%;
-    right: 11%;
+    left: 36px;
+    right: 36px;
     padding: 0;
     margin: 0;
     background-color: #f05367;
@@ -743,6 +787,7 @@ h1 {
             justify-content: center;
     height: 100%; }
   .poster-show-name h1 {
+    background-color: transparent;
     color: #b5b5b5;
     z-index: 3;
     -webkit-box-flex: initial;
@@ -775,12 +820,12 @@ h1 {
   top: 7.5%;
   bottom: 7.5%;
   overflow-x: hidden;
-  width: 92.5%;
+  width: calc(100% - 36px);
   mix-blend-mode: multiply; }
   .statement-background.inActive {
-    right: 92.5%; }
+    right: calc(100% - 24px); }
   .statement-background.active {
-    right: 11%; }
+    right: 36px; }
   .statement-background .handle {
     background-color: #00a1df;
     position: absolute;
@@ -810,15 +855,15 @@ h1 {
   top: 7.5%;
   bottom: 7.5%;
   overflow-x: hidden;
-  width: 67.5%; }
+  width: calc(100% - 108px); }
   .statement-foreground.inActive {
-    right: 103.5%; }
+    right: calc(100% + 60px); }
   .statement-foreground.active {
-    right: 18%; }
+    right: 60px; }
   .statement-foreground article {
     mix-blend-mode: normal;
     position: absolute;
-    width: 81.5%; }
+    width: 100%; }
     .statement-foreground article p {
       color: white; }
 
@@ -831,12 +876,12 @@ h1 {
   top: 7.5%;
   bottom: 7.5%;
   overflow-x: hidden;
-  width: 92.5%;
+  width: calc(100% - 36px);
   mix-blend-mode: multiply; }
   .info-background.inActive {
-    left: 92.5%; }
+    left: calc(100% - 24px); }
   .info-background.active {
-    left: 11%; }
+    left: 36px; }
   .info-background .handle {
     background-color: #00a1df;
     position: absolute;
@@ -866,14 +911,17 @@ h1 {
   top: 7.5%;
   bottom: 7.5%;
   overflow-x: hidden;
-  width: 67%; }
+  width: calc(100% - 108px); }
   .info-foreground.inActive {
-    left: 103.5%; }
+    left: 100%; }
   .info-foreground.active {
-    left: 20%; }
+    left: 72px; }
   .info-foreground article {
     mix-blend-mode: normal;
     position: absolute;
     width: 100%; }
     .info-foreground article p {
+      color: white; }
+    .info-foreground article a {
+      text-decoration: none;
       color: white; }
