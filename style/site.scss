@@ -14,7 +14,9 @@ $red: rgb(240, 83, 103);
 $mobile-handle: 24px;
 $mobile-content-gutter: 12px;
 $mobile-single-handle-gutter: $mobile-handle + $mobile-content-gutter;
+// = 36
 $mobile-combined-handle-single-gutter: ($mobile-handle * 2) + $mobile-content-gutter;
+// = 60
 $mobile-combined-handle-gutter: ($mobile-handle * 2) + ($mobile-content-gutter * 2);
 $mobile-foreground-total-margin: ($mobile-handle + $mobile-content-gutter + $mobile-handle) + ($mobile-content-gutter + $mobile-content-gutter + $mobile-handle);
 
@@ -31,11 +33,25 @@ $mobile-poster-year-zero-offset: 24px;
 $mobile-poster-year-one-offset: 13px;
 $mobile-poster-year-five-offset: 14px;
 
+$lg-mobile-year-two-offset: 150px;
+$lg-mobile-year-five-offset: 150px;
+
+$tablet-poster-year-two-offset: 280px;
+$tablet-poster-year-zero-offset: 40px;
+$tablet-poster-year-one-offset: 42px;
+$tablet-poster-year-five-offset: 250px;
+
 
 
 // Font
 // ----
 
+
+
+// Large white characters over
+// "2015"
+// Over grey background
+// ------
 .poster-year {
     z-index: 1;
 
@@ -69,6 +85,36 @@ $mobile-poster-year-five-offset: 14px;
         
         width: 86px;
         height: 167px;
+
+        @media only screen and (min-width: 768px) {
+            background-image: url('/static/svg/tablet/2.svg');
+
+            width: 204px;
+            height: 349px;
+
+            left: calc(#{$tablet-handle} + #{$tablet-content-gutter} + #{$lg-mobile-year-two-offset});
+
+            transform: scale(0.9);
+            transform-origin: 50% 0;
+        }
+
+        @media only screen and (min-width: 1024px) {
+            background-image: url('/static/svg/tablet/2.svg');
+
+            width: 204px;
+            height: 349px;
+
+            left: calc(#{$tablet-handle} + #{$tablet-content-gutter} + #{$tablet-poster-year-two-offset});
+
+            transform: scale(1);
+        }
+
+        @media screen and (min-width: 1280px) {
+            background-image: url('/static/svg/desktop/2.svg');
+
+            width: 260px;
+            height: 421px;
+        }
     }
     .zero-mobile {
         background-image: url('/static/svg/phone/0.svg');
@@ -77,6 +123,36 @@ $mobile-poster-year-five-offset: 14px;
         
         width: 142px;
         height: 95px;
+
+        @media only screen and (min-width: 768px) {
+            background-image: url('/static/svg/tablet/0.svg');
+
+            width: 303px;
+            height: 224px;
+
+            top: calc(#{$tablet-handle} + #{$tablet-content-gutter} + 20px);
+
+            transform: scale(0.9);
+            transform-origin: 100% 50%;
+        }
+
+        @media only screen and (min-width: 1024px) {
+            background-image: url('/static/svg/tablet/0.svg');
+
+            width: 303px;
+            height: 224px;
+
+            top: calc(#{$tablet-handle} + #{$tablet-content-gutter} + #{$tablet-poster-year-zero-offset});
+
+            transform: scale(1);
+        }
+
+        @media screen and (min-width: 1280px) {
+            background-image: url('/static/svg/desktop/0.svg');
+
+            width: 385px;
+            height: 285px;
+        }
     }
     .one-mobile {
         background-image: url('/static/svg/phone/1.svg');
@@ -85,6 +161,36 @@ $mobile-poster-year-five-offset: 14px;
 
         width: 117px;
         height: 91px;
+
+        @media only screen and (min-width: 768px) {
+            background-image: url('/static/svg/tablet/1.svg');
+
+            width: 253px;
+            height: 215px;
+
+            bottom: calc(#{$tablet-handle} + #{$tablet-content-gutter} + #{$tablet-poster-year-one-offset});
+
+            transform: scale(0.9);
+            transform-origin: 0 50%;
+        }
+
+        @media only screen and (min-width: 1024px) {
+            background-image: url('/static/svg/tablet/1.svg');
+
+            width: 253px;
+            height: 215px;
+
+            bottom: calc(#{$tablet-handle} + #{$tablet-content-gutter} + #{$tablet-poster-year-one-offset});
+
+            transform: scale(1);
+        }
+
+        @media screen and (min-width: 1280px) {
+            background-image: url('/static/svg/desktop/1.svg');
+
+            width: 295px;
+            height: 275px;
+        }
     }
     .five-mobile {
         background-image: url('/static/svg/phone/5.svg');
@@ -94,6 +200,34 @@ $mobile-poster-year-five-offset: 14px;
 
         width: 84px;
         height: 155px;
+
+        @media only screen and (min-width: 768px) {
+            background-image: url('/static/svg/tablet/5.svg');
+
+            width: 200px;
+            height: 319px;
+
+            right: calc(#{$tablet-handle} + #{$tablet-content-gutter} + #{$lg-mobile-year-five-offset});
+
+            transform: scale(0.9);
+            transform-origin: 50% 100%;
+        }
+
+        @media only screen and (min-width: 1024px) {
+            background-image: url('/static/svg/tablet/5.svg');
+
+            width: 200px;
+            height: 319px;
+
+            right: calc(#{$tablet-handle} + #{$tablet-content-gutter} + #{$tablet-poster-year-five-offset});
+        }
+
+        @media screen and (min-width: 1280px) {
+            background-image: url('/static/svg/desktop/5.svg');
+
+            width: 252px;
+            height: 406px;
+        }
     }
 
 
@@ -108,6 +242,10 @@ $mobile-poster-year-five-offset: 14px;
 
 
 
+// Large red box with
+// "2015"
+// knocked out of the red background.
+// ------
 .poster-risd {
     z-index: 2;
 
@@ -151,7 +289,7 @@ $mobile-poster-year-five-offset: 14px;
             width: calc(100% - #{$tablet-combined-handle-gutter});
             height: calc(100% - #{$tablet-combined-handle-gutter});
 
-            // top: calc(#{$tablet-handle} + #{$tablet-content-gutter});
+            top: calc(#{$tablet-handle} + #{$tablet-content-gutter});
             bottom: calc(#{$tablet-handle} + #{$tablet-content-gutter});
             left: calc(#{$tablet-handle} + #{$tablet-content-gutter});
             right: calc(#{$tablet-handle} + #{$tablet-content-gutter});            
@@ -168,17 +306,73 @@ $mobile-poster-year-five-offset: 14px;
 
     .r-mobile {
         background-image: url('/static/svg/phone/R.svg');
-        top: 0;
+        top: -1px;
         left: 0;
         width: 109px;
         height: 137px;
+
+        @media only screen and (min-width: 768px) {
+            background-image: url('/static/svg/tablet/R.svg');
+
+            width: 256px;
+            height: 325px;
+
+            left: $lg-mobile-year-two-offset;
+
+            transform: scale(0.9);
+            transform-origin: 50% 0;
+        }
+
+        @media only screen and (min-width: 1024px) {
+            background-image: url('/static/svg/tablet/R.svg');
+
+            width: 256px;
+            height: 325px;
+
+            left: 242px;
+
+            transform: scale(1);
+        }
+
+        @media screen and (min-width: 1280px) {
+            background-image: url('/static/svg/desktop/R.svg');
+
+            width: 295px;
+            height: 376px;
+        }
     }
     .i-mobile {
         background-image: url('/static/svg/phone/I.svg');
-        top: 0;
+        top: -1px;
         right: 0;
         width: 101px;
         height: 126px;
+
+        @media only screen and (min-width: 768px) {
+            background-image: url('/static/svg/tablet/I.svg');
+
+            width: 237px;
+            height: 299px;
+
+            transform: scale(0.9);
+            transform-origin: 50% 0;
+        }
+
+        @media only screen and (min-width: 1024px) {
+            background-image: url('/static/svg/tablet/I.svg');
+
+            width: 237px;
+            height: 299px;
+
+            transform: scale(1);
+        }
+
+        @media screen and (min-width: 1280px) {
+            background-image: url('/static/svg/desktop/I.svg');
+
+            width: 273px;
+            height: 345px;
+        }
     }
     .s-mobile {
         background-image: url('/static/svg/phone/S.svg');
@@ -186,6 +380,32 @@ $mobile-poster-year-five-offset: 14px;
         left: 0;
         width: 97px;
         height: 118px;
+
+        @media only screen and (min-width: 768px) {
+            background-image: url('/static/svg/tablet/S.svg');
+
+            width: 230px;
+            height: 281px;
+
+            transform: scale(0.9);
+            transform-origin: 50% 100%;
+        }
+
+        @media only screen and (min-width: 1024px) {
+            background-image: url('/static/svg/tablet/S.svg');
+
+            width: 230px;
+            height: 281px;
+
+            transform: scale(1);
+        }
+
+        @media screen and (min-width: 1280px) {
+            background-image: url('/static/svg/desktop/S.svg');
+
+            width: 264px;
+            height: 323px;
+        }
     }
     .d-mobile {
         background-image: url('/static/svg/phone/D.svg');
@@ -193,10 +413,43 @@ $mobile-poster-year-five-offset: 14px;
         right: 0;
         width: 109px;
         height: 124px;
+
+        @media only screen and (min-width: 768px) {
+            background-image: url('/static/svg/tablet/D.svg');
+
+            width: 257px;
+            height: 294px;
+
+            right: $lg-mobile-year-five-offset;
+
+            transform: scale(0.9);
+            transform-origin: 50% 100%;
+        }
+
+        @media only screen and (min-width: 1024px) {
+            background-image: url('/static/svg/tablet/D.svg');
+
+            width: 257px;
+
+            right: 213px;
+
+            transform: scale(1);
+        }
+
+        @media screen and (min-width: 1280px) {
+            background-image: url('/static/svg/desktop/D.svg');
+
+            width: 294px;
+            height: 338px;
+        }
     }
 }
 
 
+// Large red box with
+// "2015"
+// knocked out of the red background.
+// ------
 .poster-show-name {
     z-index: 3;
 
@@ -214,7 +467,7 @@ $mobile-poster-year-five-offset: 14px;
     article {
         display: flex;
         flex-flow: column wrap;
-        justify-content:center;
+        justify-content: center;
 
         height: 100%;
     }
@@ -228,25 +481,52 @@ $mobile-poster-year-five-offset: 14px;
         text-align: left;
 
         text-transform: uppercase;
-        margin-top: 0.4em;
-        margin-bottom: 0.4em;
+        margin-top: 0;
+        margin-bottom: 0;
+
+        // 37pt per chrome
+        font-size: 49.3333320617676px;
+        letter-spacing: -0.3px;
+
+        @media screen and (min-width: 1024px) {
+            // 57pt per chrome
+            font-size: 76px;
+            letter-spacing: -0.3px;   
+        }
+
+        @media screen and (min-width: 1280px) {
+            // 60pt per chrome
+            font-size: 80px;
+            letter-spacing: -0.3px;   
+        }
     }
 
     .risd {
         width: 60%;
         margin-left: 40%;
+
+        @media screen and (min-width: 768px) {
+            margin-left: $tablet-combined-handle-gutter;
+            width: 30%;
+        }
     }
     .grad {
-        width: 80%;
-        margin-left: 20%;
+        width: 85%;
+        margin-left: 15%;
+
+        @media screen and (min-width: 768px) { }
     }
     .show {
-        width: 45%;
-        margin-left: 55%;
+        width: 55%;
+        margin-left: 45%;
+
+        @media screen and (min-width: 768px) { }
     }
     .year {
         width: 70%;
         margin-left: 30%;
+
+        @media screen and (min-width: 768px) { }
     }
 }
 
@@ -261,8 +541,13 @@ $mobile-poster-year-five-offset: 14px;
     }
 
     position: fixed;
-    top: $mobile-single-handle-gutter;
-    bottom: $mobile-single-handle-gutter;
+    top: calc(#{$mobile-handle} + #{$mobile-content-gutter});
+    bottom: $mobile-combined-handle-gutter;
+
+    @media screen and (min-width: 1024px) {
+        top: calc(#{$tablet-handle} + #{$tablet-content-gutter});
+        bottom: $tablet-combined-handle-gutter;
+    }
 
     overflow-x: hidden;
 }
@@ -418,12 +703,10 @@ $mobile-poster-year-five-offset: 14px;
         left: 100%;
     }
     &.active {
-        // 24+12+12+24
-        // 72
-        left: $mobile-combined-handle-gutter;
+        left: $mobile-combined-handle-single-gutter;
 
         @media screen and (min-width: 1024px) {
-            left: $tablet-combined-handle-gutter;
+            left: $tablet-combined-handle-single-gutter;
         }
     }
     article {

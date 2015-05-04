@@ -689,25 +689,25 @@ h1 {
   .poster-year .two-mobile {
     background-image: url('/static/svg/phone/2.svg');
     top: 0;
-    left: calc(11% + 18px);
+    left: calc(24px + 12px + 16px);
     width: 86px;
     height: 167px; }
   .poster-year .zero-mobile {
     background-image: url('/static/svg/phone/0.svg');
-    top: calc(7.5% + 24px);
+    top: calc(24px + 12px + 24px);
     right: 0px;
     width: 142px;
     height: 95px; }
   .poster-year .one-mobile {
     background-image: url('/static/svg/phone/1.svg');
-    bottom: calc(7.5% + 13px);
+    bottom: calc(24px + 12px + 13px);
     left: 0;
     width: 117px;
     height: 91px; }
   .poster-year .five-mobile {
     background-image: url('/static/svg/phone/5.svg');
     bottom: 0;
-    right: calc(11% + 22px);
+    right: calc(24px + 12px + 14px);
     width: 84px;
     height: 155px; }
 
@@ -727,17 +727,25 @@ h1 {
   .poster-risd article {
     position: absolute;
     box-sizing: border-box;
-    width: 78%;
-    height: 85%;
-    top: 7.5%;
-    bottom: 7.5%;
-    left: 11%;
-    right: 11%;
     padding: 0;
     margin: 0;
     background-color: #f05367;
     background-blend-mode: multiply;
-    mix-blend-mode: multiply; }
+    mix-blend-mode: multiply;
+    width: calc(100% - 72px);
+    height: calc(100% - 72px);
+    top: calc(24px + 12px);
+    bottom: calc(24px + 12px);
+    left: calc(24px + 12px);
+    right: calc(24px + 12px); }
+    @media screen and (min-width: 1024px) {
+      .poster-risd article {
+        width: calc(100% - 124px);
+        height: calc(100% - 124px);
+        top: calc(50px + 12px);
+        bottom: calc(50px + 12px);
+        left: calc(50px + 12px);
+        right: calc(50px + 12px); } }
   .poster-risd .r-mobile, .poster-risd .i-mobile, .poster-risd .s-mobile, .poster-risd .d-mobile {
     position: absolute;
     background-blend-mode: normal; }
@@ -782,6 +790,7 @@ h1 {
     justify-content: center;
     height: 100%; }
   .poster-show-name h1 {
+    background-color: transparent;
     color: #b5b5b5;
     z-index: 3;
     flex: initial;
@@ -808,15 +817,30 @@ h1 {
   font-size: 14pt;
   font-weight: normal;
   position: fixed;
-  top: 7.5%;
-  bottom: 7.5%;
+  top: calc(24px + 12px);
+  bottom: 72px;
   overflow-x: hidden;
-  width: 92.5%;
+  width: calc(100% - 36px);
+  height: calc(100% - 72px);
   mix-blend-mode: multiply; }
+  @media screen and (min-width: 1024px) {
+    .statement-background {
+      top: calc(50px + 12px);
+      bottom: 124px; } }
+  @media screen and (min-width: 1024px) {
+    .statement-background {
+      width: calc(100% - 62px);
+      height: calc(100% - 124px); } }
   .statement-background.inActive {
-    right: 92.5%; }
+    right: calc(100% - 24px); }
+    @media screen and (min-width: 1024px) {
+      .statement-background.inActive {
+        right: calc(100% - 50px); } }
   .statement-background.active {
-    right: 11%; }
+    right: 36px; }
+    @media screen and (min-width: 1024px) {
+      .statement-background.active {
+        right: 62px; } }
   .statement-background .handle {
     background-color: #00a1df;
     position: absolute;
@@ -841,18 +865,33 @@ h1 {
   font-size: 14pt;
   font-weight: normal;
   position: fixed;
-  top: 7.5%;
-  bottom: 7.5%;
+  top: calc(24px + 12px);
+  bottom: 72px;
   overflow-x: hidden;
-  width: 67.5%; }
+  width: calc(100% - 108px);
+  height: calc(100% - 72px); }
+  @media screen and (min-width: 1024px) {
+    .statement-foreground {
+      top: calc(50px + 12px);
+      bottom: 124px; } }
+  @media screen and (min-width: 1024px) {
+    .statement-foreground {
+      width: calc(100% - 186px);
+      height: calc(100% - 124px); } }
   .statement-foreground.inActive {
-    right: 103.5%; }
+    right: calc(100% + 60px); }
+    @media screen and (min-width: 1024px) {
+      .statement-foreground.inActive {
+        right: calc(100% + 112px); } }
   .statement-foreground.active {
-    right: 18%; }
+    right: 60px; }
+    @media screen and (min-width: 1024px) {
+      .statement-foreground.active {
+        right: 112px; } }
   .statement-foreground article {
     mix-blend-mode: normal;
     position: absolute;
-    width: 81.5%; }
+    width: 100%; }
     .statement-foreground article p {
       color: white; }
 
@@ -862,15 +901,30 @@ h1 {
   font-size: 14pt;
   font-weight: normal;
   position: fixed;
-  top: 7.5%;
-  bottom: 7.5%;
+  top: calc(24px + 12px);
+  bottom: 72px;
   overflow-x: hidden;
-  width: 92.5%;
+  width: calc(100% - 36px);
+  height: calc(100% - 72px);
   mix-blend-mode: multiply; }
+  @media screen and (min-width: 1024px) {
+    .info-background {
+      top: calc(50px + 12px);
+      bottom: 124px; } }
+  @media screen and (min-width: 1024px) {
+    .info-background {
+      width: calc(100% - 62px);
+      height: calc(100% - 124px); } }
   .info-background.inActive {
-    left: 92.5%; }
+    left: calc(100% - 24px); }
+    @media screen and (min-width: 1024px) {
+      .info-background.inActive {
+        left: calc(100% - 50px); } }
   .info-background.active {
-    left: 11%; }
+    left: 36px; }
+    @media screen and (min-width: 1024px) {
+      .info-background.active {
+        left: 62px; } }
   .info-background .handle {
     background-color: #00a1df;
     position: absolute;
@@ -895,17 +949,32 @@ h1 {
   font-size: 14pt;
   font-weight: normal;
   position: fixed;
-  top: 7.5%;
-  bottom: 7.5%;
+  top: calc(24px + 12px);
+  bottom: 72px;
   overflow-x: hidden;
-  width: 67%; }
+  width: calc(100% - 108px);
+  height: calc(100% - 72px); }
+  @media screen and (min-width: 1024px) {
+    .info-foreground {
+      top: calc(50px + 12px);
+      bottom: 124px; } }
+  @media screen and (min-width: 1024px) {
+    .info-foreground {
+      width: calc(100% - 186px);
+      height: calc(100% - 124px); } }
   .info-foreground.inActive {
-    left: 103.5%; }
+    left: 100%; }
   .info-foreground.active {
-    left: 20%; }
+    left: 72px; }
+    @media screen and (min-width: 1024px) {
+      .info-foreground.active {
+        left: 124px; } }
   .info-foreground article {
     mix-blend-mode: normal;
     position: absolute;
     width: 100%; }
     .info-foreground article p {
+      color: white; }
+    .info-foreground article a {
+      text-decoration: none;
       color: white; }
