@@ -33,8 +33,8 @@ $mobile-poster-year-zero-offset: 24px;
 $mobile-poster-year-one-offset: 13px;
 $mobile-poster-year-five-offset: 14px;
 
-$lg-mobile-year-two-offset: 150px;
-$lg-mobile-year-five-offset: 150px;
+$lg-mobile-year-two-offset: 120px;
+$lg-mobile-year-five-offset: 120px;
 
 $tablet-poster-year-two-offset: 280px;
 $tablet-poster-year-zero-offset: 40px;
@@ -94,7 +94,7 @@ $tablet-poster-year-five-offset: 250px;
 
             left: calc(#{$tablet-handle} + #{$tablet-content-gutter} + #{$lg-mobile-year-two-offset});
 
-            transform: scale(0.9);
+            transform: scale(0.8);
             transform-origin: 50% 0;
         }
 
@@ -130,9 +130,9 @@ $tablet-poster-year-five-offset: 250px;
             width: 303px;
             height: 224px;
 
-            top: calc(#{$tablet-handle} + #{$tablet-content-gutter} + 20px);
+            top: calc(#{$mobile-handle} + #{$mobile-content-gutter} + 20px);
 
-            transform: scale(0.9);
+            transform: scale(0.8);
             transform-origin: 100% 50%;
         }
 
@@ -170,7 +170,7 @@ $tablet-poster-year-five-offset: 250px;
 
             bottom: calc(#{$tablet-handle} + #{$tablet-content-gutter} + #{$tablet-poster-year-one-offset});
 
-            transform: scale(0.9);
+            transform: scale(0.8);
             transform-origin: 0 50%;
         }
 
@@ -209,7 +209,7 @@ $tablet-poster-year-five-offset: 250px;
 
             right: calc(#{$tablet-handle} + #{$tablet-content-gutter} + #{$lg-mobile-year-five-offset});
 
-            transform: scale(0.9);
+            transform: scale(0.8);
             transform-origin: 50% 100%;
         }
 
@@ -220,6 +220,8 @@ $tablet-poster-year-five-offset: 250px;
             height: 319px;
 
             right: calc(#{$tablet-handle} + #{$tablet-content-gutter} + #{$tablet-poster-year-five-offset});
+
+            transform: scale(1);
         }
 
         @media screen and (min-width: 1280px) {
@@ -319,7 +321,7 @@ $tablet-poster-year-five-offset: 250px;
 
             left: $lg-mobile-year-two-offset;
 
-            transform: scale(0.9);
+            transform: scale(0.8);
             transform-origin: 50% 0;
         }
 
@@ -354,7 +356,7 @@ $tablet-poster-year-five-offset: 250px;
             width: 237px;
             height: 299px;
 
-            transform: scale(0.9);
+            transform: scale(0.8);
             transform-origin: 50% 0;
         }
 
@@ -387,7 +389,7 @@ $tablet-poster-year-five-offset: 250px;
             width: 230px;
             height: 281px;
 
-            transform: scale(0.9);
+            transform: scale(0.8);
             transform-origin: 50% 100%;
         }
 
@@ -422,7 +424,7 @@ $tablet-poster-year-five-offset: 250px;
 
             right: $lg-mobile-year-five-offset;
 
-            transform: scale(0.9);
+            transform: scale(0.8);
             transform-origin: 50% 100%;
         }
 
@@ -470,6 +472,13 @@ $tablet-poster-year-five-offset: 250px;
         justify-content: center;
 
         height: 100%;
+
+        @media screen and (min-width: 768px) {
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
     }
 
     h1 {
@@ -488,6 +497,15 @@ $tablet-poster-year-five-offset: 250px;
         font-size: 49.3333320617676px;
         letter-spacing: -0.3px;
 
+        @media screen and (min-width: 768px) {
+            // 57pt per chrome
+            font-size: 53px;
+            letter-spacing: -0.3px;
+
+            display: inline-block;
+            position: absolute;
+        }
+
         @media screen and (min-width: 1024px) {
             // 57pt per chrome
             font-size: 76px;
@@ -502,31 +520,88 @@ $tablet-poster-year-five-offset: 250px;
     }
 
     .risd {
+        // flex-direction: column;
         width: 60%;
         margin-left: 40%;
 
         @media screen and (min-width: 768px) {
-            margin-left: $tablet-combined-handle-gutter;
-            width: 30%;
+            width: 0;
+            margin-left: 0;
+            top: calc(#{$mobile-single-handle-gutter} + 104px);
+            left: calc(#{$mobile-single-handle-gutter} + 23px);
+        }
+
+        @media screen and (min-width: 1024px) {
+            top: calc(#{$tablet-single-handle-gutter} + 104px);
+            left: calc(#{$tablet-single-handle-gutter} + 43px);
+        }
+
+        @media screen and (min-width: 1280px) {
+            top: calc(#{$tablet-single-handle-gutter} + 154px);
+            left: calc(#{$tablet-single-handle-gutter} + 33px);
         }
     }
     .grad {
         width: 85%;
         margin-left: 15%;
 
-        @media screen and (min-width: 768px) { }
+        @media screen and (min-width: 768px) {
+            width: 0;
+            margin-left: 0;
+            left: calc(#{$mobile-single-handle-gutter} + 222px);
+            bottom: calc(#{$mobile-single-handle-gutter} + 147px);
+        }
+
+        @media screen and (min-width: 1024px) {
+            left: calc(#{$mobile-single-handle-gutter} + 264px);
+            bottom: calc(#{$mobile-single-handle-gutter} + 171px);
+        }
+
+        @media screen and (min-width: 1280px) {
+            left: calc(#{$mobile-single-handle-gutter} + 380px);
+            bottom: calc(#{$mobile-single-handle-gutter} + 171px);
+        }
     }
     .show {
         width: 55%;
         margin-left: 45%;
 
-        @media screen and (min-width: 768px) { }
+        @media screen and (min-width: 768px) {
+            width: 0;
+            margin-left: 0;
+            right: calc(#{$mobile-single-handle-gutter} + 350px);
+            top: calc(#{$mobile-single-handle-gutter} + 200px);
+        }
+
+        @media screen and (min-width: 1024px) {
+            right: calc(#{$mobile-single-handle-gutter} + 480px);
+            top: calc(#{$mobile-single-handle-gutter} + 240px);
+        }
+
+        @media screen and (min-width: 1280px) {
+            right: calc(#{$mobile-single-handle-gutter} + 610px);
+            top: calc(#{$mobile-single-handle-gutter} + 270px);
+        }
     }
     .year {
         width: 70%;
         margin-left: 30%;
 
-        @media screen and (min-width: 768px) { }
+        @media screen and (min-width: 768px) {
+            width: 0;
+            margin-left: 0;
+            right: calc(#{$mobile-single-handle-gutter} + 130px);
+            bottom: calc(#{$mobile-single-handle-gutter} + 60px);
+        }
+
+        @media screen and (min-width: 1024px) {
+            right: calc(#{$mobile-single-handle-gutter} + 225px);
+            bottom: calc(#{$mobile-single-handle-gutter} + 70px);
+        }
+
+        @media screen and (min-width: 1280px) {
+            
+        }
     }
 }
 
