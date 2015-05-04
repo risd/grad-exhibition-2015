@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-js": "browserify script/index.js -o static/script.js",
     "build-css": "node-sass style/site.scss static/style.css",
-    "watch-js": "watchify script/index.js -o static/script.js",
+    "watch-js": "watchify script/index.js -o static/script.js -v",
     "watch-css": "watch 'node-sass style/site.scss static/site.css  && autoprefixer -o static/site.css static/site.css' style/",
     "dev": "nf --procfile Procfile.dev start",
     "deploy": "make package && ./bin/deploy.js && make clean"
