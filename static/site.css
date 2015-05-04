@@ -673,7 +673,7 @@ h1 {
   box-sizing: border-box;
   position: absolute;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   top: 0;
   left: 0;
   padding: 0;
@@ -758,7 +758,7 @@ h1 {
         background-image: url('/static/svg/tablet/1.svg');
         width: 253px;
         height: 215px;
-        bottom: calc(50px + 12px + 42px);
+        bottom: calc(50px + 12px);
         -webkit-transform: scale(0.8);
             -ms-transform: scale(0.8);
                 transform: scale(0.8);
@@ -885,7 +885,7 @@ h1 {
   .poster-risd .i-mobile {
     background-image: url('/static/svg/phone/I.svg');
     top: -1px;
-    right: 0;
+    right: 20px;
     width: 101px;
     height: 126px; }
     @media only screen and (min-width: 768px) {
@@ -911,11 +911,12 @@ h1 {
       .poster-risd .i-mobile {
         background-image: url('/static/svg/desktop/I.svg');
         width: 273px;
-        height: 345px; } }
+        height: 345px;
+        right: 54px; } }
   .poster-risd .s-mobile {
     background-image: url('/static/svg/phone/S.svg');
     bottom: 0;
-    left: 0;
+    left: 20px;
     width: 97px;
     height: 118px; }
     @media only screen and (min-width: 768px) {

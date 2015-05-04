@@ -58,7 +58,7 @@ $tablet-poster-year-five-offset: 250px;
     box-sizing: border-box;
     position: absolute;
     width: 100%;
-    height: 100vh;
+    height: 100%;
 
     top: 0;
     left: 0;
@@ -168,7 +168,7 @@ $tablet-poster-year-five-offset: 250px;
             width: 253px;
             height: 215px;
 
-            bottom: calc(#{$tablet-handle} + #{$tablet-content-gutter} + #{$tablet-poster-year-one-offset});
+            bottom: calc(#{$tablet-handle} + #{$tablet-content-gutter});
 
             transform: scale(0.8);
             transform-origin: 0 50%;
@@ -346,7 +346,7 @@ $tablet-poster-year-five-offset: 250px;
     .i-mobile {
         background-image: url('/static/svg/phone/I.svg');
         top: -1px;
-        right: 0;
+        right: 20px;
         width: 101px;
         height: 126px;
 
@@ -374,12 +374,14 @@ $tablet-poster-year-five-offset: 250px;
 
             width: 273px;
             height: 345px;
+
+            right: 54px;
         }
     }
     .s-mobile {
         background-image: url('/static/svg/phone/S.svg');
         bottom: 0;
-        left: 0;
+        left: 20px;
         width: 97px;
         height: 118px;
 
