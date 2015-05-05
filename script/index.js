@@ -3,6 +3,7 @@ var through = require('through2');
 var Poster = require('./poster.js')('.poster');
 var Info = require('./information.js')('.info');
 var Statement = require('./statement.js')('.statement');
+var Work = require('./work')('.work');
 
 var Router = require('routes');
 var router = Router();
@@ -39,6 +40,7 @@ router.addRoute('/statement', function () {
 
 (function initialize (href) {
 
+    Work.list();
     routeClicks();
 
     var route = router.match(href);
