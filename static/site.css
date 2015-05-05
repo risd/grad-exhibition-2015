@@ -1468,7 +1468,8 @@ h1 {
   @media screen and (min-width: 1024px) {
     .info-foreground .third p {
       width: 49%;
-      margin-left: 51%; } }
-  @media screen and (min-width: 1024px) {
+      margin-left: 49%; } }
+  @media screen and (min-width: 1280px) {
     .info-foreground .third p {
-      max-width: 400px; } }
+      max-width: 400px;
+      margin-left: 51%; } }
