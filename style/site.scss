@@ -944,12 +944,13 @@ $tablet-poster-year-five-offset: 250px;
         @media screen and (min-width: 1024px) {
             p {
                 width: 49%;
-                margin-left: 51%;
+                margin-left: 49%;
             }
         }
-        @media screen and (min-width: 1024px) {
+        @media screen and (min-width: 1280px) {
             p {
                 max-width: 400px;
+                margin-left: 51%;
             }
         }
     }
