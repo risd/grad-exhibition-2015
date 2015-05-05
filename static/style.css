@@ -966,6 +966,7 @@ h1 {
     cursor: default;
     font-family: 'Founders Grotesk Bold', sans-serif;
     font-size: 49.33333px;
+    font-weight: normal;
     letter-spacing: -0.3px;
     line-height: 0.9em; }
     @media screen and (min-width: 768px) {
