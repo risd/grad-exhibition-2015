@@ -9,24 +9,95 @@ $blue: rgb(0, 161, 223);
 $red: rgb(240, 83, 103);
 
 
-@mixin type--body {
-    font: {
-        family: "Founders Grotesk Text Bold", sans-serif;
-        size: 15pt;
-        weight: normal;
-    }
-    line-height: 17pt;
-    letter-spacing: -0.3em;
-    color: $white;
+// Spacing
+// -------
+$mobile-handle: 24px;
+$mobile-content-gutter: 12px;
+$mobile-single-handle-gutter: $mobile-handle + $mobile-content-gutter;
+// = 36
+$mobile-combined-handle-single-gutter: ($mobile-handle * 2) + $mobile-content-gutter;
+// = 60
+$mobile-combined-handle-gutter: ($mobile-handle * 2) + ($mobile-content-gutter * 2);
+$mobile-foreground-total-margin: ($mobile-handle + $mobile-content-gutter + $mobile-handle) + ($mobile-content-gutter + $mobile-content-gutter + $mobile-handle);
+
+$tablet-handle: 50px;
+$tablet-content-gutter: $mobile-content-gutter;
+$tablet-single-handle-gutter: $tablet-handle + $tablet-content-gutter;
+$tablet-combined-handle-single-gutter: ($tablet-handle * 2) + $tablet-content-gutter;
+$tablet-combined-handle-gutter: ($tablet-handle * 2) + ($tablet-content-gutter * 2);
+$tablet-foreground-total-margin: ($tablet-handle + $tablet-content-gutter + $tablet-handle) + ($tablet-content-gutter + $tablet-content-gutter + $tablet-handle);
+
+
+$mobile-poster-year-two-offset: 16px;
+$mobile-poster-year-zero-offset: 24px;
+$mobile-poster-year-one-offset: 13px;
+$mobile-poster-year-five-offset: 14px;
+
+$lg-mobile-year-two-offset: 120px;
+$lg-mobile-year-five-offset: 120px;
+
+$tablet-poster-year-two-offset: 280px;
+$tablet-poster-year-zero-offset: 40px;
+$tablet-poster-year-one-offset: 42px;
+$tablet-poster-year-five-offset: 250px;
+
+
+// Font
+// ----
+@font-face {
+    font-family: 'Founders Grotesk Bold';
+    src: url('/static/font/FoundersGroteskWeb-Bold.eot');
+    src: url('/static/font/FoundersGroteskWeb-Bold.eot?#iefix') format('embedded-opentype'),
+         url('/static/font/FoundersGroteskWeb-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
 }
 
+@mixin type--handle {
+    -webkit-font-smoothing: antialiased;
+
+    color: $white;
+
+    font: {
+        family: 'Founders Grotesk Bold', sans-serif;
+        size: 14pt;
+    }
+    text-transform: uppercase;
+    @media screen and (min-width: 768px) {
+        font-size: 17.6pt;
+    }
+}
+@mixin type--body {
+    -webkit-font-smoothing: antialiased;
+
+    color: $white;
+
+    font: {
+        family: 'Founders Grotesk Bold', sans-serif;
+        size: 15pt;
+    }
+
+    line-height: 17pt;
+
+    @media screen and (min-width: 768px) {
+        font-size: 17.6pt;
+    }
+    
+}
+
+
+// Large white characters over
+// "2015"
+// Over grey background
+// ------
 .poster-year {
     z-index: 1;
 
     box-sizing: border-box;
     position: absolute;
     width: 100%;
-    height: 100vh;
+    height: 100%;
 
     top: 0;
     left: 0;
@@ -43,39 +114,160 @@ $red: rgb(240, 83, 103);
     .one-mobile,
     .five-mobile {
         position: absolute;
-        background-blend-mode: multiply;
     }
     .two-mobile {
         background-image: url('/static/svg/phone/2.svg');
         top: 0;
-        left: calc(11% + 18px);
+        // 36 + 16
+        left: calc(#{$mobile-handle} + #{$mobile-content-gutter} + #{$mobile-poster-year-two-offset});
         
         width: 86px;
         height: 167px;
+
+        @media only screen and (min-width: 768px) {
+            background-image: url('/static/svg/tablet/2.svg');
+
+            width: 204px;
+            height: 349px;
+
+            left: calc(#{$tablet-handle} + #{$tablet-content-gutter} + #{$lg-mobile-year-two-offset});
+
+            transform: scale(0.8);
+            transform-origin: 50% 0;
+        }
+
+        @media only screen and (min-width: 1024px) {
+            background-image: url('/static/svg/tablet/2.svg');
+
+            width: 204px;
+            height: 349px;
+
+            left: calc(#{$tablet-handle} + #{$tablet-content-gutter} + #{$tablet-poster-year-two-offset});
+
+            transform: scale(1);
+        }
+
+        @media screen and (min-width: 1280px) {
+            background-image: url('/static/svg/desktop/2.svg');
+
+            width: 260px;
+            height: 421px;
+        }
     }
     .zero-mobile {
         background-image: url('/static/svg/phone/0.svg');
-        top: calc(7.5% + 24px);
+        top: calc(#{$mobile-handle} + #{$mobile-content-gutter} + #{$mobile-poster-year-zero-offset});
         right: 0px;
         
         width: 142px;
         height: 95px;
+
+        @media only screen and (min-width: 768px) {
+            background-image: url('/static/svg/tablet/0.svg');
+
+            width: 303px;
+            height: 224px;
+
+            top: calc(#{$mobile-handle} + #{$mobile-content-gutter} + 20px);
+
+            transform: scale(0.8);
+            transform-origin: 100% 50%;
+        }
+
+        @media only screen and (min-width: 1024px) {
+            background-image: url('/static/svg/tablet/0.svg');
+
+            width: 303px;
+            height: 224px;
+
+            top: calc(#{$tablet-handle} + #{$tablet-content-gutter} + #{$tablet-poster-year-zero-offset});
+
+            transform: scale(1);
+        }
+
+        @media screen and (min-width: 1280px) {
+            background-image: url('/static/svg/desktop/0.svg');
+
+            width: 385px;
+            height: 285px;
+        }
     }
     .one-mobile {
         background-image: url('/static/svg/phone/1.svg');
-        bottom: calc(7.5% + 13px);
+        bottom: calc(#{$mobile-handle} + #{$mobile-content-gutter} + #{$mobile-poster-year-one-offset});
         left: 0;
 
         width: 117px;
         height: 91px;
+
+        @media only screen and (min-width: 768px) {
+            background-image: url('/static/svg/tablet/1.svg');
+
+            width: 253px;
+            height: 215px;
+
+            bottom: calc(#{$tablet-handle} + #{$tablet-content-gutter});
+
+            transform: scale(0.8);
+            transform-origin: 0 50%;
+        }
+
+        @media only screen and (min-width: 1024px) {
+            background-image: url('/static/svg/tablet/1.svg');
+
+            width: 253px;
+            height: 215px;
+
+            bottom: calc(#{$tablet-handle} + #{$tablet-content-gutter} + #{$tablet-poster-year-one-offset});
+
+            transform: scale(1);
+        }
+
+        @media screen and (min-width: 1280px) {
+            background-image: url('/static/svg/desktop/1.svg');
+
+            width: 295px;
+            height: 275px;
+        }
     }
     .five-mobile {
         background-image: url('/static/svg/phone/5.svg');
         bottom: 0;
-        right: calc(11% + 22px);
+
+        right: calc(#{$mobile-handle} + #{$mobile-content-gutter} + #{$mobile-poster-year-five-offset});
 
         width: 84px;
         height: 155px;
+
+        @media only screen and (min-width: 768px) {
+            background-image: url('/static/svg/tablet/5.svg');
+
+            width: 200px;
+            height: 319px;
+
+            right: calc(#{$tablet-handle} + #{$tablet-content-gutter} + #{$lg-mobile-year-five-offset});
+
+            transform: scale(0.8);
+            transform-origin: 50% 100%;
+        }
+
+        @media only screen and (min-width: 1024px) {
+            background-image: url('/static/svg/tablet/5.svg');
+
+            width: 200px;
+            height: 319px;
+
+            right: calc(#{$tablet-handle} + #{$tablet-content-gutter} + #{$tablet-poster-year-five-offset});
+
+            transform: scale(1);
+        }
+
+        @media screen and (min-width: 1280px) {
+            background-image: url('/static/svg/desktop/5.svg');
+
+            width: 252px;
+            height: 406px;
+        }
     }
 
 
@@ -90,6 +282,10 @@ $red: rgb(240, 83, 103);
 
 
 
+// Large red box with
+// "2015"
+// knocked out of the red background.
+// ------
 .poster-risd {
     z-index: 2;
 
@@ -106,36 +302,34 @@ $red: rgb(240, 83, 103);
 
     font-size: 16px;
 
-    background-blend-mode: multiply;
     mix-blend-mode: multiply;
 
     article {
         position: absolute;
         box-sizing: border-box;
 
-        // 320-(36*2)
-        // 248
-        // 248/320
-        // 0.78
-        width: 78%;
-        // 320-(24*2)
-        // 272
-        // 272/320
-        // 0.85
-        height: 85%;
-
-        top: 7.5%;
-        bottom: 7.5%;
-        left: 11%;
-        right: 11%;
-
         padding: 0;
         margin: 0;
 
         background-color: $red;
 
-        background-blend-mode: multiply;
-        mix-blend-mode: multiply;
+        width: calc(100% - #{$mobile-combined-handle-gutter});
+        height: calc(100% - #{$mobile-combined-handle-gutter});
+
+        top: calc(#{$mobile-handle} + #{$mobile-content-gutter});
+        bottom: calc(#{$mobile-handle} + #{$mobile-content-gutter});
+        left: calc(#{$mobile-handle} + #{$mobile-content-gutter});
+        right: calc(#{$mobile-handle} + #{$mobile-content-gutter});
+
+        @media screen and (min-width: 768px) {
+            width: calc(100% - #{$tablet-combined-handle-gutter});
+            height: calc(100% - #{$tablet-combined-handle-gutter});
+
+            top: calc(#{$tablet-handle} + #{$tablet-content-gutter});
+            bottom: calc(#{$tablet-handle} + #{$tablet-content-gutter});
+            left: calc(#{$tablet-handle} + #{$tablet-content-gutter});
+            right: calc(#{$tablet-handle} + #{$tablet-content-gutter});            
+        }
     }
 
     .r-mobile,
@@ -143,29 +337,112 @@ $red: rgb(240, 83, 103);
     .s-mobile,
     .d-mobile {
         position: absolute;
-        background-blend-mode: normal;
     }
 
     .r-mobile {
         background-image: url('/static/svg/phone/R.svg');
-        top: 0;
+        top: -1px;
         left: 0;
         width: 109px;
         height: 137px;
+
+        @media only screen and (min-width: 768px) {
+            background-image: url('/static/svg/tablet/R.svg');
+
+            width: 256px;
+            height: 325px;
+
+            left: $lg-mobile-year-two-offset;
+
+            transform: scale(0.8);
+            transform-origin: 50% 0;
+        }
+
+        @media only screen and (min-width: 1024px) {
+            background-image: url('/static/svg/tablet/R.svg');
+
+            width: 256px;
+            height: 325px;
+
+            left: 242px;
+
+            transform: scale(1);
+        }
+
+        @media screen and (min-width: 1280px) {
+            background-image: url('/static/svg/desktop/R.svg');
+
+            width: 295px;
+            height: 376px;
+        }
     }
     .i-mobile {
         background-image: url('/static/svg/phone/I.svg');
-        top: 0;
-        right: 0;
+        top: -1px;
+        right: 20px;
         width: 101px;
         height: 126px;
+
+        @media only screen and (min-width: 768px) {
+            background-image: url('/static/svg/tablet/I.svg');
+
+            width: 237px;
+            height: 299px;
+
+            transform: scale(0.8);
+            transform-origin: 50% 0;
+        }
+
+        @media only screen and (min-width: 1024px) {
+            background-image: url('/static/svg/tablet/I.svg');
+
+            width: 237px;
+            height: 299px;
+
+            transform: scale(1);
+        }
+
+        @media screen and (min-width: 1280px) {
+            background-image: url('/static/svg/desktop/I.svg');
+
+            width: 273px;
+            height: 345px;
+
+            right: 54px;
+        }
     }
     .s-mobile {
         background-image: url('/static/svg/phone/S.svg');
         bottom: 0;
-        left: 0;
+        left: 20px;
         width: 97px;
         height: 118px;
+
+        @media only screen and (min-width: 768px) {
+            background-image: url('/static/svg/tablet/S.svg');
+
+            width: 230px;
+            height: 281px;
+
+            transform: scale(0.8);
+            transform-origin: 50% 100%;
+        }
+
+        @media only screen and (min-width: 1024px) {
+            background-image: url('/static/svg/tablet/S.svg');
+
+            width: 230px;
+            height: 281px;
+
+            transform: scale(1);
+        }
+
+        @media screen and (min-width: 1280px) {
+            background-image: url('/static/svg/desktop/S.svg');
+
+            width: 264px;
+            height: 323px;
+        }
     }
     .d-mobile {
         background-image: url('/static/svg/phone/D.svg');
@@ -173,10 +450,43 @@ $red: rgb(240, 83, 103);
         right: 0;
         width: 109px;
         height: 124px;
+
+        @media only screen and (min-width: 768px) {
+            background-image: url('/static/svg/tablet/D.svg');
+
+            width: 257px;
+            height: 294px;
+
+            right: $lg-mobile-year-five-offset;
+
+            transform: scale(0.8);
+            transform-origin: 50% 100%;
+        }
+
+        @media only screen and (min-width: 1024px) {
+            background-image: url('/static/svg/tablet/D.svg');
+
+            width: 257px;
+
+            right: 213px;
+
+            transform: scale(1);
+        }
+
+        @media screen and (min-width: 1280px) {
+            background-image: url('/static/svg/desktop/D.svg');
+
+            width: 294px;
+            height: 338px;
+        }
     }
 }
 
 
+// Large red box with
+// "2015"
+// knocked out of the red background.
+// ------
 .poster-show-name {
     z-index: 3;
 
@@ -191,17 +501,23 @@ $red: rgb(240, 83, 103);
     top: 0;
     left: 0;
 
-    // background-color: $white;
-
     article {
         display: flex;
         flex-flow: column wrap;
-        justify-content:center;
+        justify-content: center;
 
         height: 100%;
+
+        @media screen and (min-width: 768px) {
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
     }
 
     h1 {
+        background-color: transparent;
         color: $grey;
         z-index: 3;
 
@@ -209,42 +525,156 @@ $red: rgb(240, 83, 103);
         text-align: left;
 
         text-transform: uppercase;
-        margin-top: 0.4em;
-        margin-bottom: 0.4em;
+        margin-top: 0;
+        margin-bottom: 0;
+
+        cursor: default;
+
+        // 37pt per chrome
+        font: {
+            family: 'Founders Grotesk Bold', sans-serif;
+            size: 49.3333320617676px;
+        }
+        letter-spacing: -0.3px;
+        line-height: 0.9em;
+
+        @media screen and (min-width: 768px) {
+            // 57pt per chrome
+            font-size: 53px;
+            letter-spacing: -0.3px;
+
+            display: inline-block;
+            position: absolute;
+        }
+
+        @media screen and (min-width: 1024px) {
+            // 57pt per chrome
+            font-size: 76px;
+            letter-spacing: -0.3px;   
+        }
+
+        @media screen and (min-width: 1280px) {
+            // 60pt per chrome
+            font-size: 80px;
+            letter-spacing: -0.3px;   
+        }
     }
 
     .risd {
+        // flex-direction: column;
         width: 60%;
         margin-left: 40%;
+
+        @media screen and (min-width: 768px) {
+            width: 0;
+            margin-left: 0;
+            top: calc(#{$mobile-single-handle-gutter} + 104px);
+            left: calc(#{$mobile-single-handle-gutter} + 40px);
+        }
+
+        @media screen and (min-width: 1024px) {
+            top: calc(#{$tablet-single-handle-gutter} + 104px);
+            left: calc(#{$tablet-single-handle-gutter} + 43px);
+        }
+
+        @media screen and (min-width: 1280px) {
+            top: calc(#{$tablet-single-handle-gutter} + 154px);
+            left: calc(#{$tablet-single-handle-gutter} + 33px);
+        }
     }
     .grad {
-        width: 80%;
-        margin-left: 20%;
+        width: 85%;
+        margin-left: 15%;
+
+        @media screen and (min-width: 768px) {
+            width: 0;
+            margin-left: 0;
+            left: calc(#{$mobile-single-handle-gutter} + 252px);
+            bottom: calc(#{$mobile-single-handle-gutter} + 147px);
+        }
+
+        @media screen and (min-width: 1024px) {
+            left: calc(#{$mobile-single-handle-gutter} + 335px);
+            bottom: calc(#{$mobile-single-handle-gutter} + 171px);
+        }
+
+        @media screen and (min-width: 1280px) {
+            left: calc(#{$mobile-single-handle-gutter} + 380px);
+            bottom: calc(#{$mobile-single-handle-gutter} + 171px);
+        }
     }
     .show {
-        width: 45%;
-        margin-left: 55%;
+        width: 55%;
+        margin-left: 45%;
+
+        @media screen and (min-width: 768px) {
+            width: 0;
+            margin-left: 0;
+            right: calc(#{$mobile-single-handle-gutter} + 365px);
+            top: calc(#{$mobile-single-handle-gutter} + 200px);
+        }
+
+        @media screen and (min-width: 1024px) {
+            right: calc(#{$mobile-single-handle-gutter} + 480px);
+            top: calc(#{$mobile-single-handle-gutter} + 240px);
+        }
+
+        @media screen and (min-width: 1280px) {
+            right: calc(#{$mobile-single-handle-gutter} + 610px);
+            top: calc(#{$mobile-single-handle-gutter} + 270px);
+        }
     }
     .year {
         width: 70%;
         margin-left: 30%;
+
+        @media screen and (min-width: 768px) {
+            width: 0;
+            margin-left: 0;
+            right: calc(#{$mobile-single-handle-gutter} + 151px);
+            bottom: calc(#{$mobile-single-handle-gutter} + 60px);
+        }
+
+        @media screen and (min-width: 1024px) {
+            right: calc(#{$mobile-single-handle-gutter} + 225px);
+            bottom: calc(#{$mobile-single-handle-gutter} + 70px);
+        }
+
+        @media screen and (min-width: 1280px) {
+            
+        }
     }
 }
 
+@mixin slide-in-transition {
+    transition-property: left, right;
+    transition-delay: 0;
+    transition-duration: 0.26s;
+    transition-timing-function: ease-in-out;
+}
+
 @mixin slide-in {
+    @include slide-in-transition;
+
     z-index: 4;
 
     font: {
-        family: "Founders Grotesk Text Bold", sans-serif;
+        family: 'Founders Grotesk Bold', sans-serif;
         size: 14pt;
         // line-height: 17pt; ???
         weight: normal;
     }
 
     position: fixed;
-    // 24/320*100
-    top: 7.5%;
-    bottom: 7.5%;
+    top: $mobile-single-handle-gutter;
+    bottom: $mobile-single-handle-gutter;
+    width: calc(100% - #{$mobile-single-handle-gutter});
+    height: calc(100% - #{$mobile-combined-handle-gutter});
+
+    @media screen and (min-width: 768px) {
+        top: calc(#{$tablet-handle} + #{$tablet-content-gutter});
+        bottom: $tablet-combined-handle-gutter;
+    }
 
     overflow-x: hidden;
 }
@@ -252,29 +682,78 @@ $red: rgb(240, 83, 103);
 @mixin slide-in-background {
     @include slide-in;
 
-    width: 92.50%;
+    transition-property: left, right;
+    transition-delay: 0;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+
+    width: calc(100% - #{$mobile-single-handle-gutter});
+    height: calc(100% - #{$mobile-combined-handle-gutter});
+
+    @media screen and (min-width: 768px) {
+        width: calc(100% - #{$tablet-single-handle-gutter});
+        height: calc(100% - #{$tablet-combined-handle-gutter});
+    }
 }
 
 @mixin slide-in-foreground {
     @include slide-in;
+
+    cursor: pointer;
+
+    article {
+        display: flex;
+        flex: 1 0 auto;
+        flex-flow: column wrap;
+        justify-content: center;        
+
+        height: 100%;
+        overflow-y: scroll;
+
+        section {
+            flex: initial;
+        }
+
+        p {
+            color: $white;
+            @include type--body;
+        }
+
+        a {
+            text-decoration: none;
+            color: $white;
+            // border-bottom: 1px solid white;
+        }
+
+        @media screen and (min-width: 768px) {
+            width: calc(100% - #{$tablet-foreground-total-margin});
+            height: calc(100% - #{$tablet-combined-handle-gutter});        
+        }
+    }
 }
 
 .statement-background {
     @include slide-in-background;
 
-    // 88.75%
-
     &.inActive {
-        // (320-24)/320*100
-        right: 92.50%;
+        right: calc(100% - #{$mobile-handle});
+
+        @media screen and (min-width: 768px) {
+            right: calc(100% - #{$tablet-handle});
+        }
     }
     &.active {
-        right: 11%;
+        right: $mobile-single-handle-gutter;
+
+        @media screen and (min-width: 768px) {
+            right: $tablet-single-handle-gutter;
+        }
     }
 
     mix-blend-mode: multiply;
 
     .handle {
+        mix-blend-mode: normal;
         background-color: $blue;
 
         position: absolute;
@@ -284,40 +763,68 @@ $red: rgb(240, 83, 103);
 
         // ((320-36)-24)/(320-36)*100
         width: 100%;
-
-        .label {
-            position: absolute;
-            top: 43%;
-            right: -42px;
-            transform: rotate(-90deg);
-        }
-        p {
-            text-transform: uppercase;
-        }
-    }
-
-    a {
-        text-decoration: none;
-        color: $grey;
     }
 }
 .statement-foreground {
     @include slide-in-foreground;
-    width: 67.50%;
+    
     &.inActive {
-        // (320-24)/320*100
-        right: 103.50%;
+        right: calc(100% - #{$mobile-handle});
+
+        @media screen and (min-width: 768px) {
+            right: calc(100% - #{$tablet-handle});
+        }
     }
     &.active {
-        right: 18%;
+        right: $mobile-single-handle-gutter;
+
+        @media screen and (min-width: 768px) {
+            right: $tablet-single-handle-gutter;
+        }
+    }
+
+    section {
+        padding-left: 0;
+        padding-right: 0;
+
+        @media screen and (min-width: 900px) {
+            padding-left: 10%;
+            padding-right: 10%;
+        }
+        @media screen and (min-width: 1000px) {
+            padding-left: 15%;
+            padding-right: 15%;
+        }
+        @media screen and (min-width: 1200px) {
+            padding-left: 20%;
+            padding-right: 20%;
+        }
+        @media screen and (min-width: 1300px) {
+            padding-left: 30%;
+            padding-right: 30%;
+        }
     }
     article {
-        mix-blend-mode: normal;
+        width: calc(100% - #{$mobile-single-handle-gutter} - #{$mobile-content-gutter} - #{$mobile-content-gutter} - #{$mobile-handle});
+        margin-left: calc(#{$mobile-single-handle-gutter} + #{$mobile-content-gutter});
 
+        @media screen and (min-width: 768px) {
+            width: calc(100% - #{$tablet-single-handle-gutter} - #{$tablet-content-gutter} - #{$tablet-content-gutter} - #{$tablet-handle} - #{$tablet-handle});
+            margin-left: calc(#{$tablet-single-handle-gutter} + #{$tablet-content-gutter} + #{$tablet-handle});
+        }
+    }
+    .label {
         position: absolute;
-        width: 81.5%;
+        top: 50%;
+        right: 0;
         p {
-            color: $white;
+            margin: 0;
+            transform: translateX(38%) translateY(-50%) rotate(-90deg);
+            @include type--handle;
+
+            @media screen and (min-width: 768px) {
+                transform: translateX(31%) translateY(-50%) rotate(-90deg);
+            }
         }
     }
 }
@@ -325,12 +832,18 @@ $red: rgb(240, 83, 103);
     @include slide-in-background;
     
     &.inActive {
-        // (320-24)/320*100
-        // 92.50
-        left: 92.50%;
+        left: calc(100% - #{$mobile-handle});
+
+        @media screen and (min-width: 768px) {
+            left: calc(100% - #{$tablet-handle});
+        }
     }
     &.active {
-        left: 11%;
+        left: #{$mobile-single-handle-gutter};
+
+        @media screen and (min-width: 768px) {
+            left: #{$tablet-single-handle-gutter};
+        }
     }
 
     mix-blend-mode: multiply;
@@ -338,46 +851,106 @@ $red: rgb(240, 83, 103);
     .handle {
         background-color: $blue;
 
-        
-
         position: absolute;
         top: 0;
         left: 0;
         height: 100%;
-        // ((320-36)-24)/(320-36)*100
         width: 100%;
-        .label {
-            position: absolute;
-            top: 42%;
-            left: -51px;
-            transform: rotate(90deg);
-        }
-        p {
-            text-transform: uppercase;
-        }
-    }
-
-    a {
-        text-decoration: none;
-        color: $grey;
     }
 }
 .info-foreground {
     @include slide-in-foreground;
-    width: 67%;
+
     &.inActive {
-        left: 103.50%;
+        left: calc(100% - #{$mobile-handle});
+
+        @media screen and (min-width: 768px) {
+            left: calc(100% - #{$tablet-handle});
+        }
     }
     &.active {
-        left: 20%;
+        left: #{$mobile-single-handle-gutter};
+
+        @media screen and (min-width: 768px) {
+            left: #{$tablet-single-handle-gutter};
+        }
     }
     article {
         mix-blend-mode: normal;
 
+        section {
+            height: 100%;
+        }
+
+        width: calc(100% - #{$mobile-single-handle-gutter} - #{$mobile-content-gutter} - #{$mobile-content-gutter} - #{$mobile-handle} - #{$mobile-single-handle-gutter});
+        margin-left: $mobile-single-handle-gutter;
+
+        @media screen and (min-width: 768px) {
+            width: calc(100% - #{$tablet-single-handle-gutter} - #{$tablet-content-gutter} - #{$tablet-content-gutter} - #{$tablet-handle} - #{$tablet-single-handle-gutter});
+            margin-left: $tablet-single-handle-gutter;
+        }
+    }
+    .label {
         position: absolute;
-        width: 100%;
+        top: 45.5%;
+        left: 0;
+
         p {
-            color: $white;
+            margin: 0;
+            transform: translateX(-40%) translateY(50%) rotate(90deg);
+            @include type--handle;
+
+            @media screen and (min-width: 768px) {
+                transform: translateX(-34%) translateY(50%) rotate(90deg);
+            }
+        }
+    }
+    .first, .second, .third {
+        @media screen and (min-width: 1024px) {
+            display: block;
+        }
+    }
+    .first {
+        @media screen and (min-width: 1024px) {
+            p {
+                width: 49%;
+            }
+        }
+        @media screen and (min-width: 1280px) {
+            p {
+                max-width: 400px;
+                margin-left: calc(100% - 49% - 400px);
+            }
+        }
+    }
+    .second {
+        @media screen and (min-width: 1024px) {
+            p {
+                width: 49%;
+                display: inline-block;
+            }
+        }
+        @media screen and (min-width: 1280px) {
+            p {
+                max-width: 400px;
+                margin-left: calc(100% - 49% - 400px);
+            }
+            p:last-child {
+                margin-left: 0;
+            }
+        }
+    }
+    .third {
+        @media screen and (min-width: 1024px) {
+            p {
+                width: 49%;
+                margin-left: 51%;
+            }
+        }
+        @media screen and (min-width: 1024px) {
+            p {
+                max-width: 400px;
+            }
         }
     }
 }

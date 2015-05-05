@@ -1,3 +1,5 @@
+var through = require('through2');
+
 var Poster = require('./poster.js')('.poster');
 var Info = require('./information.js')('.info');
 var Statement = require('./statement.js')('.statement');
@@ -8,9 +10,9 @@ var router = Router();
 router.addRoute('/', function () {
     console.log('route: /');
 
-    Info.inActive();
+    Info.setInActive();
     
-    Statement.inActive();
+    Statement.setInActive();
     
     routeClicks();
 });
@@ -18,9 +20,9 @@ router.addRoute('/', function () {
 router.addRoute('/info', function () {
     console.log('route: /info');
     
-    Info.active();
+    Info.setActive();
     
-    Statement.inActive();
+    Statement.setInActive();
     
     routeClicks();
 });
@@ -28,9 +30,9 @@ router.addRoute('/info', function () {
 router.addRoute('/statement', function () {
     console.log('route: /info');
     
-    Statement.active();
+    Statement.setActive();
 
-    Info.inActive();
+    Info.setInActive();
     
     routeClicks();
 });
@@ -57,6 +59,27 @@ router.addRoute('/statement', function () {
 
 })(window.location.pathname);
 
+var toggleHandleStateStream = toggleHandleState();
+
+Info.clicked().pipe(toggleHandleStateStream);
+Statement.clicked().pipe(toggleHandleStateStream);
+
+
+function toggleHandleState () {
+    return through.obj(toggle);
+
+    function toggle (row, enc, next) {
+        var href = '/';
+        if (row.active === false) {
+            href += row.name;
+        }
+        var route = router.match(href);
+        route.fn.apply(window, [route]);
+        window.history.pushState('', '', href);
+
+        next();
+    }
+}
 
 function routeClicks () {
     var base = window.location.host;

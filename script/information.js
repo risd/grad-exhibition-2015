@@ -6,26 +6,46 @@ function Information (selector) {
     if (!(this instanceof Information)) return new Information(selector);
     if (!selector) throw new Error('Requires selector.');
 
+    this.name = 'info';
+    this.active = false;
     this.selector = selector;
     this.background = document.querySelector(selector + '-background');
     this.foreground = document.querySelector(selector + '-foreground');
-    this.anchor = this.background.querySelector('a');
 }
 
-Information.prototype.inActive = function () {
+Information.prototype.setInActive = function () {
     var self = this;
-    this.anchor.href = '/info';
+    this.active = false;
     this.background.classList.add('inActive');
     this.foreground.classList.add('inActive');
     this.background.classList.remove('active');
     this.foreground.classList.remove('active');
 };
 
-Information.prototype.active = function () {
+Information.prototype.setActive = function () {
     var self = this;
-    this.anchor.href = '/';
+    this.active = true;
     this.background.classList.add('active');
     this.foreground.classList.add('active');
     this.background.classList.remove('inActive');
     this.foreground.classList.remove('inActive');
+};
+
+Information.prototype.clicked = function () {
+    var self = this;
+    var eventStream = through.obj();
+
+    this.foreground
+        .addEventListener('click', toggle, false);
+
+    function toggle (ev) {
+        if (!(ev.target.classList.contains('external-link'))) {
+            eventStream.push({
+                name: self.name,
+                active: self.active
+            });
+        }
+    }
+
+    return eventStream;
 };

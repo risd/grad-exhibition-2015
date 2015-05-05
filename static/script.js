@@ -6843,6 +6843,8 @@ module.exports.obj = through2(function (options, transform, flush) {
 
 }).call(this,require('_process'))
 },{"_process":9,"readable-stream/transform":34,"util":24,"xtend":35}],37:[function(require,module,exports){
+var through = require('through2');
+
 var Poster = require('./poster.js')('.poster');
 var Info = require('./information.js')('.info');
 var Statement = require('./statement.js')('.statement');
@@ -6853,9 +6855,9 @@ var router = Router();
 router.addRoute('/', function () {
     console.log('route: /');
 
-    Info.inActive();
+    Info.setInActive();
     
-    Statement.inActive();
+    Statement.setInActive();
     
     routeClicks();
 });
@@ -6863,9 +6865,9 @@ router.addRoute('/', function () {
 router.addRoute('/info', function () {
     console.log('route: /info');
     
-    Info.active();
+    Info.setActive();
     
-    Statement.inActive();
+    Statement.setInActive();
     
     routeClicks();
 });
@@ -6873,9 +6875,9 @@ router.addRoute('/info', function () {
 router.addRoute('/statement', function () {
     console.log('route: /info');
     
-    Statement.active();
+    Statement.setActive();
 
-    Info.inActive();
+    Info.setInActive();
     
     routeClicks();
 });
@@ -6902,6 +6904,27 @@ router.addRoute('/statement', function () {
 
 })(window.location.pathname);
 
+var toggleHandleStateStream = toggleHandleState();
+
+Info.clicked().pipe(toggleHandleStateStream);
+Statement.clicked().pipe(toggleHandleStateStream);
+
+
+function toggleHandleState () {
+    return through.obj(toggle);
+
+    function toggle (row, enc, next) {
+        var href = '/';
+        if (row.active === false) {
+            href += row.name;
+        }
+        var route = router.match(href);
+        route.fn.apply(window, [route]);
+        window.history.pushState('', '', href);
+
+        next();
+    }
+}
 
 function routeClicks () {
     var base = window.location.host;
@@ -6938,7 +6961,7 @@ function routeClicks () {
 	    else return findAnchor(el.parentNode);
 	}
 }
-},{"./information.js":38,"./poster.js":39,"./statement.js":40,"routes":25}],38:[function(require,module,exports){
+},{"./information.js":38,"./poster.js":39,"./statement.js":40,"routes":25,"through2":36}],38:[function(require,module,exports){
 var through = require('through2');
 
 module.exports = Information;
@@ -6947,28 +6970,48 @@ function Information (selector) {
     if (!(this instanceof Information)) return new Information(selector);
     if (!selector) throw new Error('Requires selector.');
 
+    this.name = 'info';
+    this.active = false;
     this.selector = selector;
     this.background = document.querySelector(selector + '-background');
     this.foreground = document.querySelector(selector + '-foreground');
-    this.anchor = this.background.querySelector('a');
 }
 
-Information.prototype.inActive = function () {
+Information.prototype.setInActive = function () {
     var self = this;
-    this.anchor.href = '/info';
+    this.active = false;
     this.background.classList.add('inActive');
     this.foreground.classList.add('inActive');
     this.background.classList.remove('active');
     this.foreground.classList.remove('active');
 };
 
-Information.prototype.active = function () {
+Information.prototype.setActive = function () {
     var self = this;
-    this.anchor.href = '/';
+    this.active = true;
     this.background.classList.add('active');
     this.foreground.classList.add('active');
     this.background.classList.remove('inActive');
     this.foreground.classList.remove('inActive');
+};
+
+Information.prototype.clicked = function () {
+    var self = this;
+    var eventStream = through.obj();
+
+    this.foreground
+        .addEventListener('click', toggle, false);
+
+    function toggle (ev) {
+        if (!(ev.target.classList.contains('external-link'))) {
+            eventStream.push({
+                name: self.name,
+                active: self.active
+            });
+        }
+    }
+
+    return eventStream;
 };
 
 },{"through2":36}],39:[function(require,module,exports){
@@ -6992,28 +7035,45 @@ function Statement (selector) {
     if (!(this instanceof Statement)) return new Statement(selector);
     if (!selector) throw new Error('Requires selector.');
 
+    this.name = 'statement';
+    this.active = false;
     this.selector = selector;
     this.background = document.querySelector(selector + '-background');
     this.foreground = document.querySelector(selector + '-foreground');
-    this.anchor = this.background.querySelector('a');
 }
 
-Statement.prototype.inActive = function () {
+Statement.prototype.setInActive = function () {
     var self = this;
-    this.anchor.href = '/statement';
+    this.active = false;
     this.background.classList.add('inActive');
     this.foreground.classList.add('inActive');
     this.background.classList.remove('active');
     this.foreground.classList.remove('active');
 };
 
-Statement.prototype.active = function () {
+Statement.prototype.setActive = function () {
     var self = this;
-    this.anchor.href = '/';
+    this.active = true;
     this.background.classList.add('active');
     this.foreground.classList.add('active');
     this.background.classList.remove('inActive');
     this.foreground.classList.remove('inActive');
 };
 
+Statement.prototype.clicked = function () {
+    var self = this;
+    var eventStream = through.obj();
+
+    this.foreground
+        .addEventListener('click', toggle, false);
+
+    function toggle (ev) {
+        eventStream.push({
+            name: self.name,
+            active: self.active
+        });
+    }
+
+    return eventStream;
+};
 },{"through2":36}]},{},[37]);

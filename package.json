@@ -1,15 +1,16 @@
 {
   "name": "risd-grad-thesis-exhibition-2015",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.",
   "main": "script/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-js": "browserify script/index.js -o static/script.js",
     "build-css": "node-sass style/site.scss static/style.css",
-    "watch-js": "watchify script/index.js -o static/script.js",
+    "watch-js": "watchify script/index.js -o static/script.js -v",
     "watch-css": "watch 'node-sass style/site.scss static/site.css  && autoprefixer -o static/site.css static/site.css' style/",
-    "dev": "nf --procfile Procfile.dev start"
+    "dev": "nf --procfile Procfile.dev start",
+    "deploy": "make package && ./bin/deploy.js && make clean"
   },
   "repository": {
     "type": "git",
@@ -23,11 +24,16 @@
   "homepage": "https://github.com/risd/grad-exhibition-2015",
   "dependencies": {
     "autoprefixer": "^5.1.1",
+    "aws-sdk": "^2.1.26",
     "browserify": "^10.0.0",
     "d3": "^3.5.5",
+    "from2-array": "0.0.3",
+    "git-rev": "^0.2.1",
+    "minimist": "^1.1.1",
     "node-sass": "^2.1.1",
     "request": "^2.55.0",
     "routes": "^2.0.0",
+    "s3": "^4.4.0",
     "through2": "^0.6.5"
   },
   "devDependencies": {
