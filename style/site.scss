@@ -699,6 +699,8 @@ $tablet-poster-year-five-offset: 250px;
 @mixin slide-in-foreground {
     @include slide-in;
 
+    cursor: pointer;
+
     article {
         display: flex;
         flex: 1 0 auto;
@@ -878,10 +880,6 @@ $tablet-poster-year-five-offset: 250px;
 
         section {
             height: 100%;
-
-            @media screen and (min-width: 800px) {
-                
-            }
         }
 
         width: calc(100% - #{$mobile-single-handle-gutter} - #{$mobile-content-gutter} - #{$mobile-content-gutter} - #{$mobile-handle} - #{$mobile-single-handle-gutter});
@@ -904,6 +902,54 @@ $tablet-poster-year-five-offset: 250px;
 
             @media screen and (min-width: 768px) {
                 transform: translateX(-34%) translateY(50%) rotate(90deg);
+            }
+        }
+    }
+    .first, .second, .third {
+        @media screen and (min-width: 1024px) {
+            display: block;
+        }
+    }
+    .first {
+        @media screen and (min-width: 1024px) {
+            p {
+                width: 49%;
+            }
+        }
+        @media screen and (min-width: 1280px) {
+            p {
+                max-width: 400px;
+                margin-left: calc(100% - 49% - 400px);
+            }
+        }
+    }
+    .second {
+        @media screen and (min-width: 1024px) {
+            p {
+                width: 49%;
+                display: inline-block;
+            }
+        }
+        @media screen and (min-width: 1280px) {
+            p {
+                max-width: 400px;
+                margin-left: calc(100% - 49% - 400px);
+            }
+            p:last-child {
+                margin-left: 0;
+            }
+        }
+    }
+    .third {
+        @media screen and (min-width: 1024px) {
+            p {
+                width: 49%;
+                margin-left: 51%;
+            }
+        }
+        @media screen and (min-width: 1024px) {
+            p {
+                max-width: 400px;
             }
         }
     }

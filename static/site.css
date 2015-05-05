@@ -1178,7 +1178,8 @@ h1 {
   bottom: 36px;
   width: calc(100% - 36px);
   height: calc(100% - 72px);
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  cursor: pointer; }
   @media screen and (min-width: 768px) {
     .statement-foreground {
       top: calc(50px + 12px);
@@ -1356,7 +1357,8 @@ h1 {
   bottom: 36px;
   width: calc(100% - 36px);
   height: calc(100% - 72px);
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  cursor: pointer; }
   @media screen and (min-width: 768px) {
     .info-foreground {
       top: calc(50px + 12px);
@@ -1443,3 +1445,30 @@ h1 {
           -webkit-transform: translateX(-34%) translateY(50%) rotate(90deg);
               -ms-transform: translateX(-34%) translateY(50%) rotate(90deg);
                   transform: translateX(-34%) translateY(50%) rotate(90deg); } }
+  @media screen and (min-width: 1024px) {
+    .info-foreground .first, .info-foreground .second, .info-foreground .third {
+      display: block; } }
+  @media screen and (min-width: 1024px) {
+    .info-foreground .first p {
+      width: 49%; } }
+  @media screen and (min-width: 1280px) {
+    .info-foreground .first p {
+      max-width: 400px;
+      margin-left: calc(100% - 49% - 400px); } }
+  @media screen and (min-width: 1024px) {
+    .info-foreground .second p {
+      width: 49%;
+      display: inline-block; } }
+  @media screen and (min-width: 1280px) {
+    .info-foreground .second p {
+      max-width: 400px;
+      margin-left: calc(100% - 49% - 400px); }
+    .info-foreground .second p:last-child {
+      margin-left: 0; } }
+  @media screen and (min-width: 1024px) {
+    .info-foreground .third p {
+      width: 49%;
+      margin-left: 51%; } }
+  @media screen and (min-width: 1024px) {
+    .info-foreground .third p {
+      max-width: 400px; } }
