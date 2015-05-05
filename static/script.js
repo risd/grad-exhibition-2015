@@ -6882,7 +6882,6 @@ router.addRoute('/statement', function () {
     routeClicks();
 });
 
-
 (function initialize (href) {
 
     routeClicks();
@@ -6897,7 +6896,7 @@ router.addRoute('/statement', function () {
                 };
 
     ga.l = +new Date;
-    ga('create', 'UA-59960857-1', 'auto');
+    ga('create', 'UA-2285370-24', 'auto');
     ga('set', 'forceSSL', true);
     ga('set', 'page', href);
     ga('send', 'pageview');
@@ -6910,6 +6909,24 @@ Info.clicked().pipe(toggleHandleStateStream);
 Statement.clicked().pipe(toggleHandleStateStream);
 
 
+var base = window.location.host;
+
+window.onpopstate = function (event) {
+    var target = window.location;
+    var href = target.href.split(base)[1];
+    window.history.pushState({href: href}, '', href);
+
+    var route = router.match(href);
+    route.fn.apply(window, [route]);
+
+    if (ga) {
+        ga('set', 'page', href);
+        ga('send', 'pageview');
+    }
+
+    return false;  
+};
+
 function toggleHandleState () {
     return through.obj(toggle);
 
@@ -6920,14 +6937,13 @@ function toggleHandleState () {
         }
         var route = router.match(href);
         route.fn.apply(window, [route]);
-        window.history.pushState('', '', href);
+        window.history.pushState({href: href}, '', href);
 
         next();
     }
 }
 
 function routeClicks () {
-    var base = window.location.host;
 
     var links = document.getElementsByTagName('a');
 
@@ -6943,7 +6959,7 @@ function routeClicks () {
         event.preventDefault();
         var target = findAnchor(event.target);
         var href = target.href.split(base)[1];
-        window.history.pushState('', '', href);
+        window.history.pushState({href: href}, '', href);
 
         var route = router.match(href);
         route.fn.apply(window, [route]);
