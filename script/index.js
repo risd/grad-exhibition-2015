@@ -52,7 +52,7 @@ router.addRoute('/statement', function () {
                 };
 
     ga.l = +new Date;
-    ga('create', 'UA-59960857-1', 'auto');
+    ga('create', 'UA-2285370-24', 'auto');
     ga('set', 'forceSSL', true);
     ga('set', 'page', href);
     ga('send', 'pageview');
