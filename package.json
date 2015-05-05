@@ -1,6 +1,6 @@
 {
   "name": "risd-grad-thesis-exhibition-2015",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.",
   "main": "script/index.js",
   "scripts": {
