@@ -53960,7 +53960,9 @@ function Work (selector) {
     this.container = document.querySelector(selector);
     this.packery = new Packery(this.container, {
             itemSelector: '.piece',
-            gutter: 10
+            columnWidth: '.piece',
+            percentPosition: true
+            // gutter: 10
         });
 
     this.s3 = 'https://risdgradshow2015.s3.amazonaws.com/';
@@ -53989,6 +53991,7 @@ Work.prototype.get = function() {
     from.obj([self.link.meta])
         .pipe(GetMetadata())
         .pipe(GetProjects())
+        .pipe(Transform())
         .pipe(Render());
 
     return eventStream;
@@ -54125,13 +54128,19 @@ Work.prototype.get = function() {
 
         function rndr (project, enc, next) {
             var toRender = hyperglue(template, {
-                    '[class=student-name]': project.owners[0].display_name,
+                    '[class=student-name]': project.student_name,
                     '[class=risd-program]': project.risd_program
                 });
-            self.container.appendChild(toRender);
-            self.packery.appended(toRender);
-            self.packery.layout();
-            next();
+
+            var cover_image = toRender.querySelector('img');
+            cover_image.src = project.cover.src;
+            var appended = self.container.appendChild(toRender);
+
+            cover_image.addEventListener('load', function () {
+                self.packery.appended(toRender);
+                self.packery.layout();
+                next();
+            });
         }
     }
 };
@@ -54147,5 +54156,10 @@ function shuffle (o) {
         x = o[--i], o[i] = o[j], o[j] = x);
     return o;
 }
+
+function escape_department(d) {
+    return d.toLowerCase().replace(/ /g, '-');
+}
+
 }).call(this,require("buffer").Buffer)
 },{"buffer":17,"corslite":192,"from2":193,"hyperglue":204,"packery":208,"request":220,"through2":317}]},{},[318]);

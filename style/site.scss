@@ -958,11 +958,29 @@ $tablet-poster-year-five-offset: 250px;
 }
 
 .work {
-    margin: 0;
     padding: 0;
     position: relative;
+
     margin-top: 100vh;
+    margin-bottom: $mobile-combined-handle-gutter;
+    margin-left: $mobile-single-handle-gutter;
+    margin-right: $mobile-single-handle-gutter;
+
+    @media screen and (min-width: 768px) {
+        margin-bottom: $tablet-combined-handle-gutter;
+        margin-left: $tablet-single-handle-gutter;
+        margin-right: $tablet-single-handle-gutter;
+    }
+
     box-sizing: border-box;
 
     z-index: 3;
+
+    .piece {
+        width: calc(100% - #{$mobile-combined-handle-gutter});
+
+        @media screen and (min-width: 768px) {
+            width: calc(100% - 30% - #{$tablet-combined-handle-gutter});
+        }
+    }
 }

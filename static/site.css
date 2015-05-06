@@ -1476,9 +1476,21 @@ h1 {
       margin-left: 51%; } }
 
 .work {
-  margin: 0;
   padding: 0;
   position: relative;
   margin-top: 100vh;
+  margin-bottom: 72px;
+  margin-left: 36px;
+  margin-right: 36px;
   box-sizing: border-box;
   z-index: 3; }
+  @media screen and (min-width: 768px) {
+    .work {
+      margin-bottom: 124px;
+      margin-left: 62px;
+      margin-right: 62px; } }
+  .work .piece {
+    width: calc(100% - 72px); }
+    @media screen and (min-width: 768px) {
+      .work .piece {
+        width: calc(100% - 30% - 124px); } }
