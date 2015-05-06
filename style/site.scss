@@ -956,3 +956,13 @@ $tablet-poster-year-five-offset: 250px;
         }
     }
 }
+
+.work {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    margin-top: 100vh;
+    box-sizing: border-box;
+
+    z-index: 3;
+}

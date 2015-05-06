@@ -38,9 +38,16 @@ router.addRoute('/statement', function () {
     routeClicks();
 });
 
-(function initialize (href) {
 
-    Work.list();
+var toggleHandleStateStream = toggleHandleState();
+
+Info.clicked().pipe(toggleHandleStateStream);
+Statement.clicked().pipe(toggleHandleStateStream);
+
+Work.get();
+
+
+(function initialize (href) {
     routeClicks();
 
     var route = router.match(href);
@@ -59,11 +66,6 @@ router.addRoute('/statement', function () {
     ga('send', 'pageview');
 
 })(window.location.pathname);
-
-var toggleHandleStateStream = toggleHandleState();
-
-Info.clicked().pipe(toggleHandleStateStream);
-Statement.clicked().pipe(toggleHandleStateStream);
 
 
 var base = window.location.host;

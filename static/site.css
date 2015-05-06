@@ -1474,3 +1474,11 @@ h1 {
     .info-foreground .third p {
       max-width: 400px;
       margin-left: 51%; } }
+
+.work {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  margin-top: 100vh;
+  box-sizing: border-box;
+  z-index: 3; }
