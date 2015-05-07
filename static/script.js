@@ -53919,7 +53919,7 @@ var through = require('through2');
 
 var hyperglue = require('hyperglue');
 var lightboxTemplate =
-        Buffer("PGRpdiBjbGFzcz0ibGlnaHRib3gtd3JhcHBlciI+CiAgICA8ZGl2IGNsYXNzPSJuYW1lLXRhZyI+CiAgICAgICAgPHAgY2xhc3M9InN0dWRlbnQtbmFtZSI+PC9wPgogICAgICAgIDxwIGNsYXNzPSJyaXNkLXByb2dyYW0iPjwvcD4KICAgIDwvZGl2PgogICAgPGRpdiBjbGFzcz0iY2xvc2UiPjwvZGl2PgoJPHVsIGNsYXNzPSJ3ZWJzaXRlcyI+CgkJPGxpIGNsYXNzPSJ3ZWJzaXRlIj4KCQkJPGEgaHJlZj0iIj48L2E+CgkJPC9saT4KCTwvdWw+Cgk8ZGl2IGNsYXNzPSJwcm9qZWN0Ij4KCQk8cCBjbGFzcz0ibmFtZSI+PC9wPgoJCTxwIGNsYXNzPSJkZXNjcmlwdGlvbiI+PC9wPgoJCTxkaXYgY2xhc3M9Im1vZHVsZXMiPjwvZGl2PgoJPC9kaXY+CjwvZGl2Pg==","base64")
+        Buffer("PGRpdiBjbGFzcz0ibGlnaHRib3gtd3JhcHBlciI+CiAgICA8ZGl2IGNsYXNzPSJuYW1lLXRhZyI+CiAgICAgICAgPHAgY2xhc3M9InN0dWRlbnQtbmFtZSI+PC9wPgogICAgICAgIDxwIGNsYXNzPSJyaXNkLXByb2dyYW0iPjwvcD4KICAgIDwvZGl2PgogICAgPGRpdiBjbGFzcz0iY2xvc2UiPjxwPng8L3A+PC9kaXY+Cgk8dWwgY2xhc3M9IndlYnNpdGVzIj4KCQk8bGkgY2xhc3M9IndlYnNpdGUiPgoJCQk8YSBocmVmPSIiPjwvYT4KCQk8L2xpPgoJPC91bD4KCTxkaXYgY2xhc3M9InByb2plY3QiPgoJCTxwIGNsYXNzPSJuYW1lIj48L3A+CgkJPHAgY2xhc3M9ImRlc2NyaXB0aW9uIj48L3A+CgkJPGRpdiBjbGFzcz0ibW9kdWxlcyI+PC9kaXY+Cgk8L2Rpdj4KPC9kaXY+","base64")
           .toString();
 
 
@@ -53948,6 +53948,7 @@ function Lightbox (selector) {
 }
 
 Lightbox.prototype.setActive = function (project) {
+    var self = this;
     var modules = project.modules.map(function (module) {
             return module;
         });
@@ -53967,6 +53968,11 @@ Lightbox.prototype.setActive = function (project) {
 
     this.container.innerHTML = '';
     var appeneded = this.container.appendChild(toRender);
+    appeneded
+        .querySelector('.close')
+        .addEventListener('click', function () {
+            self.closeStream.push({});
+        });
     
     this.container.classList.remove('inActive');
     this.container.classList.add('active');
@@ -54097,14 +54103,19 @@ function Work (selector) {
 
 Work.prototype.projectForKey = function (id) {
     var self = this;
+    console.log('projectforkey');
+    console.log(id);
+    console.log(self.projects);
     var needle =
         self.projects.filter(function (project) {
+            console.log(projectKey(project));
             return id === projectKey(project);
         });
-    console.log()
     if (needle.length === 1) {
+        console.log('found!');
         this.projectForKeyStream.push(needle[0]);
     } else {
+        console.log('not found!');
         var stream = this;
 
         cors(self.link.project(id), function (err, res) {
@@ -54196,7 +54207,7 @@ Work.prototype.populate = function() {
                     // via the projectForKey entry
                     // so it might not need to be
                     // added to the projects list
-                    var notIn = body.objects.filter(function (d) {
+                    var toAdd = body.objects.filter(function (d) {
                         var add = true;
 
                         self.projects.forEach(function (project) {
@@ -54208,7 +54219,10 @@ Work.prototype.populate = function() {
                         return add;
                     });
 
-                    self.projects.concat(notIn);
+                    self.projects = self.projects.concat(toAdd);
+                    console.log('getting projects');
+                    console.log(toAdd);
+                    console.log(self.projects);
 
                 } else {
                     console.log(err);

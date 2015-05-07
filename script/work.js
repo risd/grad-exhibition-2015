@@ -49,14 +49,19 @@ function Work (selector) {
 
 Work.prototype.projectForKey = function (id) {
     var self = this;
+    console.log('projectforkey');
+    console.log(id);
+    console.log(self.projects);
     var needle =
         self.projects.filter(function (project) {
+            console.log(projectKey(project));
             return id === projectKey(project);
         });
-    console.log()
     if (needle.length === 1) {
+        console.log('found!');
         this.projectForKeyStream.push(needle[0]);
     } else {
+        console.log('not found!');
         var stream = this;
 
         cors(self.link.project(id), function (err, res) {
@@ -148,7 +153,7 @@ Work.prototype.populate = function() {
                     // via the projectForKey entry
                     // so it might not need to be
                     // added to the projects list
-                    var notIn = body.objects.filter(function (d) {
+                    var toAdd = body.objects.filter(function (d) {
                         var add = true;
 
                         self.projects.forEach(function (project) {
@@ -160,7 +165,10 @@ Work.prototype.populate = function() {
                         return add;
                     });
 
-                    self.projects.concat(notIn);
+                    self.projects = self.projects.concat(toAdd);
+                    console.log('getting projects');
+                    console.log(toAdd);
+                    console.log(self.projects);
 
                 } else {
                     console.log(err);

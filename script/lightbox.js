@@ -35,6 +35,7 @@ function Lightbox (selector) {
 }
 
 Lightbox.prototype.setActive = function (project) {
+    var self = this;
     var modules = project.modules.map(function (module) {
             return module;
         });
@@ -54,6 +55,11 @@ Lightbox.prototype.setActive = function (project) {
 
     this.container.innerHTML = '';
     var appeneded = this.container.appendChild(toRender);
+    appeneded
+        .querySelector('.close')
+        .addEventListener('click', function () {
+            self.closeStream.push({});
+        });
     
     this.container.classList.remove('inActive');
     this.container.classList.add('active');

@@ -1510,8 +1510,9 @@ h1 {
 
 .lightbox {
   position: fixed;
-  width: calc(100% - 72px);
-  margin-left: 36px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   height: 100vh;
   overflow-y: scroll;
   background-color: white;
@@ -1523,7 +1524,8 @@ h1 {
   .lightbox.inActive {
     top: 100vh; }
   .lightbox .lightbox-wrapper {
-    width: 100%;
+    width: calc(100% - 72px);
+    margin-left: 36px;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;

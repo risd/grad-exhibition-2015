@@ -998,8 +998,9 @@ $tablet-poster-year-five-offset: 250px;
 
 .lightbox {
     position: fixed;
-    width: calc(100% - #{$mobile-combined-handle-gutter});
-    margin-left: $mobile-single-handle-gutter;
+    width: 100%;
+    margin: 0;
+    padding: 0;
     height: 100vh;
     overflow-y: scroll;
     background-color: $white;
@@ -1015,7 +1016,8 @@ $tablet-poster-year-five-offset: 250px;
         top: 100vh;
     }
     .lightbox-wrapper {
-        width: 100%;
+        width: calc(100% - #{$mobile-combined-handle-gutter});
+        margin-left: $mobile-single-handle-gutter;
         display: flex;
         flex-flow: row wrap;
     }
