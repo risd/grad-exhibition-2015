@@ -338,7 +338,7 @@ function SyncDirectory (localDir) {
     return through.obj(sync);
 
     function sync (conf, enc, next) {
-        console.log('Syncing .build directory with S3');
+        console.log('Syncing .dist directory with S3');
         var self = this;
         var params = {
             localDir: localDir,

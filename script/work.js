@@ -50,11 +50,10 @@ function Work (selector) {
 Work.prototype.projectForKey = function (id) {
     var self = this;
     console.log('projectforkey');
-    console.log(id);
-    console.log(self.projects);
+    console.log(typeof id);
     var needle =
         self.projects.filter(function (project) {
-            console.log(projectKey(project));
+            console.log(typeof projectKey(project));
             return id === projectKey(project);
         });
     if (needle.length === 1) {
@@ -98,7 +97,6 @@ Work.prototype.populate = function() {
     return from.obj([self.link.meta])
         .pipe(GetMetadata())
         .pipe(GetProjects())
-        .pipe(Transform())
         .pipe(Render());
 
     function GetMetadata () {
@@ -153,17 +151,22 @@ Work.prototype.populate = function() {
                     // via the projectForKey entry
                     // so it might not need to be
                     // added to the projects list
-                    var toAdd = body.objects.filter(function (d) {
-                        var add = true;
+                    body.objects = body.objects
+                        .map(behanceSchemaTransform);
 
-                        self.projects.forEach(function (project) {
-                            if (projectKey(project) === projectKey(d)) {
-                                add = false;
-                            }
+                    var toAdd = 
+                        body.objects
+                        .filter(function (d) {
+                            var add = true;
+
+                            self.projects.forEach(function (project) {
+                                if (projectKey(project) === projectKey(d)) {
+                                    add = false;
+                                }
+                            });
+
+                            return add;
                         });
-
-                        return add;
-                    });
 
                     self.projects = self.projects.concat(toAdd);
                     console.log('getting projects');
@@ -182,17 +185,6 @@ Work.prototype.populate = function() {
                     });
                 next();
             });
-        }
-    }
-
-    function Transform () {
-        return through.obj(trnsfrm);
-
-        function trnsfrm (project, enc, next) {
-            var formatted = behanceSchemaTransform(project);
-
-            this.push(formatted);
-            next();
         }
     }
 
@@ -286,7 +278,7 @@ function behanceSchemaTransform (project) {
 }
 
 function projectKey (project) {
-    return project.id;
+    return project.id + '';
 }
 
 function shuffle (o) {

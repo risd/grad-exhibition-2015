@@ -30,6 +30,7 @@
     "corslite": "0.0.6",
     "d3": "^3.5.5",
     "from2": "^1.3.0",
+    "from2-array": "0.0.3",
     "git-rev": "^0.2.1",
     "html-template": "^1.2.1",
     "hyperglue": "^2.0.1",
