@@ -19,13 +19,6 @@ function Lightbox (selector) {
 
     this.container = document.querySelector(selector);
 
-    this.openStream = through.obj(function open (project, enc, next) {
-        console.log('lightbox.open');
-        console.log(project);
-        self.setActive(project);
-        this.push(project);
-        next();
-    });
     this.closeStream = through.obj(function close (row, enc, next) {
         console.log('lightbox.close');
         this.push(row);
@@ -33,6 +26,20 @@ function Lightbox (selector) {
         next();
     });
 }
+
+Lightbox.prototype.setActiveStream = function () {
+    var self = this;
+
+    return through.obj(open);
+
+    function open (project, enc, next) {
+        console.log('lightbox.open');
+        console.log(project);
+        self.setActive(project);
+        this.push(project);
+        next();
+    }
+};
 
 Lightbox.prototype.setActive = function (project) {
     var self = this;

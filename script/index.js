@@ -45,7 +45,7 @@ router.addRoute('/work/:id', function (opts) {
     console.log('route: /work');
     console.log(opts.params.id);
 
-    Work.projectForKey(opts.params.id)
+    Work.projectForKey(opts.params.id);
         
 
     Statement.setInActive();
@@ -60,7 +60,7 @@ Info.clicked().pipe(toggleHandleStateStream);
 Statement.clicked().pipe(toggleHandleStateStream);
 
 Work.projectForKeyStream
-    .pipe(Lightbox.openStream);
+    .pipe(Lightbox.setActiveStream());
 
 Lightbox.closeStream
     .pipe(through.obj(function (row, enc, next) {
@@ -69,6 +69,7 @@ Lightbox.closeStream
 
         var route = router.match(href);
         route.fn.apply(window, [route]);
+        next();
     }));
 
 Work.populate()
