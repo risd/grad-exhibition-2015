@@ -54030,7 +54030,8 @@ Lightbox.prototype.setActive = function (project) {
         '.website': [
             { 'a': { name: 'Behance URL',
                      href: project.url,
-                     _text: 'Behance Site' } }
+                     _text: 'Behance Site',
+                     'class': 'external-link' } }
         ],
         '.project .name': project.project_name,
         '.description': project.description
