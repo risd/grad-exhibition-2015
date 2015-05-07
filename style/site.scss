@@ -1038,13 +1038,20 @@ body {
     }
     .lightbox-wrapper {
         width: calc(100% - #{$mobile-combined-handle-gutter});
+        height: calc(100% - #{mobile-combined-handle-gutter});
         margin-left: $mobile-single-handle-gutter;
+        margin-top: $mobile-single-handle-gutter;
+        
+        overflow-y: scroll;
+
         display: flex;
         flex-flow: row wrap;
 
         @media screen and (min-width: 768px) {
             width: calc(100% - #{$tablet-combined-handle-gutter});
+            height: calc(100% - #{tablet-combined-handle-gutter});
             margin-left: $tablet-single-handle-gutter;
+            margin-top: $tablet-single-handle-gutter;
         }
     }
     p,
@@ -1055,14 +1062,29 @@ body {
     a {
         text-decoration: none;
     }
+    // .name-tag,
+    // .close,
+    // .project {
+    //     flex: 1 auto;
+    // }
     .name-tag,
     .close,
-    .websites,
     .project {
-        flex: 1 auto;
+        flex: initial;
     }
+
     .name-tag {
+        margin-top: 0;
         width: 90%;
+
+        * {
+            width: calc(100% - #{$mobile-content-gutter});
+        }
+
+        @media screen and (min-width: 768px) {
+            width: 15%;
+            order: 1;
+        }
     }
     .close {
         width: 10%;
@@ -1072,10 +1094,18 @@ body {
             font-size: 3em;
             margin-top: 1rem;
         }
+
+        @media screen and (min-width: 768px) {
+            width: 5%;
+            order: 3;
+        }
     }
-    .websites,
     .project {
         width: 100%;
+        @media screen and (min-width: 768px) {
+            width: 80%;
+            order: 2;
+        }
     }
     .websites {
         margin: 0;
