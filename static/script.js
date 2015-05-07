@@ -53760,18 +53760,10 @@ Lightbox.closeStream
     }))
     .pipe(scrollBody());
 
-Work.populate()
-    .pipe(through.obj(function (row, enc, next) {
-        row.el.addEventListener('click', function (ev) {
-            var href = '/work/' + row.data.id;
-            window.history.pushState({href: href}, '', href);
-
-            var route = router.match(href);
-            route.fn.apply(window, [route]);
-        });
-        this.push(row);
-        next();
-    }));
+Work.fetchMeta()
+    .pipe(Work.fetchProjects())
+    .pipe(Work.renderStream())
+    .pipe(WorkInteraction());
 
 
 (function initialize (href) {
@@ -53862,6 +53854,25 @@ function routeClicks () {
 	    if (el.nodeName === 'A') return el;
 	    else return findAnchor(el.parentNode);
 	}
+}
+
+function WorkInteraction () {
+    return through({ objectMode: true,
+                     allowHalfOpen: true},
+                   interact);
+
+    function interact (row, enc, next) {
+        console.log(row);
+        row.el.addEventListener('click', function (ev) {
+            var href = '/work/' + row.data.id;
+            window.history.pushState({href: href}, '', href);
+
+            var route = router.match(href);
+            route.fn.apply(window, [route]);
+        });
+        this.push(row);
+        next();
+    }
 }
 
 function scrollBody () {
@@ -54239,13 +54250,62 @@ Work.prototype.projectForKey = function (id) {
     }
 };
 
-Work.prototype.populate = function() {
+Work.prototype.fetchProjects = function () {
+    var self = this;
+    return through.obj(projects);
+
+    function projects (projectURL, enc, next) {
+        console.log('GetProjects');
+        var stream = this;
+        cors(projectURL, function (err, res) {
+            var body = { objects: [] };
+            if (!err && res.status === 200) {
+                body =
+                    JSON.parse(res.responseText);
+
+                // a project could have been added
+                // via the projectForKey entry
+                // so it might not need to be
+                // added to the projects list
+                body.objects = body.objects
+                    .map(behanceSchemaTransform);
+
+                var toAdd = 
+                    body.objects
+                    .filter(function (d) {
+                        var add = true;
+
+                        self.projects.forEach(function (project) {
+                            if (projectKey(project) === projectKey(d)) {
+                                add = false;
+                            }
+                        });
+
+                        return add;
+                    });
+
+                self.projects = self.projects.concat(toAdd);
+
+            } else {
+                console.log(err);
+                console.log(res.status);
+            }
+            // all objects need thumbnails
+            // this is the pipeline for that
+            shuffle(body.objects)
+                .forEach(function (project) {
+                    stream.push(project);
+                });
+            next();
+        });
+    }
+};
+
+Work.prototype.fetchMeta = function() {
     var self = this;
 
     return from.obj([self.link.meta])
-        .pipe(GetMetadata())
-        .pipe(GetProjects())
-        .pipe(Render());
+        .pipe(GetMetadata());
 
     function GetMetadata () {
         return through.obj(meta);
@@ -54277,88 +54337,40 @@ Work.prototype.populate = function() {
                     .forEach(function (page) {
                         stream.push(page);
                     });
-                stream.push(null);
                 next();
             }
         }
     }
+};
 
-    function GetProjects () {
-        return through.obj(projects);
+Work.prototype.renderStream = function () {
+    var self = this;
 
-        function projects (projectURL, enc, next) {
-            console.log('GetProjects');
-            var stream = this;
-            cors(projectURL, function (err, res) {
-                var body = { objects: [] };
-                if (!err && res.status === 200) {
-                    body =
-                        JSON.parse(res.responseText);
+    return through.obj(rndr);
 
-                    // a project could have been added
-                    // via the projectForKey entry
-                    // so it might not need to be
-                    // added to the projects list
-                    body.objects = body.objects
-                        .map(behanceSchemaTransform);
+    function rndr (project, enc, next) {
+        console.log('render');
+        var stream = this;
 
-                    var toAdd = 
-                        body.objects
-                        .filter(function (d) {
-                            var add = true;
-
-                            self.projects.forEach(function (project) {
-                                if (projectKey(project) === projectKey(d)) {
-                                    add = false;
-                                }
-                            });
-
-                            return add;
-                        });
-
-                    self.projects = self.projects.concat(toAdd);
-
-                } else {
-                    console.log(err);
-                    console.log(res.status);
-                }
-                // all objects need thumbnails
-                // this is the pipeline for that
-                shuffle(body.objects)
-                    .forEach(function (project) {
-                        stream.push(project);
-                    });
-                next();
+        var toRender = hyperglue(pieceTemplate, {
+                '[class=student-name]': project.student_name,
+                '[class=risd-program]': project.risd_program
             });
-        }
-    }
 
-    function Render () {
-        return through.obj(rndr);
+        var cover_image = toRender.querySelector('img');
+        cover_image.src = project.cover.src;
+        var appended = self.container.appendChild(toRender);
+        appended.style.visibility = 'hidden';
 
-        function rndr (project, enc, next) {
-            var stream = this;
+        cover_image.addEventListener('load', function () {
+            self.packery.appended(toRender);
+            self.packery.layout();
+            
+            appended.style.visibility = 'visible';
 
-            var toRender = hyperglue(pieceTemplate, {
-                    '[class=student-name]': project.student_name,
-                    '[class=risd-program]': project.risd_program
-                });
-
-            var cover_image = toRender.querySelector('img');
-            cover_image.src = project.cover.src;
-            var appended = self.container.appendChild(toRender);
-            appended.style.visibility = 'hidden';
-
-            cover_image.addEventListener('load', function () {
-                self.packery.appended(toRender);
-                self.packery.layout();
-                
-                appended.style.visibility = 'visible';
-
-                stream.push({ el: appended, data: project });
-                next();
-            });
-        }
+            stream.push({ el: appended, data: project });
+            next();
+        });
     }
 };
 

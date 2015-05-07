@@ -76,18 +76,10 @@ Lightbox.closeStream
     }))
     .pipe(scrollBody());
 
-Work.populate()
-    .pipe(through.obj(function (row, enc, next) {
-        row.el.addEventListener('click', function (ev) {
-            var href = '/work/' + row.data.id;
-            window.history.pushState({href: href}, '', href);
-
-            var route = router.match(href);
-            route.fn.apply(window, [route]);
-        });
-        this.push(row);
-        next();
-    }));
+Work.fetchMeta()
+    .pipe(Work.fetchProjects())
+    .pipe(Work.renderStream())
+    .pipe(WorkInteraction());
 
 
 (function initialize (href) {
@@ -178,6 +170,25 @@ function routeClicks () {
 	    if (el.nodeName === 'A') return el;
 	    else return findAnchor(el.parentNode);
 	}
+}
+
+function WorkInteraction () {
+    return through({ objectMode: true,
+                     allowHalfOpen: true},
+                   interact);
+
+    function interact (row, enc, next) {
+        console.log(row);
+        row.el.addEventListener('click', function (ev) {
+            var href = '/work/' + row.data.id;
+            window.history.pushState({href: href}, '', href);
+
+            var route = router.match(href);
+            route.fn.apply(window, [route]);
+        });
+        this.push(row);
+        next();
+    }
 }
 
 function scrollBody () {
