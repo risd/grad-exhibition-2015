@@ -54133,8 +54133,8 @@ Nav.prototype.render = function () {
     return through.obj(rndr);
 
     function rndr (departments, enc, next) {
-        self.departments = departments;
-        var links = departments
+        self.departments = ['All'].concat(departments);
+        var links = self.departments
             .map(function (department) {
                 return {
                     a: {

@@ -1479,7 +1479,6 @@ body.no-scroll {
 .work {
   padding: 0;
   position: relative;
-  margin-top: 100vh;
   margin-bottom: 72px;
   margin-left: 36px;
   margin-right: 36px;
@@ -1637,13 +1636,37 @@ body.no-scroll {
   .lightbox .module-text, .lightbox .module-image, .lightbox .module-embed {
     margin: 12px 0; }
 
-nav a {
-  color: #f05367;
-  -webkit-font-smoothing: antialiased;
-  font-family: 'Founders Grotesk Bold', sans-serif;
-  font-size: 15pt;
-  line-height: 17pt;
-  text-decoration: none; }
-  @media screen and (min-width: 768px) {
-    nav a {
-      font-size: 17.6pt; } }
+nav {
+  position: relative;
+  margin-top: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%; }
+  @media screen and (min-width: 1280px) {
+    nav {
+      width: 45%; } }
+  nav ul {
+    text-align: center; }
+  nav li {
+    display: inline-block; }
+  nav a {
+    color: #f05367;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Founders Grotesk Bold', sans-serif;
+    font-size: 15pt;
+    line-height: 17pt;
+    text-decoration: none; }
+    @media screen and (min-width: 768px) {
+      nav a {
+        font-size: 17.6pt; } }
+    nav a:after {
+      position: relative;
+      display: inline-block;
+      margin-left: 6px;
+      margin-right: 6px;
+      content: '|';
+      color: #b5b5b5; }
+  nav li:last-child a:after {
+    display: none;
+    content: "";
+    margin: 0; }

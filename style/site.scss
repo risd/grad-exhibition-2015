@@ -967,7 +967,6 @@ body {
     padding: 0;
     position: relative;
 
-    margin-top: 100vh;
     margin-bottom: $mobile-combined-handle-gutter;
     margin-left: $mobile-single-handle-gutter;
     margin-right: $mobile-single-handle-gutter;
@@ -1147,9 +1146,45 @@ body {
 }
 
 nav {
+    position: relative;
+
+    margin-top: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+
+    width: 100%;
+
+    @media screen and (min-width: 1280px) {
+        // 520/1280
+        // 0.41
+        width: 45%;
+    }
+
+
+    ul {
+        text-align: center;
+    }
+    li {
+        display: inline-block;
+    }
     a {
         color: $red;
         @include type--body;
         text-decoration: none;
+        &:after {
+            position: relative;
+            display: inline-block;
+            margin-left: 6px;
+            margin-right: 6px;
+            content: '|';
+            color: $grey;
+        }
+    }
+    li:last-child {
+        a:after {
+            display: none;
+            content: "";
+            margin: 0;
+        }
     }
 }
