@@ -53762,7 +53762,7 @@ Lightbox.closeStream
 
 Work.fetchMeta()
     .pipe(Work.fetchProjects())
-    .pipe(Work.renderStream())
+    .pipe(Work.render())
     .pipe(WorkInteraction());
 
 
@@ -53862,7 +53862,6 @@ function WorkInteraction () {
                    interact);
 
     function interact (row, enc, next) {
-        console.log(row);
         row.el.addEventListener('click', function (ev) {
             var href = '/work/' + row.data.id;
             window.history.pushState({href: href}, '', href);
@@ -53955,7 +53954,7 @@ var through = require('through2');
 
 var hyperglue = require('hyperglue');
 var lightboxTemplate =
-        Buffer("PGRpdiBjbGFzcz0ibGlnaHRib3gtd3JhcHBlciI+CiAgICA8ZGl2IGNsYXNzPSJuYW1lLXRhZyI+CiAgICAJPHA+CiAgICAJCTxzcGFuIGNsYXNzPSJzdHVkZW50LW5hbWUiPjwvc3Bhbj48YnIgLz4KCQkgICAgPHNwYW4gY2xhc3M9InJpc2QtcHJvZ3JhbSI+PC9zcGFuPgogICAgCTwvcD4KICAgIDwvZGl2PgogICAgPGRpdiBjbGFzcz0iY2xvc2UiPjxwPng8L3A+PC9kaXY+Cgk8dWwgY2xhc3M9IndlYnNpdGVzIj4KCQk8bGkgY2xhc3M9IndlYnNpdGUiPgoJCQk8YSBocmVmPSIiPjwvYT4KCQk8L2xpPgoJPC91bD4KCTxkaXYgY2xhc3M9InByb2plY3QiPgoJCTxwIGNsYXNzPSJuYW1lIj48L3A+CgkJPHAgY2xhc3M9ImRlc2NyaXB0aW9uIj48L3A+CgkJPGRpdiBjbGFzcz0ibW9kdWxlcyI+PC9kaXY+Cgk8L2Rpdj4KPC9kaXY+","base64")
+        Buffer("PGRpdiBjbGFzcz0ibGlnaHRib3gtd3JhcHBlciI+CiAgICA8ZGl2IGNsYXNzPSJuYW1lLXRhZyI+CiAgICAJPHA+CiAgICAJCTxzcGFuIGNsYXNzPSJzdHVkZW50LW5hbWUiPjwvc3Bhbj48YnIgLz4KCQkgICAgPHNwYW4gY2xhc3M9InJpc2QtcHJvZ3JhbSI+PC9zcGFuPgogICAgCTwvcD4KICAgIAk8dWwgY2xhc3M9IndlYnNpdGVzIj4KCQkJPGxpIGNsYXNzPSJ3ZWJzaXRlIj4KCQkJCTxhIGhyZWY9IiI+PC9hPgoJCQk8L2xpPgoJCTwvdWw+CiAgICA8L2Rpdj4KICAgIDxkaXYgY2xhc3M9ImNsb3NlIj48cD54PC9wPjwvZGl2PgoJPGRpdiBjbGFzcz0icHJvamVjdCI+CgkJPHAgY2xhc3M9Im5hbWUiPjwvcD4KCQk8cCBjbGFzcz0iZGVzY3JpcHRpb24iPjwvcD4KCQk8ZGl2IGNsYXNzPSJtb2R1bGVzIj48L2Rpdj4KCTwvZGl2Pgo8L2Rpdj4=","base64")
           .toString();
 var behanceImageTemplate =
         Buffer("PGRpdiBjbGFzcz0ibW9kdWxlLWltYWdlIj4KICAgIDxpbWcgc3JjPSIiIGFsdD0iIj4KPC9kaXY+","base64")
@@ -54343,13 +54342,12 @@ Work.prototype.fetchMeta = function() {
     }
 };
 
-Work.prototype.renderStream = function () {
+Work.prototype.render = function () {
     var self = this;
 
     return through.obj(rndr);
 
     function rndr (project, enc, next) {
-        console.log('render');
         var stream = this;
 
         var toRender = hyperglue(pieceTemplate, {

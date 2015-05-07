@@ -78,7 +78,7 @@ Lightbox.closeStream
 
 Work.fetchMeta()
     .pipe(Work.fetchProjects())
-    .pipe(Work.renderStream())
+    .pipe(Work.render())
     .pipe(WorkInteraction());
 
 
@@ -178,7 +178,6 @@ function WorkInteraction () {
                    interact);
 
     function interact (row, enc, next) {
-        console.log(row);
         row.el.addEventListener('click', function (ev) {
             var href = '/work/' + row.data.id;
             window.history.pushState({href: href}, '', href);

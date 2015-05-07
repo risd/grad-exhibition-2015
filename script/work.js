@@ -183,13 +183,12 @@ Work.prototype.fetchMeta = function() {
     }
 };
 
-Work.prototype.renderStream = function () {
+Work.prototype.render = function () {
     var self = this;
 
     return through.obj(rndr);
 
     function rndr (project, enc, next) {
-        console.log('render');
         var stream = this;
 
         var toRender = hyperglue(pieceTemplate, {
