@@ -1636,3 +1636,14 @@ body.no-scroll {
         max-width: 550px; } }
   .lightbox .module-text, .lightbox .module-image, .lightbox .module-embed {
     margin: 12px 0; }
+
+nav a {
+  color: #f05367;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Founders Grotesk Bold', sans-serif;
+  font-size: 15pt;
+  line-height: 17pt;
+  text-decoration: none; }
+  @media screen and (min-width: 768px) {
+    nav a {
+      font-size: 17.6pt; } }

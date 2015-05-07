@@ -53687,6 +53687,7 @@ var through = require('through2');
 var Poster = require('./poster.js')('.poster');
 var Info = require('./information.js')('.info');
 var Statement = require('./statement.js')('.statement');
+var Nav = require('./nav.js')('nav');
 var Work = require('./work.js')('.work');
 var Lightbox = require('./lightbox.js')('.lightbox');
 
@@ -53742,6 +53743,8 @@ var toggleHandleStateStream = toggleHandleState();
 
 Info.clicked().pipe(toggleHandleStateStream);
 Statement.clicked().pipe(toggleHandleStateStream);
+Nav.clicked()
+    .pipe(Work.filter());
 
 Work.projectForKeyStream
     .pipe(Lightbox.setActiveStream())
@@ -53760,10 +53763,17 @@ Lightbox.closeStream
     }))
     .pipe(scrollBody());
 
-Work.fetchMeta()
+var workMeta = Work.fetchMeta();
+
+workMeta
+    .pipe(Work.feedPages())
     .pipe(Work.fetchProjects())
     .pipe(Work.render())
     .pipe(WorkInteraction());
+
+workMeta
+    .pipe(Work.feedDepartments())
+    .pipe(Nav.render());
 
 
 (function initialize (href) {
@@ -53892,7 +53902,7 @@ function doNotScrollBody () {
     }
 }
 
-},{"./information.js":319,"./lightbox.js":320,"./poster.js":321,"./statement.js":322,"./work.js":323,"routes":306,"through2":317}],319:[function(require,module,exports){
+},{"./information.js":319,"./lightbox.js":320,"./nav.js":321,"./poster.js":322,"./statement.js":323,"./work.js":324,"routes":306,"through2":317}],319:[function(require,module,exports){
 var through = require('through2');
 
 module.exports = Information;
@@ -54094,6 +54104,72 @@ function projectKey (project) {
 
 }).call(this,require("buffer").Buffer)
 },{"buffer":17,"from2":193,"hyperglue":204,"through2":317}],321:[function(require,module,exports){
+(function (Buffer){
+
+
+var from = require('from2');
+var through = require('through2');
+
+var hyperglue = require('hyperglue');
+var template =
+        Buffer("PHNlY3Rpb24+Cgk8dWw+CgkJPGxpPjxhIGhyZWY9IiI+PC9hPjwvbGk+Cgk8L3VsPgkKPC9zZWN0aW9uPg==","base64")
+          .toString();
+
+module.exports = Nav;
+
+function Nav (selector) {
+    if (!(this instanceof Nav)) return new Nav(selector);
+    if (!selector) throw new Error('Requires selector.');
+    var self = this;
+
+    this.container = document.querySelector(selector);
+    this.departments = [];
+}
+
+Nav.prototype.render = function () {
+    var self = this;
+
+    return through.obj(rndr);
+
+    function rndr (departments, enc, next) {
+        self.departments = departments;
+        var links = departments
+            .map(function (department) {
+                return {
+                    a: {
+                        href:
+                            '/work/department/' +
+                            escape_department(
+                                department),
+                        _text: department
+                    }
+                };
+            });
+
+        var toRender =
+            hyperglue(template, { li: links });
+
+        self.container.appendChild(toRender);
+        next();
+    }
+};
+
+Nav.prototype.clicked = function () {
+    var self = this;
+    return through.obj(clckd);
+
+    function clckd (row, enc, next) {
+        console.log('clicked nav');
+    }
+};
+
+function escape_department(d) {
+    return d.toLowerCase().replace(/ /g, '-');
+}
+
+
+}).call(this,require("buffer").Buffer)
+},{"buffer":17,"from2":193,"hyperglue":204,"through2":317}],322:[function(require,module,exports){
 var through = require('through2');
 
 module.exports = Poster;
@@ -54105,7 +54181,7 @@ function Poster (selector) {
     this.selector = selector;
     this.el = document.querySelector(selector);
 }
-},{"through2":317}],322:[function(require,module,exports){
+},{"through2":317}],323:[function(require,module,exports){
 var through = require('through2');
 
 module.exports = Statement;
@@ -54155,7 +54231,7 @@ Statement.prototype.clicked = function () {
 
     return eventStream;
 };
-},{"through2":317}],323:[function(require,module,exports){
+},{"through2":317}],324:[function(require,module,exports){
 (function (Buffer){
 
 
@@ -54312,7 +54388,8 @@ Work.prototype.fetchMeta = function() {
         function meta (url, enc, next) {
             console.log('GetMetadata');
             var stream = this;
-            if (self.pages.length > 0) {
+            if (self.pages.length > 0 &&
+                self.included_departments.length > 0) {
                 feed();
             } else {
                 cors(url, function (err, res) {
@@ -54332,13 +54409,49 @@ Work.prototype.fetchMeta = function() {
             }
 
             function feed () {
-                shuffle(self.pages)
-                    .forEach(function (page) {
-                        stream.push(page);
-                    });
+                stream.push({
+                    included_departments: self.included_departments,
+                    pages: self.pages
+                });
                 next();
             }
         }
+    }
+};
+
+Work.prototype.feedPages = function () {
+    return through.obj(feed);
+
+    function feed (meta, enc, next) {
+        var stream = this;
+        shuffle(meta.pages)
+            .forEach(function (page) {
+                stream.push(page);
+            });
+        next();
+    }
+
+};
+
+Work.prototype.feedDepartments = function () {
+    return through.obj(feed);
+
+    function feed (meta, enc, next) {
+        this.push(meta.included_departments);
+        next();
+    }
+
+};
+
+Work.prototype.filter = function () {
+    var self = this;
+
+    return through.obj(fltr);
+
+    function fltr (department, enc, next) {
+        console.log(department);
+        this.push(department);
+        next();
     }
 };
 
@@ -54356,6 +54469,7 @@ Work.prototype.render = function () {
             });
 
         var cover_image = toRender.querySelector('img');
+        toRender.classList.add(project.risd_program_class);
         cover_image.src = project.cover.src;
         var appended = self.container.appendChild(toRender);
         appended.style.visibility = 'hidden';

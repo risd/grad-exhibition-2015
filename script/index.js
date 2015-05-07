@@ -3,6 +3,7 @@ var through = require('through2');
 var Poster = require('./poster.js')('.poster');
 var Info = require('./information.js')('.info');
 var Statement = require('./statement.js')('.statement');
+var Nav = require('./nav.js')('nav');
 var Work = require('./work.js')('.work');
 var Lightbox = require('./lightbox.js')('.lightbox');
 
@@ -58,6 +59,8 @@ var toggleHandleStateStream = toggleHandleState();
 
 Info.clicked().pipe(toggleHandleStateStream);
 Statement.clicked().pipe(toggleHandleStateStream);
+Nav.clicked()
+    .pipe(Work.filter());
 
 Work.projectForKeyStream
     .pipe(Lightbox.setActiveStream())
@@ -76,10 +79,17 @@ Lightbox.closeStream
     }))
     .pipe(scrollBody());
 
-Work.fetchMeta()
+var workMeta = Work.fetchMeta();
+
+workMeta
+    .pipe(Work.feedPages())
     .pipe(Work.fetchProjects())
     .pipe(Work.render())
     .pipe(WorkInteraction());
+
+workMeta
+    .pipe(Work.feedDepartments())
+    .pipe(Nav.render());
 
 
 (function initialize (href) {

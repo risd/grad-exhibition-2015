@@ -1145,3 +1145,11 @@ body {
         margin: $mobile-content-gutter 0;
     }
 }
+
+nav {
+    a {
+        color: $red;
+        @include type--body;
+        text-decoration: none;
+    }
+}

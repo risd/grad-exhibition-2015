@@ -153,7 +153,8 @@ Work.prototype.fetchMeta = function() {
         function meta (url, enc, next) {
             console.log('GetMetadata');
             var stream = this;
-            if (self.pages.length > 0) {
+            if (self.pages.length > 0 &&
+                self.included_departments.length > 0) {
                 feed();
             } else {
                 cors(url, function (err, res) {
@@ -173,13 +174,49 @@ Work.prototype.fetchMeta = function() {
             }
 
             function feed () {
-                shuffle(self.pages)
-                    .forEach(function (page) {
-                        stream.push(page);
-                    });
+                stream.push({
+                    included_departments: self.included_departments,
+                    pages: self.pages
+                });
                 next();
             }
         }
+    }
+};
+
+Work.prototype.feedPages = function () {
+    return through.obj(feed);
+
+    function feed (meta, enc, next) {
+        var stream = this;
+        shuffle(meta.pages)
+            .forEach(function (page) {
+                stream.push(page);
+            });
+        next();
+    }
+
+};
+
+Work.prototype.feedDepartments = function () {
+    return through.obj(feed);
+
+    function feed (meta, enc, next) {
+        this.push(meta.included_departments);
+        next();
+    }
+
+};
+
+Work.prototype.filter = function () {
+    var self = this;
+
+    return through.obj(fltr);
+
+    function fltr (department, enc, next) {
+        console.log(department);
+        this.push(department);
+        next();
     }
 };
 
@@ -197,6 +234,7 @@ Work.prototype.render = function () {
             });
 
         var cover_image = toRender.querySelector('img');
+        toRender.classList.add(project.risd_program_class);
         cover_image.src = project.cover.src;
         var appended = self.container.appendChild(toRender);
         appended.style.visibility = 'hidden';
