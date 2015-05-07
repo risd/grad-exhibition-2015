@@ -10,6 +10,8 @@ var Lightbox = require('./lightbox.js')('.lightbox');
 var Router = require('routes');
 var router = Router();
 
+var workMeta = Work.fetchMeta();
+
 router.addRoute('/', function () {
     console.log('route: /');
 
@@ -42,12 +44,31 @@ router.addRoute('/statement', function () {
     routeClicks();
 });
 
+router.addRoute('/work/department/:department', function (opts) {
+    console.log('route: /work/department');
+
+    var re = Work.rerenderForDepartmentFilter(opts.params.department);
+    if (re) {
+        Work.clear();
+        Work.list()
+            .pipe(Work.applyNavFilterToProjects())
+            .pipe(Work.render())
+            .pipe(WorkInteraction());
+    }
+
+    window.scrollTo(0, window.innerHeight);
+
+    Statement.setInActive();
+    Info.setInActive();
+
+    routeClicks();
+});
+
 router.addRoute('/work/:id', function (opts) {
     console.log('route: /work');
     console.log(opts.params.id);
 
     Work.projectForKey(opts.params.id);
-        
 
     Statement.setInActive();
     Info.setInActive();
@@ -59,12 +80,6 @@ var toggleHandleStateStream = toggleHandleState();
 
 Info.clicked().pipe(toggleHandleStateStream);
 Statement.clicked().pipe(toggleHandleStateStream);
-Nav.clicked()
-    .pipe(Work.filter());
-
-Work.projectForKeyStream
-    .pipe(Lightbox.setActiveStream())
-    .pipe(doNotScrollBody());
 
 Lightbox.closeStream
     .pipe(through.obj(function (row, enc, next) {
@@ -79,24 +94,30 @@ Lightbox.closeStream
     }))
     .pipe(scrollBody());
 
-var workMeta = Work.fetchMeta();
-
-workMeta
-    .pipe(Work.feedPages())
-    .pipe(Work.fetchProjects())
-    .pipe(Work.render())
-    .pipe(WorkInteraction());
-
-workMeta
-    .pipe(Work.feedDepartments())
-    .pipe(Nav.render());
+Work.projectForKeyStream
+    .pipe(Lightbox.setActiveStream())
+    .pipe(doNotScrollBody());
 
 
 (function initialize (href) {
-    routeClicks();
 
     var route = router.match(href);
     route.fn.apply(window, [route]);
+
+    workMeta
+        .pipe(Work.feedPages())
+        .pipe(Work.fetchProjects())
+        .pipe(Work.applyNavFilterToProjects())
+        .pipe(Work.render())
+        .pipe(WorkInteraction());
+
+    workMeta
+        .pipe(Work.feedDepartments())
+        .pipe(Nav.render())
+        .pipe(through.obj(function (row, enc, next){
+            routeClicks();
+        }));
+    
 
     window.ga = window.ga ||
                 function() {

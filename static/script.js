@@ -53694,6 +53694,8 @@ var Lightbox = require('./lightbox.js')('.lightbox');
 var Router = require('routes');
 var router = Router();
 
+var workMeta = Work.fetchMeta();
+
 router.addRoute('/', function () {
     console.log('route: /');
 
@@ -53726,12 +53728,31 @@ router.addRoute('/statement', function () {
     routeClicks();
 });
 
+router.addRoute('/work/department/:department', function (opts) {
+    console.log('route: /work/department');
+
+    var re = Work.rerenderForDepartmentFilter(opts.params.department);
+    if (re) {
+        Work.clear();
+        Work.list()
+            .pipe(Work.applyNavFilterToProjects())
+            .pipe(Work.render())
+            .pipe(WorkInteraction());
+    }
+
+    window.scrollTo(0, window.innerHeight);
+
+    Statement.setInActive();
+    Info.setInActive();
+
+    routeClicks();
+});
+
 router.addRoute('/work/:id', function (opts) {
     console.log('route: /work');
     console.log(opts.params.id);
 
     Work.projectForKey(opts.params.id);
-        
 
     Statement.setInActive();
     Info.setInActive();
@@ -53743,12 +53764,6 @@ var toggleHandleStateStream = toggleHandleState();
 
 Info.clicked().pipe(toggleHandleStateStream);
 Statement.clicked().pipe(toggleHandleStateStream);
-Nav.clicked()
-    .pipe(Work.filter());
-
-Work.projectForKeyStream
-    .pipe(Lightbox.setActiveStream())
-    .pipe(doNotScrollBody());
 
 Lightbox.closeStream
     .pipe(through.obj(function (row, enc, next) {
@@ -53763,24 +53778,30 @@ Lightbox.closeStream
     }))
     .pipe(scrollBody());
 
-var workMeta = Work.fetchMeta();
-
-workMeta
-    .pipe(Work.feedPages())
-    .pipe(Work.fetchProjects())
-    .pipe(Work.render())
-    .pipe(WorkInteraction());
-
-workMeta
-    .pipe(Work.feedDepartments())
-    .pipe(Nav.render());
+Work.projectForKeyStream
+    .pipe(Lightbox.setActiveStream())
+    .pipe(doNotScrollBody());
 
 
 (function initialize (href) {
-    routeClicks();
 
     var route = router.match(href);
     route.fn.apply(window, [route]);
+
+    workMeta
+        .pipe(Work.feedPages())
+        .pipe(Work.fetchProjects())
+        .pipe(Work.applyNavFilterToProjects())
+        .pipe(Work.render())
+        .pipe(WorkInteraction());
+
+    workMeta
+        .pipe(Work.feedDepartments())
+        .pipe(Nav.render())
+        .pipe(through.obj(function (row, enc, next){
+            routeClicks();
+        }));
+    
 
     window.ga = window.ga ||
                 function() {
@@ -54127,6 +54148,20 @@ function Nav (selector) {
     this.departments = [];
 }
 
+Nav.prototype.ensureDepartment = function (departmentToEnsure) {
+    var result = false;
+    var check = this.departments
+        .map(escape_department)
+        .filter(function (department) {
+            return departmentToEnsure === department;
+        });
+    if (check.length === 1) {
+        result = true;
+    }
+
+    return result;
+};
+
 Nav.prototype.render = function () {
     var self = this;
 
@@ -54151,16 +54186,8 @@ Nav.prototype.render = function () {
             hyperglue(template, { li: links });
 
         self.container.appendChild(toRender);
+        this.push(departments);
         next();
-    }
-};
-
-Nav.prototype.clicked = function () {
-    var self = this;
-    return through.obj(clckd);
-
-    function clckd (row, enc, next) {
-        console.log('clicked nav');
     }
 };
 
@@ -54278,8 +54305,11 @@ function Work (selector) {
     this.pages = [];
     this.included_departments = [];
     this.projects = [];
+    this.activeFilter = 'all';
+    this.initial_department = false;
 
     this.projectForKeyStream = through.obj();
+    this.projectsForDepartmentStream = through.obj();
 }
 
 Work.prototype.projectForKey = function (id) {
@@ -54323,6 +54353,30 @@ Work.prototype.projectForKey = function (id) {
                 console.log(res.status);
             }
         });
+    }
+};
+
+Work.prototype.rerenderForDepartmentFilter = function (department) {
+    // return true if the departments have been loaded
+    // false if they have not. if they have, then
+    // dude will need to rerender
+    var self = this;
+    var findDepartment = self.included_departments
+        .map(escape_department)
+        .filter(function (existingDepartment) {
+            return existingDepartment === department;
+        });
+
+    if (findDepartment.length === 1) {
+        self.activeFilter = findDepartment[0];
+        return true;
+    }
+    else if (department === 'all') {
+        self.activeFilter = 'all';
+        return true;
+    }
+    else {
+        return false;
     }
 };
 
@@ -54420,6 +54474,22 @@ Work.prototype.fetchMeta = function() {
     }
 };
 
+Work.prototype.clear = function () {
+    var self = this;
+    var allPieces = self.container
+        .querySelectorAll('.piece');
+    self.packery.remove(allPieces);
+};
+
+Work.prototype.list = function () {
+    var self = this;
+    var stream = through.obj();
+    self.projects.forEach(function (project) {
+        stream.push(project);
+    });
+    return stream;
+};
+
 Work.prototype.feedPages = function () {
     return through.obj(feed);
 
@@ -54444,14 +54514,29 @@ Work.prototype.feedDepartments = function () {
 
 };
 
-Work.prototype.filter = function () {
+Work.prototype.setActiveFilter = function () {
+    var self = this;
+    return through.obj(set);
+
+    function set (risd_program_class, enc, next) {
+        self.activeFilter = risd_program_class;
+        this.push(risd_program_class);
+        next();
+    }
+};
+
+Work.prototype.applyNavFilterToProjects = function () {
     var self = this;
 
     return through.obj(fltr);
 
-    function fltr (department, enc, next) {
-        console.log(department);
-        this.push(department);
+    function fltr (project, enc, next) {
+        if (self.activeFilter === 'all') {
+            this.push(project);
+        }
+        else if (self.activeFilter === project.risd_program_class) {
+            this.push(project);
+        }
         next();
     }
 };

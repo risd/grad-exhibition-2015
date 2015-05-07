@@ -1014,6 +1014,10 @@ body {
         color: $red;
         @include type--body;
     }
+
+    .meta p {
+        margin-top: 0;
+    }
 }
 
 .lightbox {

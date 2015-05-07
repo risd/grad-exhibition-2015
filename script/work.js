@@ -42,8 +42,11 @@ function Work (selector) {
     this.pages = [];
     this.included_departments = [];
     this.projects = [];
+    this.activeFilter = 'all';
+    this.initial_department = false;
 
     this.projectForKeyStream = through.obj();
+    this.projectsForDepartmentStream = through.obj();
 }
 
 Work.prototype.projectForKey = function (id) {
@@ -87,6 +90,30 @@ Work.prototype.projectForKey = function (id) {
                 console.log(res.status);
             }
         });
+    }
+};
+
+Work.prototype.rerenderForDepartmentFilter = function (department) {
+    // return true if the departments have been loaded
+    // false if they have not. if they have, then
+    // dude will need to rerender
+    var self = this;
+    var findDepartment = self.included_departments
+        .map(escape_department)
+        .filter(function (existingDepartment) {
+            return existingDepartment === department;
+        });
+
+    if (findDepartment.length === 1) {
+        self.activeFilter = findDepartment[0];
+        return true;
+    }
+    else if (department === 'all') {
+        self.activeFilter = 'all';
+        return true;
+    }
+    else {
+        return false;
     }
 };
 
@@ -184,6 +211,22 @@ Work.prototype.fetchMeta = function() {
     }
 };
 
+Work.prototype.clear = function () {
+    var self = this;
+    var allPieces = self.container
+        .querySelectorAll('.piece');
+    self.packery.remove(allPieces);
+};
+
+Work.prototype.list = function () {
+    var self = this;
+    var stream = through.obj();
+    self.projects.forEach(function (project) {
+        stream.push(project);
+    });
+    return stream;
+};
+
 Work.prototype.feedPages = function () {
     return through.obj(feed);
 
@@ -208,14 +251,29 @@ Work.prototype.feedDepartments = function () {
 
 };
 
-Work.prototype.filter = function () {
+Work.prototype.setActiveFilter = function () {
+    var self = this;
+    return through.obj(set);
+
+    function set (risd_program_class, enc, next) {
+        self.activeFilter = risd_program_class;
+        this.push(risd_program_class);
+        next();
+    }
+};
+
+Work.prototype.applyNavFilterToProjects = function () {
     var self = this;
 
     return through.obj(fltr);
 
-    function fltr (department, enc, next) {
-        console.log(department);
-        this.push(department);
+    function fltr (project, enc, next) {
+        if (self.activeFilter === 'all') {
+            this.push(project);
+        }
+        else if (self.activeFilter === project.risd_program_class) {
+            this.push(project);
+        }
         next();
     }
 };

@@ -1521,6 +1521,8 @@ body.no-scroll {
     @media screen and (min-width: 768px) {
       .work p {
         font-size: 17.6pt; } }
+  .work .meta p {
+    margin-top: 0; }
 
 .lightbox {
   position: fixed;

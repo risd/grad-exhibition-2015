@@ -20,6 +20,20 @@ function Nav (selector) {
     this.departments = [];
 }
 
+Nav.prototype.ensureDepartment = function (departmentToEnsure) {
+    var result = false;
+    var check = this.departments
+        .map(escape_department)
+        .filter(function (department) {
+            return departmentToEnsure === department;
+        });
+    if (check.length === 1) {
+        result = true;
+    }
+
+    return result;
+};
+
 Nav.prototype.render = function () {
     var self = this;
 
@@ -44,16 +58,8 @@ Nav.prototype.render = function () {
             hyperglue(template, { li: links });
 
         self.container.appendChild(toRender);
+        this.push(departments);
         next();
-    }
-};
-
-Nav.prototype.clicked = function () {
-    var self = this;
-    return through.obj(clckd);
-
-    function clckd (row, enc, next) {
-        console.log('clicked nav');
     }
 };
 
