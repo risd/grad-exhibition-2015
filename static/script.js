@@ -53687,7 +53687,8 @@ var through = require('through2');
 var Poster = require('./poster.js')('.poster');
 var Info = require('./information.js')('.info');
 var Statement = require('./statement.js')('.statement');
-var Work = require('./work')('.work');
+var Work = require('./work.js')('.work');
+var Lightbox = require('./lightbox.js')('.lightbox');
 
 var Router = require('routes');
 var router = Router();
@@ -53696,8 +53697,8 @@ router.addRoute('/', function () {
     console.log('route: /');
 
     Info.setInActive();
-    
     Statement.setInActive();
+    Lightbox.setInActive();
     
     routeClicks();
 });
@@ -53708,6 +53709,7 @@ router.addRoute('/info', function () {
     Info.setActive();
     
     Statement.setInActive();
+    Lightbox.setInActive();
     
     routeClicks();
 });
@@ -53718,17 +53720,52 @@ router.addRoute('/statement', function () {
     Statement.setActive();
 
     Info.setInActive();
+    Lightbox.setInActive();
     
     routeClicks();
 });
 
+router.addRoute('/work/:id', function (opts) {
+    console.log('route: /work');
+    console.log(opts.params.id);
+
+    Work.projectForKey(opts.params.id)
+        
+
+    Statement.setInActive();
+    Info.setInActive();
+
+    routeClicks();
+});
 
 var toggleHandleStateStream = toggleHandleState();
 
 Info.clicked().pipe(toggleHandleStateStream);
 Statement.clicked().pipe(toggleHandleStateStream);
 
-Work.get();
+Work.projectForKeyStream
+    .pipe(Lightbox.openStream);
+
+Lightbox.closeStream
+    .pipe(through.obj(function (row, enc, next) {
+        var href = '/';
+        window.history.pushState({href: href}, '', href);
+
+        var route = router.match(href);
+        route.fn.apply(window, [route]);
+    }));
+
+Work.populate()
+    .pipe(through.obj(function (row, enc, next) {
+        row.el.addEventListener('click', function (ev) {
+            var href = '/work/' + row.data.id;
+            window.history.pushState({href: href}, '', href);
+
+            var route = router.match(href);
+            route.fn.apply(window, [route]);
+        });
+        next();
+    }));
 
 
 (function initialize (href) {
@@ -53820,7 +53857,7 @@ function routeClicks () {
 	    else return findAnchor(el.parentNode);
 	}
 }
-},{"./information.js":319,"./poster.js":320,"./statement.js":321,"./work":322,"routes":306,"through2":317}],319:[function(require,module,exports){
+},{"./information.js":319,"./lightbox.js":320,"./poster.js":321,"./statement.js":322,"./work.js":323,"routes":306,"through2":317}],319:[function(require,module,exports){
 var through = require('through2');
 
 module.exports = Information;
@@ -53874,6 +53911,78 @@ Information.prototype.clicked = function () {
 };
 
 },{"through2":317}],320:[function(require,module,exports){
+(function (Buffer){
+
+
+var from = require('from2');
+var through = require('through2');
+
+var hyperglue = require('hyperglue');
+var lightboxTemplate =
+        Buffer("PGRpdiBjbGFzcz0ibGlnaHRib3gtd3JhcHBlciI+CiAgICA8ZGl2IGNsYXNzPSJuYW1lLXRhZyI+CiAgICAgICAgPHAgY2xhc3M9InN0dWRlbnQtbmFtZSI+PC9wPgogICAgICAgIDxwIGNsYXNzPSJyaXNkLXByb2dyYW0iPjwvcD4KICAgIDwvZGl2PgogICAgPGRpdiBjbGFzcz0iY2xvc2UiPjwvZGl2PgoJPHVsIGNsYXNzPSJ3ZWJzaXRlcyI+CgkJPGxpIGNsYXNzPSJ3ZWJzaXRlIj4KCQkJPGEgaHJlZj0iIj48L2E+CgkJPC9saT4KCTwvdWw+Cgk8ZGl2IGNsYXNzPSJwcm9qZWN0Ij4KCQk8cCBjbGFzcz0ibmFtZSI+PC9wPgoJCTxwIGNsYXNzPSJkZXNjcmlwdGlvbiI+PC9wPgoJCTxkaXYgY2xhc3M9Im1vZHVsZXMiPjwvZGl2PgoJPC9kaXY+CjwvZGl2Pg==","base64")
+          .toString();
+
+
+module.exports = Lightbox;
+
+function Lightbox (selector) {
+    if (!(this instanceof Lightbox)) return new Lightbox(selector);
+    if (!selector) throw new Error('Requires selector.');
+    var self = this;
+
+    this.container = document.querySelector(selector);
+
+    this.openStream = through.obj(function open (project, enc, next) {
+        console.log('lightbox.open');
+        console.log(project);
+        self.setActive(project);
+        this.push(project);
+        next();
+    });
+    this.closeStream = through.obj(function close (row, enc, next) {
+        console.log('lightbox.close');
+        this.push(row);
+        self.setInActive();
+        next();
+    });
+}
+
+Lightbox.prototype.setActive = function (project) {
+    var modules = project.modules.map(function (module) {
+            return module;
+        });
+    console.log('modules');
+    console.log(modules);
+
+    var toRender = hyperglue(lightboxTemplate, {
+        '[class=student-name]': project.student_name,
+        '[class=risd-program]': project.risd_program,
+        '.website': [
+            { 'a': { name: 'Behance URL',
+                     href: project.url } }
+        ],
+        '.project .name': project.project_name,
+        '.description': project.description
+    });
+
+    this.container.innerHTML = '';
+    var appeneded = this.container.appendChild(toRender);
+    
+    this.container.classList.remove('inActive');
+    this.container.classList.add('active');
+
+};
+Lightbox.prototype.setInActive = function () {
+    this.container.classList.remove('active');
+    this.container.classList.add('inActive');
+};
+
+function projectKey (project) {
+    return project.id;
+}
+
+}).call(this,require("buffer").Buffer)
+},{"buffer":17,"from2":193,"hyperglue":204,"through2":317}],321:[function(require,module,exports){
 var through = require('through2');
 
 module.exports = Poster;
@@ -53885,7 +53994,7 @@ function Poster (selector) {
     this.selector = selector;
     this.el = document.querySelector(selector);
 }
-},{"through2":317}],321:[function(require,module,exports){
+},{"through2":317}],322:[function(require,module,exports){
 var through = require('through2');
 
 module.exports = Statement;
@@ -53935,7 +54044,7 @@ Statement.prototype.clicked = function () {
 
     return eventStream;
 };
-},{"through2":317}],322:[function(require,module,exports){
+},{"through2":317}],323:[function(require,module,exports){
 (function (Buffer){
 
 
@@ -53946,7 +54055,7 @@ var through = require('through2');
 
 var hyperglue = require('hyperglue');
 var Packery = require('packery');
-var template = Buffer("PGFydGljbGUgY2xhc3M9InBpZWNlIj4KICAgIDxkaXYgY2xhc3M9InBpZWNlLXdyYXBwZXIiPgogICAgICAgIDxpbWcgc3JjPSIiIGFsdD0iIj4KICAgICAgICA8ZGl2IGNsYXNzPSJtZXRhIj4KICAgICAgICAgICAgPHAgY2xhc3M9InN0dWRlbnQtbmFtZSI+PC9wPgogICAgICAgICAgICA8cCBjbGFzcz0icmlzZC1wcm9ncmFtIj48L3A+CiAgICAgICAgPC9kaXY+CiAgICA8L2Rpdj4KPC9hcnRpY2xlPg==","base64")
+var pieceTemplate = Buffer("PGFydGljbGUgY2xhc3M9InBpZWNlIj4KICAgIDxkaXYgY2xhc3M9InBpZWNlLXdyYXBwZXIiPgogICAgICAgIDxpbWcgc3JjPSIiIGFsdD0iIj4KICAgICAgICA8ZGl2IGNsYXNzPSJtZXRhIj4KICAgICAgICAgICAgPHAgY2xhc3M9InN0dWRlbnQtbmFtZSI+PC9wPgogICAgICAgICAgICA8cCBjbGFzcz0icmlzZC1wcm9ncmFtIj48L3A+CiAgICAgICAgPC9kaXY+CiAgICA8L2Rpdj4KPC9hcnRpY2xlPg==","base64")
                  .toString();
 
 
@@ -53982,19 +54091,58 @@ function Work (selector) {
     this.pages = [];
     this.included_departments = [];
     this.projects = [];
+
+    this.projectForKeyStream = through.obj();
 }
 
-Work.prototype.get = function() {
+Work.prototype.projectForKey = function (id) {
     var self = this;
-    var eventStream = through.obj();
+    var needle =
+        self.projects.filter(function (project) {
+            return id === projectKey(project);
+        });
+    console.log()
+    if (needle.length === 1) {
+        this.projectForKeyStream.push(needle[0]);
+    } else {
+        var stream = this;
 
-    from.obj([self.link.meta])
+        cors(self.link.project(id), function (err, res) {
+            if (!err && res.status === 200) {
+                needle =
+                    behanceSchemaTransform(
+                        JSON.parse(res.responseText));
+
+                // we don't want dupes in our
+                // project array. check to see
+                // if its been added or not.
+                var finding =
+                    self.projects
+                        .filter(function (project) {
+                            return projectKey(needle) === projectKey(project);
+                        });
+                if (finding.length === 0) {
+                    self.projects.push(needle);
+                }
+
+                self.projectForKeyStream.push(needle);
+
+            } else {
+                console.log(err);
+                console.log(res.status);
+            }
+        });
+    }
+};
+
+Work.prototype.populate = function() {
+    var self = this;
+
+    return from.obj([self.link.meta])
         .pipe(GetMetadata())
         .pipe(GetProjects())
         .pipe(Transform())
         .pipe(Render());
-
-    return eventStream;
 
     function GetMetadata () {
         return through.obj(meta);
@@ -54043,11 +54191,31 @@ Work.prototype.get = function() {
                 if (!err && res.status === 200) {
                     body =
                         JSON.parse(res.responseText);
-                    self.projects.concat(body.objects);
+
+                    // a project could have been added
+                    // via the projectForKey entry
+                    // so it might not need to be
+                    // added to the projects list
+                    var notIn = body.objects.filter(function (d) {
+                        var add = true;
+
+                        self.projects.forEach(function (project) {
+                            if (projectKey(project) === projectKey(d)) {
+                                add = false;
+                            }
+                        });
+
+                        return add;
+                    });
+
+                    self.projects.concat(notIn);
+
                 } else {
                     console.log(err);
                     console.log(res.status);
                 }
+                // all objects need thumbnails
+                // this is the pipeline for that
                 shuffle(body.objects)
                     .forEach(function (project) {
                         stream.push(project);
@@ -54061,62 +54229,7 @@ Work.prototype.get = function() {
         return through.obj(trnsfrm);
 
         function trnsfrm (project, enc, next) {
-            var modules_for_cover = [];
-            var modules_to_include = [];
-            project.details.modules.forEach(function (md, mi) {
-                if (md.type === 'image') {
-                    modules_for_cover.push(md);
-                }
-                // these are all cases that are
-                // covered in lightbox.js
-                if ((md.type === 'image') |
-                    (md.type === 'text') |
-                    (md.type === 'embed') |
-                    (md.type === 'video')) {
-
-                    modules_to_include.push(md);
-                }
-            });
-
-            var random_cover;
-            if (modules_for_cover.length > 0) {
-                // random_cover_option
-                // based on images to include
-                var random_module =
-                    modules_for_cover[Math.floor(Math.random() *
-                                       modules_for_cover.length)];
-
-                random_cover = {
-                    original_width: +random_module.width,
-                    original_height: +random_module.height,
-                    src: random_module.src
-                };
-                random_cover.height = (random_cover.width*
-                                       random_module.height)/
-                                      random_module.width;
-            } else {
-                // otherwise, just use a the cover that
-                // is included
-                random_cover = {
-                    original_width: 404,
-                    original_height: 316,
-                    src: project.details.covers['404']
-                };
-            }
-
-            var formatted = {
-                project_name: project.name,
-                student_name: project.owners[0].display_name,
-                risd_program: project.risd_program,
-                risd_program_class:
-                    escape_department(project.risd_program),
-                modules: modules_to_include,
-                cover: random_cover,
-                description: project.details.description,
-                url: project.owners[0].url,
-                personal_link: project.personal_link,
-                id: project.id
-            };
+            var formatted = behanceSchemaTransform(project);
 
             this.push(formatted);
             next();
@@ -54127,7 +54240,9 @@ Work.prototype.get = function() {
         return through.obj(rndr);
 
         function rndr (project, enc, next) {
-            var toRender = hyperglue(template, {
+            var stream = this;
+
+            var toRender = hyperglue(pieceTemplate, {
                     '[class=student-name]': project.student_name,
                     '[class=risd-program]': project.risd_program
                 });
@@ -54135,15 +54250,80 @@ Work.prototype.get = function() {
             var cover_image = toRender.querySelector('img');
             cover_image.src = project.cover.src;
             var appended = self.container.appendChild(toRender);
+            appended.style.visibility = 'hidden';
 
             cover_image.addEventListener('load', function () {
                 self.packery.appended(toRender);
                 self.packery.layout();
+                
+                appended.style.visibility = 'visible';
+
+                stream.push({ el: appended, data: project });
                 next();
             });
         }
     }
 };
+
+function behanceSchemaTransform (project) {
+    var modules_for_cover = [];
+    var modules_to_include = [];
+    project.details.modules.forEach(function (md, mi) {
+        if (md.type === 'image') {
+            modules_for_cover.push(md);
+        }
+        // these are all cases that are
+        // covered in lightbox.js
+        if ((md.type === 'image') |
+            (md.type === 'text') |
+            (md.type === 'embed') |
+            (md.type === 'video')) {
+
+            modules_to_include.push(md);
+        }
+    });
+
+    var random_cover;
+    if (modules_for_cover.length > 0) {
+        // random_cover_option
+        // based on images to include
+        var random_module =
+            modules_for_cover[Math.floor(Math.random() *
+                               modules_for_cover.length)];
+
+        random_cover = {
+            original_width: +random_module.width,
+            original_height: +random_module.height,
+            src: random_module.src
+        };
+        random_cover.height = (random_cover.width*
+                               random_module.height)/
+                              random_module.width;
+    } else {
+        // otherwise, just use a the cover that
+        // is included
+        random_cover = {
+            original_width: 404,
+            original_height: 316,
+            src: project.details.covers['404']
+        };
+    }
+
+    var formatted = {
+        project_name: project.name,
+        student_name: project.owners[0].display_name,
+        risd_program: project.risd_program,
+        risd_program_class:
+            escape_department(project.risd_program),
+        modules: modules_to_include,
+        cover: random_cover,
+        description: project.details.description,
+        url: project.owners[0].url,
+        personal_link: project.personal_link,
+        id: project.id
+    };
+    return formatted;
+}
 
 function projectKey (project) {
     return project.id;

@@ -71,8 +71,6 @@ $tablet-poster-year-five-offset: 250px;
 @mixin type--body {
     -webkit-font-smoothing: antialiased;
 
-    color: $white;
-
     font: {
         family: 'Founders Grotesk Bold', sans-serif;
         size: 15pt;
@@ -657,7 +655,7 @@ $tablet-poster-year-five-offset: 250px;
 @mixin slide-in {
     @include slide-in-transition;
 
-    z-index: 4;
+    z-index: 5;
 
     font: {
         family: 'Founders Grotesk Bold', sans-serif;
@@ -977,10 +975,64 @@ $tablet-poster-year-five-offset: 250px;
     z-index: 3;
 
     .piece {
+        cursor: pointer;
+
         width: calc(100% - #{$mobile-combined-handle-gutter});
 
         @media screen and (min-width: 768px) {
             width: calc(100% - 30% - #{$tablet-combined-handle-gutter});
         }
+    }
+    p {
+        color: $red;
+        @include type--body;
+    }
+    .student-name {
+        margin-top: $mobile-content-gutter;
+        margin-bottom: 0;
+    }
+    .risd-program {
+        margin-top: 0;
+    }
+}
+
+.lightbox {
+    position: fixed;
+    width: calc(100% - #{$mobile-combined-handle-gutter});
+    margin-left: $mobile-single-handle-gutter;
+    height: 100vh;
+    overflow-y: scroll;
+    background-color: $white;
+
+    transition: top, 0.28s, ease-in-out;
+
+    z-index: 4;
+
+    &.active{
+        top: 0;
+    }
+    &.inActive {
+        top: 100vh;
+    }
+    .lightbox-wrapper {
+        width: 100%;
+        display: flex;
+        flex-flow: row wrap;
+    }
+    .name-tag,
+    .close,
+    .websites,
+    .project {
+        flex: 1 auto;
+    }
+    .name-tag {
+        width: 90%;
+    }
+    .close {
+        width: 10%;
+    }
+    .websites,
+    .project {
+        width: 100%;
     }
 }

@@ -1113,7 +1113,7 @@ h1 {
           transition-duration: 0.26s;
   -webkit-transition-timing-function: ease-in-out;
           transition-timing-function: ease-in-out;
-  z-index: 4;
+  z-index: 5;
   font-family: 'Founders Grotesk Bold', sans-serif;
   font-size: 14pt;
   font-weight: normal;
@@ -1170,7 +1170,7 @@ h1 {
           transition-duration: 0.26s;
   -webkit-transition-timing-function: ease-in-out;
           transition-timing-function: ease-in-out;
-  z-index: 4;
+  z-index: 5;
   font-family: 'Founders Grotesk Bold', sans-serif;
   font-size: 14pt;
   font-weight: normal;
@@ -1211,7 +1211,6 @@ h1 {
     .statement-foreground article p {
       color: white;
       -webkit-font-smoothing: antialiased;
-      color: white;
       font-family: 'Founders Grotesk Bold', sans-serif;
       font-size: 15pt;
       line-height: 17pt; }
@@ -1293,7 +1292,7 @@ h1 {
           transition-duration: 0.26s;
   -webkit-transition-timing-function: ease-in-out;
           transition-timing-function: ease-in-out;
-  z-index: 4;
+  z-index: 5;
   font-family: 'Founders Grotesk Bold', sans-serif;
   font-size: 14pt;
   font-weight: normal;
@@ -1349,7 +1348,7 @@ h1 {
           transition-duration: 0.26s;
   -webkit-transition-timing-function: ease-in-out;
           transition-timing-function: ease-in-out;
-  z-index: 4;
+  z-index: 5;
   font-family: 'Founders Grotesk Bold', sans-serif;
   font-size: 14pt;
   font-weight: normal;
@@ -1390,7 +1389,6 @@ h1 {
     .info-foreground article p {
       color: white;
       -webkit-font-smoothing: antialiased;
-      color: white;
       font-family: 'Founders Grotesk Bold', sans-serif;
       font-size: 15pt;
       line-height: 17pt; }
@@ -1490,7 +1488,57 @@ h1 {
       margin-left: 62px;
       margin-right: 62px; } }
   .work .piece {
+    cursor: pointer;
     width: calc(100% - 72px); }
     @media screen and (min-width: 768px) {
       .work .piece {
         width: calc(100% - 30% - 124px); } }
+  .work p {
+    color: #f05367;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Founders Grotesk Bold', sans-serif;
+    font-size: 15pt;
+    line-height: 17pt; }
+    @media screen and (min-width: 768px) {
+      .work p {
+        font-size: 17.6pt; } }
+  .work .student-name {
+    margin-top: 12px;
+    margin-bottom: 0; }
+  .work .risd-program {
+    margin-top: 0; }
+
+.lightbox {
+  position: fixed;
+  width: calc(100% - 72px);
+  margin-left: 36px;
+  height: 100vh;
+  overflow-y: scroll;
+  background-color: white;
+  -webkit-transition: top, 0.28s, ease-in-out;
+          transition: top, 0.28s, ease-in-out;
+  z-index: 4; }
+  .lightbox.active {
+    top: 0; }
+  .lightbox.inActive {
+    top: 100vh; }
+  .lightbox .lightbox-wrapper {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap; }
+  .lightbox .name-tag, .lightbox .close, .lightbox .websites, .lightbox .project {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 auto;
+        -ms-flex: 1 auto;
+            flex: 1 auto; }
+  .lightbox .name-tag {
+    width: 90%; }
+  .lightbox .close {
+    width: 10%; }
+  .lightbox .websites, .lightbox .project {
+    width: 100%; }

@@ -3,7 +3,8 @@ var through = require('through2');
 var Poster = require('./poster.js')('.poster');
 var Info = require('./information.js')('.info');
 var Statement = require('./statement.js')('.statement');
-var Work = require('./work')('.work');
+var Work = require('./work.js')('.work');
+var Lightbox = require('./lightbox.js')('.lightbox');
 
 var Router = require('routes');
 var router = Router();
@@ -12,8 +13,8 @@ router.addRoute('/', function () {
     console.log('route: /');
 
     Info.setInActive();
-    
     Statement.setInActive();
+    Lightbox.setInActive();
     
     routeClicks();
 });
@@ -24,6 +25,7 @@ router.addRoute('/info', function () {
     Info.setActive();
     
     Statement.setInActive();
+    Lightbox.setInActive();
     
     routeClicks();
 });
@@ -34,17 +36,52 @@ router.addRoute('/statement', function () {
     Statement.setActive();
 
     Info.setInActive();
+    Lightbox.setInActive();
     
     routeClicks();
 });
 
+router.addRoute('/work/:id', function (opts) {
+    console.log('route: /work');
+    console.log(opts.params.id);
+
+    Work.projectForKey(opts.params.id)
+        
+
+    Statement.setInActive();
+    Info.setInActive();
+
+    routeClicks();
+});
 
 var toggleHandleStateStream = toggleHandleState();
 
 Info.clicked().pipe(toggleHandleStateStream);
 Statement.clicked().pipe(toggleHandleStateStream);
 
-Work.get();
+Work.projectForKeyStream
+    .pipe(Lightbox.openStream);
+
+Lightbox.closeStream
+    .pipe(through.obj(function (row, enc, next) {
+        var href = '/';
+        window.history.pushState({href: href}, '', href);
+
+        var route = router.match(href);
+        route.fn.apply(window, [route]);
+    }));
+
+Work.populate()
+    .pipe(through.obj(function (row, enc, next) {
+        row.el.addEventListener('click', function (ev) {
+            var href = '/work/' + row.data.id;
+            window.history.pushState({href: href}, '', href);
+
+            var route = router.match(href);
+            route.fn.apply(window, [route]);
+        });
+        next();
+    }));
 
 
 (function initialize (href) {
