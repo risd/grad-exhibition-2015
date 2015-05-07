@@ -169,9 +169,6 @@ Work.prototype.populate = function() {
                         });
 
                     self.projects = self.projects.concat(toAdd);
-                    console.log('getting projects');
-                    console.log(toAdd);
-                    console.log(self.projects);
 
                 } else {
                     console.log(err);

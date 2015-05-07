@@ -676,6 +676,9 @@ h1 {
   font-style: normal;
   font-stretch: normal; }
 
+body.no-scroll {
+  overflow: hidden; }
+
 .poster-year {
   z-index: 1;
   box-sizing: border-box;
@@ -1489,10 +1492,7 @@ h1 {
       margin-right: 62px; } }
   .work .piece {
     cursor: pointer;
-    width: calc(100% - 72px); }
-    @media screen and (min-width: 768px) {
-      .work .piece {
-        width: calc(100% - 30% - 124px); } }
+    width: 100%; }
   .work p {
     color: #f05367;
     -webkit-font-smoothing: antialiased;
@@ -1533,6 +1533,17 @@ h1 {
     -webkit-flex-flow: row wrap;
         -ms-flex-flow: row wrap;
             flex-flow: row wrap; }
+  .lightbox p, .lightbox a {
+    color: #f05367;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Founders Grotesk Bold', sans-serif;
+    font-size: 15pt;
+    line-height: 17pt; }
+    @media screen and (min-width: 768px) {
+      .lightbox p, .lightbox a {
+        font-size: 17.6pt; } }
+  .lightbox a {
+    text-decoration: none; }
   .lightbox .name-tag, .lightbox .close, .lightbox .websites, .lightbox .project {
     -webkit-box-flex: 1;
     -webkit-flex: 1 auto;
@@ -1541,6 +1552,16 @@ h1 {
   .lightbox .name-tag {
     width: 90%; }
   .lightbox .close {
-    width: 10%; }
+    width: 10%;
+    cursor: pointer; }
+    .lightbox .close p {
+      font-size: 3em;
+      margin-top: 1rem; }
   .lightbox .websites, .lightbox .project {
     width: 100%; }
+  .lightbox .websites {
+    margin: 0;
+    padding: 0;
+    list-style: none; }
+  .lightbox .module-text, .lightbox .module-image, .lightbox .module-embed {
+    margin: 12px 0; }

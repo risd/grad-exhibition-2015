@@ -53744,7 +53744,8 @@ Info.clicked().pipe(toggleHandleStateStream);
 Statement.clicked().pipe(toggleHandleStateStream);
 
 Work.projectForKeyStream
-    .pipe(Lightbox.setActiveStream());
+    .pipe(Lightbox.setActiveStream())
+    .pipe(doNotScrollBody());
 
 Lightbox.closeStream
     .pipe(through.obj(function (row, enc, next) {
@@ -53754,7 +53755,8 @@ Lightbox.closeStream
         var route = router.match(href);
         route.fn.apply(window, [route]);
         next();
-    }));
+    }))
+    .pipe(scrollBody());
 
 Work.populate()
     .pipe(through.obj(function (row, enc, next) {
@@ -53858,6 +53860,25 @@ function routeClicks () {
 	    else return findAnchor(el.parentNode);
 	}
 }
+
+function scrollBody () {
+    return through.obj(scroll);
+
+    function scroll (row, enc, next) {
+        document.body.classList.remove('no-scroll');
+        next();
+    }
+}
+
+function doNotScrollBody () {
+    return through.obj(noScroll);
+
+    function noScroll (row, enc, next) {
+        document.body.classList.add('no-scroll');
+        next();
+    }
+}
+
 },{"./information.js":319,"./lightbox.js":320,"./poster.js":321,"./statement.js":322,"./work.js":323,"routes":306,"through2":317}],319:[function(require,module,exports){
 var through = require('through2');
 
@@ -53920,7 +53941,16 @@ var through = require('through2');
 
 var hyperglue = require('hyperglue');
 var lightboxTemplate =
-        Buffer("PGRpdiBjbGFzcz0ibGlnaHRib3gtd3JhcHBlciI+CiAgICA8ZGl2IGNsYXNzPSJuYW1lLXRhZyI+CiAgICAgICAgPHAgY2xhc3M9InN0dWRlbnQtbmFtZSI+PC9wPgogICAgICAgIDxwIGNsYXNzPSJyaXNkLXByb2dyYW0iPjwvcD4KICAgIDwvZGl2PgogICAgPGRpdiBjbGFzcz0iY2xvc2UiPjxwPng8L3A+PC9kaXY+Cgk8dWwgY2xhc3M9IndlYnNpdGVzIj4KCQk8bGkgY2xhc3M9IndlYnNpdGUiPgoJCQk8YSBocmVmPSIiPjwvYT4KCQk8L2xpPgoJPC91bD4KCTxkaXYgY2xhc3M9InByb2plY3QiPgoJCTxwIGNsYXNzPSJuYW1lIj48L3A+CgkJPHAgY2xhc3M9ImRlc2NyaXB0aW9uIj48L3A+CgkJPGRpdiBjbGFzcz0ibW9kdWxlcyI+PC9kaXY+Cgk8L2Rpdj4KPC9kaXY+","base64")
+        Buffer("PGRpdiBjbGFzcz0ibGlnaHRib3gtd3JhcHBlciI+CiAgICA8ZGl2IGNsYXNzPSJuYW1lLXRhZyI+CiAgICAJPHA+CiAgICAJCTxzcGFuIGNsYXNzPSJzdHVkZW50LW5hbWUiPjwvc3Bhbj48YnIgLz4KCQkgICAgPHNwYW4gY2xhc3M9InJpc2QtcHJvZ3JhbSI+PC9zcGFuPgogICAgCTwvcD4KICAgIDwvZGl2PgogICAgPGRpdiBjbGFzcz0iY2xvc2UiPjxwPng8L3A+PC9kaXY+Cgk8dWwgY2xhc3M9IndlYnNpdGVzIj4KCQk8bGkgY2xhc3M9IndlYnNpdGUiPgoJCQk8YSBocmVmPSIiPjwvYT4KCQk8L2xpPgoJPC91bD4KCTxkaXYgY2xhc3M9InByb2plY3QiPgoJCTxwIGNsYXNzPSJuYW1lIj48L3A+CgkJPHAgY2xhc3M9ImRlc2NyaXB0aW9uIj48L3A+CgkJPGRpdiBjbGFzcz0ibW9kdWxlcyI+PC9kaXY+Cgk8L2Rpdj4KPC9kaXY+","base64")
+          .toString();
+var behanceImageTemplate =
+        Buffer("PGRpdiBjbGFzcz0ibW9kdWxlLWltYWdlIj4KICAgIDxpbWcgc3JjPSIiIGFsdD0iIj4KPC9kaXY+","base64")
+          .toString();
+var behanceTextTemplate =
+        Buffer("PGRpdiBjbGFzcz0ibW9kdWxlLXRleHQiPgogICAgPHA+PC9wPgo8L2Rpdj4=","base64")
+          .toString();
+var behanceEmbedTemplate =
+        Buffer("PGRpdiBjbGFzcz0ibW9kdWxlLWVtYmVkIj4KCTxkaXYgY2xhc3M9ImVtYmVkIj48L2Rpdj4KPC9kaXY+","base64")
           .toString();
 
 
@@ -53955,27 +53985,61 @@ Lightbox.prototype.setActiveStream = function () {
     }
 };
 
+Lightbox.prototype.setInActiveStream = function () {
+    var self = this;
+
+    return through.obj(open);
+
+    function open (row, enc, next) {
+        console.log('lightbox.close');
+        self.setInActive();
+        this.push(row);
+        next();
+    }
+};
+
 Lightbox.prototype.setActive = function (project) {
     var self = this;
-    var modules = project.modules.map(function (module) {
-            return module;
-        });
-    console.log('modules');
-    console.log(modules);
 
     var toRender = hyperglue(lightboxTemplate, {
         '[class=student-name]': project.student_name,
         '[class=risd-program]': project.risd_program,
         '.website': [
             { 'a': { name: 'Behance URL',
-                     href: project.url } }
+                     href: project.url,
+                     _text: 'Behance Site' } }
         ],
         '.project .name': project.project_name,
         '.description': project.description
     });
 
+    project.modules
+        .map(function (module) {
+            if (module.type === 'text') {
+                return createTextModule(module);
+            }
+            else if (module.type === 'image') {
+                return createImageModule(module);
+            }
+            else if (module.type === 'embed') {
+                return createEmbedModule(module);
+            }
+            else {
+                return false;
+            }
+        })
+        .filter(function (module) {
+            return module !== false;
+        })
+        .forEach(function (module) {
+            toRender
+                .querySelector('.modules')
+                .appendChild(module);
+        });
+
     this.container.innerHTML = '';
     var appeneded = this.container.appendChild(toRender);
+
     appeneded
         .querySelector('.close')
         .addEventListener('click', function () {
@@ -53990,6 +54054,26 @@ Lightbox.prototype.setInActive = function () {
     this.container.classList.remove('active');
     this.container.classList.add('inActive');
 };
+
+function createImageModule (module) {
+    return hyperglue(behanceImageTemplate, {
+            img: {
+                src: module.sizes.max_1240 ?
+                     module.sizes.max_1240 :
+                     module.src
+            }
+        });
+}
+function createTextModule (module) {
+    return hyperglue(behanceTextTemplate, {
+            p: module.text_plain
+        });
+}
+function createEmbedModule (module) {
+    return hyperglue(behanceEmbedTemplate, {
+            '.embed': { _html: module.embed }
+        });
+}
 
 function projectKey (project) {
     return project.id;
@@ -54231,9 +54315,6 @@ Work.prototype.populate = function() {
                         });
 
                     self.projects = self.projects.concat(toAdd);
-                    console.log('getting projects');
-                    console.log(toAdd);
-                    console.log(self.projects);
 
                 } else {
                     console.log(err);

@@ -60,7 +60,8 @@ Info.clicked().pipe(toggleHandleStateStream);
 Statement.clicked().pipe(toggleHandleStateStream);
 
 Work.projectForKeyStream
-    .pipe(Lightbox.setActiveStream());
+    .pipe(Lightbox.setActiveStream())
+    .pipe(doNotScrollBody());
 
 Lightbox.closeStream
     .pipe(through.obj(function (row, enc, next) {
@@ -70,7 +71,8 @@ Lightbox.closeStream
         var route = router.match(href);
         route.fn.apply(window, [route]);
         next();
-    }));
+    }))
+    .pipe(scrollBody());
 
 Work.populate()
     .pipe(through.obj(function (row, enc, next) {
@@ -173,4 +175,22 @@ function routeClicks () {
 	    if (el.nodeName === 'A') return el;
 	    else return findAnchor(el.parentNode);
 	}
+}
+
+function scrollBody () {
+    return through.obj(scroll);
+
+    function scroll (row, enc, next) {
+        document.body.classList.remove('no-scroll');
+        next();
+    }
+}
+
+function doNotScrollBody () {
+    return through.obj(noScroll);
+
+    function noScroll (row, enc, next) {
+        document.body.classList.add('no-scroll');
+        next();
+    }
 }

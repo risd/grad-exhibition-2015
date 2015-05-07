@@ -84,6 +84,12 @@ $tablet-poster-year-five-offset: 250px;
     
 }
 
+body {
+    &.no-scroll {
+        overflow: hidden;
+    }
+}
+
 
 // Large white characters over
 // "2015"
@@ -977,11 +983,7 @@ $tablet-poster-year-five-offset: 250px;
     .piece {
         cursor: pointer;
 
-        width: calc(100% - #{$mobile-combined-handle-gutter});
-
-        @media screen and (min-width: 768px) {
-            width: calc(100% - 30% - #{$tablet-combined-handle-gutter});
-        }
+        width: 100%;
     }
     p {
         color: $red;
@@ -1021,6 +1023,14 @@ $tablet-poster-year-five-offset: 250px;
         display: flex;
         flex-flow: row wrap;
     }
+    p,
+    a {
+        color: $red;
+        @include type--body;
+    }
+    a {
+        text-decoration: none;
+    }
     .name-tag,
     .close,
     .websites,
@@ -1032,9 +1042,24 @@ $tablet-poster-year-five-offset: 250px;
     }
     .close {
         width: 10%;
+        cursor: pointer;
+        p {
+            font-size: 3em;
+            margin-top: 1rem;
+        }
     }
     .websites,
     .project {
         width: 100%;
+    }
+    .websites {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    .module-text,
+    .module-image,
+    .module-embed {
+        margin: $mobile-content-gutter 0;
     }
 }

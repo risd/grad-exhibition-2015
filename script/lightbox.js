@@ -8,6 +8,18 @@ var lightboxTemplate =
         fs.readFileSync(
             __dirname + '/lightbox.html')
           .toString();
+var behanceImageTemplate =
+        fs.readFileSync(
+            __dirname + '/behanceImage.html')
+          .toString();
+var behanceTextTemplate =
+        fs.readFileSync(
+            __dirname + '/behanceText.html')
+          .toString();
+var behanceEmbedTemplate =
+        fs.readFileSync(
+            __dirname + '/behanceEmbed.html')
+          .toString();
 
 
 module.exports = Lightbox;
@@ -41,27 +53,61 @@ Lightbox.prototype.setActiveStream = function () {
     }
 };
 
+Lightbox.prototype.setInActiveStream = function () {
+    var self = this;
+
+    return through.obj(open);
+
+    function open (row, enc, next) {
+        console.log('lightbox.close');
+        self.setInActive();
+        this.push(row);
+        next();
+    }
+};
+
 Lightbox.prototype.setActive = function (project) {
     var self = this;
-    var modules = project.modules.map(function (module) {
-            return module;
-        });
-    console.log('modules');
-    console.log(modules);
 
     var toRender = hyperglue(lightboxTemplate, {
         '[class=student-name]': project.student_name,
         '[class=risd-program]': project.risd_program,
         '.website': [
             { 'a': { name: 'Behance URL',
-                     href: project.url } }
+                     href: project.url,
+                     _text: 'Behance Site' } }
         ],
         '.project .name': project.project_name,
         '.description': project.description
     });
 
+    project.modules
+        .map(function (module) {
+            if (module.type === 'text') {
+                return createTextModule(module);
+            }
+            else if (module.type === 'image') {
+                return createImageModule(module);
+            }
+            else if (module.type === 'embed') {
+                return createEmbedModule(module);
+            }
+            else {
+                return false;
+            }
+        })
+        .filter(function (module) {
+            return module !== false;
+        })
+        .forEach(function (module) {
+            toRender
+                .querySelector('.modules')
+                .appendChild(module);
+        });
+
     this.container.innerHTML = '';
     var appeneded = this.container.appendChild(toRender);
+
     appeneded
         .querySelector('.close')
         .addEventListener('click', function () {
@@ -76,6 +122,26 @@ Lightbox.prototype.setInActive = function () {
     this.container.classList.remove('active');
     this.container.classList.add('inActive');
 };
+
+function createImageModule (module) {
+    return hyperglue(behanceImageTemplate, {
+            img: {
+                src: module.sizes.max_1240 ?
+                     module.sizes.max_1240 :
+                     module.src
+            }
+        });
+}
+function createTextModule (module) {
+    return hyperglue(behanceTextTemplate, {
+            p: module.text_plain
+        });
+}
+function createEmbedModule (module) {
+    return hyperglue(behanceEmbedTemplate, {
+            '.embed': { _html: module.embed }
+        });
+}
 
 function projectKey (project) {
     return project.id;
