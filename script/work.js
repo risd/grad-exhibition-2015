@@ -23,7 +23,6 @@ function Work (selector) {
             itemSelector: '.piece',
             columnWidth: '.piece',
             percentPosition: true
-            // gutter: 10
         });
 
     this.s3 = 'https://risdgradshow2015.s3.amazonaws.com/';

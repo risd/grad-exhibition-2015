@@ -70,6 +70,8 @@ Lightbox.closeStream
 
         var route = router.match(href);
         route.fn.apply(window, [route]);
+
+        this.push(row);
         next();
     }))
     .pipe(scrollBody());
@@ -83,6 +85,7 @@ Work.populate()
             var route = router.match(href);
             route.fn.apply(window, [route]);
         });
+        this.push(row);
         next();
     }));
 

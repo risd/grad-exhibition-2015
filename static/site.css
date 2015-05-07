@@ -1491,8 +1491,28 @@ body.no-scroll {
       margin-left: 62px;
       margin-right: 62px; } }
   .work .piece {
+    box-sizing: border-box;
     cursor: pointer;
     width: 100%; }
+    @media screen and (min-width: 500px) {
+      .work .piece {
+        width: 50%; } }
+    @media screen and (min-width: 768px) {
+      .work .piece {
+        width: 33.3333%; } }
+    @media screen and (min-width: 1024px) {
+      .work .piece {
+        width: 25%; } }
+    @media screen and (min-width: 1280px) {
+      .work .piece {
+        width: 20%; } }
+  .work .piece-wrapper {
+    box-sizing: border-box;
+    width: 100%; }
+    @media screen and (min-width: 500px) {
+      .work .piece-wrapper {
+        width: calc(100% - 6px);
+        padding-left: 6px; } }
   .work p {
     color: #f05367;
     -webkit-font-smoothing: antialiased;
@@ -1502,11 +1522,6 @@ body.no-scroll {
     @media screen and (min-width: 768px) {
       .work p {
         font-size: 17.6pt; } }
-  .work .student-name {
-    margin-top: 12px;
-    margin-bottom: 0; }
-  .work .risd-program {
-    margin-top: 0; }
 
 .lightbox {
   position: fixed;
@@ -1533,6 +1548,10 @@ body.no-scroll {
     -webkit-flex-flow: row wrap;
         -ms-flex-flow: row wrap;
             flex-flow: row wrap; }
+    @media screen and (min-width: 768px) {
+      .lightbox .lightbox-wrapper {
+        width: calc(100% - 124px);
+        margin-left: 62px; } }
   .lightbox p, .lightbox a {
     color: #f05367;
     -webkit-font-smoothing: antialiased;
@@ -1553,7 +1572,8 @@ body.no-scroll {
     width: 90%; }
   .lightbox .close {
     width: 10%;
-    cursor: pointer; }
+    cursor: pointer;
+    text-align: right; }
     .lightbox .close p {
       font-size: 3em;
       margin-top: 1rem; }
@@ -1563,5 +1583,27 @@ body.no-scroll {
     margin: 0;
     padding: 0;
     list-style: none; }
+  .lightbox .project .name, .lightbox .project .description {
+    width: 100%; }
+    @media screen and (min-width: 600px) {
+      .lightbox .project .name, .lightbox .project .description {
+        width: 80%; } }
+    @media screen and (min-width: 768px) {
+      .lightbox .project .name, .lightbox .project .description {
+        max-width: 400px; } }
+    @media screen and (min-width: 1024px) {
+      .lightbox .project .name, .lightbox .project .description {
+        max-width: 550px; } }
+  .lightbox .module-text {
+    width: 100%; }
+    @media screen and (min-width: 600px) {
+      .lightbox .module-text {
+        width: 80%; } }
+    @media screen and (min-width: 768px) {
+      .lightbox .module-text {
+        max-width: 400px; } }
+    @media screen and (min-width: 1024px) {
+      .lightbox .module-text {
+        max-width: 550px; } }
   .lightbox .module-text, .lightbox .module-image, .lightbox .module-embed {
     margin: 12px 0; }

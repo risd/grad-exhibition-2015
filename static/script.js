@@ -53754,6 +53754,8 @@ Lightbox.closeStream
 
         var route = router.match(href);
         route.fn.apply(window, [route]);
+
+        this.push(row);
         next();
     }))
     .pipe(scrollBody());
@@ -53767,6 +53769,7 @@ Work.populate()
             var route = router.match(href);
             route.fn.apply(window, [route]);
         });
+        this.push(row);
         next();
     }));
 
@@ -54153,7 +54156,7 @@ var through = require('through2');
 
 var hyperglue = require('hyperglue');
 var Packery = require('packery');
-var pieceTemplate = Buffer("PGFydGljbGUgY2xhc3M9InBpZWNlIj4KICAgIDxkaXYgY2xhc3M9InBpZWNlLXdyYXBwZXIiPgogICAgICAgIDxpbWcgc3JjPSIiIGFsdD0iIj4KICAgICAgICA8ZGl2IGNsYXNzPSJtZXRhIj4KICAgICAgICAgICAgPHAgY2xhc3M9InN0dWRlbnQtbmFtZSI+PC9wPgogICAgICAgICAgICA8cCBjbGFzcz0icmlzZC1wcm9ncmFtIj48L3A+CiAgICAgICAgPC9kaXY+CiAgICA8L2Rpdj4KPC9hcnRpY2xlPg==","base64")
+var pieceTemplate = Buffer("PGFydGljbGUgY2xhc3M9InBpZWNlIj4KICAgIDxkaXYgY2xhc3M9InBpZWNlLXdyYXBwZXIiPgogICAgICAgIDxpbWcgc3JjPSIiIGFsdD0iIj4KICAgICAgICA8ZGl2IGNsYXNzPSJtZXRhIj4KICAgICAgICAgICAgPHA+CiAgICAgICAgICAgICAgICA8c3BhbiBjbGFzcz0ic3R1ZGVudC1uYW1lIj48L3NwYW4+PGJyIC8+CiAgICAgICAgICAgICAgICA8c3BhbiBjbGFzcz0icmlzZC1wcm9ncmFtIj48L3NwYW4+CiAgICAgICAgICAgIDwvcD4KICAgICAgICA8L2Rpdj4KICAgIDwvZGl2Pgo8L2FydGljbGU+","base64")
                  .toString();
 
 
@@ -54169,7 +54172,6 @@ function Work (selector) {
             itemSelector: '.piece',
             columnWidth: '.piece',
             percentPosition: true
-            // gutter: 10
         });
 
     this.s3 = 'https://risdgradshow2015.s3.amazonaws.com/';

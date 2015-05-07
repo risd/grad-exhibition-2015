@@ -13,6 +13,8 @@ $red: rgb(240, 83, 103);
 // -------
 $mobile-handle: 24px;
 $mobile-content-gutter: 12px;
+$mobile-half-content-gutter: 12px/2;
+$mobile-third-content-gutter: 12px/3;
 $mobile-single-handle-gutter: $mobile-handle + $mobile-content-gutter;
 // = 36
 $mobile-combined-handle-single-gutter: ($mobile-handle * 2) + $mobile-content-gutter;
@@ -981,20 +983,37 @@ body {
     z-index: 3;
 
     .piece {
+        box-sizing: border-box;
         cursor: pointer;
 
         width: 100%;
+
+        @media screen and (min-width: 500px) {
+            width: 50%;
+        }
+        @media screen and (min-width: 768px) {
+            width: 33.3333%;
+        }
+        @media screen and (min-width: 1024px) {
+            width: 25%;
+        }
+        @media screen and (min-width: 1280px) {
+            width: 20%;
+        }
     }
+
+    .piece-wrapper {
+        box-sizing: border-box;
+        width: 100%;
+        @media screen and (min-width: 500px) {
+            width: calc(100% - #{$mobile-half-content-gutter});
+            padding-left: $mobile-half-content-gutter;
+        }
+    }
+
     p {
         color: $red;
         @include type--body;
-    }
-    .student-name {
-        margin-top: $mobile-content-gutter;
-        margin-bottom: 0;
-    }
-    .risd-program {
-        margin-top: 0;
     }
 }
 
@@ -1022,6 +1041,11 @@ body {
         margin-left: $mobile-single-handle-gutter;
         display: flex;
         flex-flow: row wrap;
+
+        @media screen and (min-width: 768px) {
+            width: calc(100% - #{$tablet-combined-handle-gutter});
+            margin-left: $tablet-single-handle-gutter;
+        }
     }
     p,
     a {
@@ -1043,6 +1067,7 @@ body {
     .close {
         width: 10%;
         cursor: pointer;
+        text-align: right;
         p {
             font-size: 3em;
             margin-top: 1rem;
@@ -1056,6 +1081,33 @@ body {
         margin: 0;
         padding: 0;
         list-style: none;
+    }
+    .project {
+        .name,
+        .description {
+            width: 100%;
+            @media screen and (min-width: 600px) {
+                width: 80%
+            }
+            @media screen and (min-width: 768px) {
+                max-width: 400px;
+            }
+            @media screen and (min-width: 1024px) {
+                max-width: 550px;
+            }
+        }
+    }
+    .module-text {
+        width: 100%;
+        @media screen and (min-width: 600px) {
+            width: 80%
+        }
+        @media screen and (min-width: 768px) {
+            max-width: 400px;
+        }
+        @media screen and (min-width: 1024px) {
+            max-width: 550px;
+        }
     }
     .module-text,
     .module-image,
