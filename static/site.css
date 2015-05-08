@@ -1482,10 +1482,12 @@ body.no-scroll {
   margin-bottom: 72px;
   margin-left: 36px;
   margin-right: 36px;
+  margin-top: 100vh;
   box-sizing: border-box;
   z-index: 3; }
   @media screen and (min-width: 768px) {
     .work {
+      margin-top: 0;
       margin-bottom: 124px;
       margin-left: 62px;
       margin-right: 62px; } }
@@ -1639,18 +1641,72 @@ body.no-scroll {
     margin: 12px 0; }
 
 nav {
-  position: relative;
+  z-index: 4;
+  position: fixed;
+  height: 100%;
   margin-top: 100vh;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%; }
+  margin-left: 36px;
+  margin-right: 36px;
+  width: calc(100% - 72px);
+  background-color: white;
+  -webkit-transition: bottom, 0.28s, ease-in-out;
+          transition: bottom, 0.28s, ease-in-out;
+  bottom: 100vh; }
+  @media screen and (min-width: 768px) {
+    nav {
+      position: relative;
+      margin-left: auto;
+      margin-right: auto;
+      width: calc(100% - 124px);
+      height: auto;
+      background-color: transparent; } }
+  @media screen and (min-width: 1024px) {
+    nav {
+      width: 55%; } }
   @media screen and (min-width: 1280px) {
     nav {
       width: 45%; } }
+  nav .mobile-toggle {
+    cursor: default;
+    position: fixed;
+    top: 36px;
+    right: 36px;
+    width: 30px;
+    opacity: 0;
+    pointer-events: none; }
+    nav .mobile-toggle.show {
+      opacity: 1;
+      pointer-events: all;
+      cursor: pointer; }
+    @media screen and (min-width: 768px) {
+      nav .mobile-toggle {
+        display: none;
+        cursor: default; } }
+  nav section {
+    margin-top: 36px; }
+    @media screen and (min-width: 768px) {
+      nav section {
+        margin-top: 0; } }
+  nav svg {
+    width: 100%; }
+    nav svg path {
+      fill: #f05367; }
+  nav.active {
+    bottom: 0; }
+    nav.active .mobile-toggle {
+      display: none; }
+  @media screen and (min-width: 768px) {
+    nav {
+      bottom: inherit; } }
   nav ul {
     text-align: center; }
   nav li {
-    display: inline-block; }
+    display: block;
+    margin-top: 12px; }
+    @media screen and (min-width: 768px) {
+      nav li {
+        display: inline-block;
+        margin-top: 0; } }
   nav a {
     color: #f05367;
     -webkit-font-smoothing: antialiased;
@@ -1661,14 +1717,16 @@ nav {
     @media screen and (min-width: 768px) {
       nav a {
         font-size: 17.6pt; } }
-    nav a:after {
-      position: relative;
-      display: inline-block;
-      margin-left: 6px;
-      margin-right: 6px;
-      content: '|';
-      color: #b5b5b5; }
-  nav li:last-child a:after {
-    display: none;
-    content: "";
-    margin: 0; }
+    @media screen and (min-width: 768px) {
+      nav a:after {
+        position: relative;
+        display: inline-block;
+        margin-left: 6px;
+        margin-right: 6px;
+        content: '|';
+        color: #b5b5b5; } }
+  @media screen and (min-width: 768px) {
+    nav li:last-child a:after {
+      display: none;
+      content: "";
+      margin: 0; } }

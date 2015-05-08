@@ -53702,6 +53702,7 @@ router.addRoute('/', function () {
     Info.setInActive();
     Statement.setInActive();
     Lightbox.setInActive();
+    Nav.mobileMenuInActive();
     
     routeClicks();
 });
@@ -53713,6 +53714,7 @@ router.addRoute('/info', function () {
     
     Statement.setInActive();
     Lightbox.setInActive();
+    Nav.mobileMenuInActive();
     
     routeClicks();
 });
@@ -53744,6 +53746,7 @@ router.addRoute('/work/department/:department', function (opts) {
 
     Statement.setInActive();
     Info.setInActive();
+    Nav.mobileMenuInActive();
 
     routeClicks();
 });
@@ -53756,6 +53759,7 @@ router.addRoute('/work/:id', function (opts) {
 
     Statement.setInActive();
     Info.setInActive();
+    Nav.mobileMenuInActive();
 
     routeClicks();
 });
@@ -53816,6 +53820,21 @@ Work.projectForKeyStream
     ga('send', 'pageview');
 
 })(window.location.pathname);
+
+Nav.mobileEnableButton()
+    .pipe(Nav.mobileMenuActiveS());
+
+Nav.mobileDisableButton()
+    .pipe(Nav.mobileMenuInActiveS());
+
+var scrollerEmitters = scrollEmit();
+scrollerEmitters
+    .belowPoster
+    .pipe(Nav.mobileToggleButtonShow());
+
+scrollerEmitters
+    .inPoster
+    .pipe(Nav.mobileToggleButtonHide());
 
 
 var base = window.location.host;
@@ -53921,6 +53940,46 @@ function doNotScrollBody () {
         document.body.classList.add('no-scroll');
         next();
     }
+}
+
+function scrollEmit () {
+    var belowPoster = through.obj();
+    var inPoster = through.obj();
+
+    window.onscroll = debounce(onScroll());
+
+    function onScroll () {
+        var poster = document.querySelector('.poster-year');
+
+        return function (ev) {
+            var bounding = poster.getBoundingClientRect();
+            if (bounding.bottom < 0) {
+                belowPoster.push({});
+            } else {
+                inPoster.push({});
+            }
+        };
+    }
+
+    return {
+        belowPoster: belowPoster,
+        inPoster: inPoster
+    };
+}
+
+function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+        var context = this, args = arguments;
+        var later = function() {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
 }
 
 },{"./information.js":319,"./lightbox.js":320,"./nav.js":321,"./poster.js":322,"./statement.js":323,"./work.js":324,"routes":306,"through2":317}],319:[function(require,module,exports){
@@ -54145,6 +54204,7 @@ function Nav (selector) {
     var self = this;
 
     this.container = document.querySelector(selector);
+    this.mobileToggle = this.container.querySelector('.mobile-toggle');
     this.departments = [];
 }
 
@@ -54187,6 +54247,92 @@ Nav.prototype.render = function () {
 
         self.container.appendChild(toRender);
         this.push(departments);
+        next();
+    }
+};
+
+Nav.prototype.mobileEnableButton = function () {
+    var clicks = through.obj();
+    this.mobileToggle
+        .addEventListener('click', function (ev) {
+            console.log('enable');
+            console.log(ev.target.tagName);
+            if ((ev.target.tagName === 'svg') ||
+                (ev.target.tagName === 'path')) {
+                clicks.push(ev);
+            }
+        });
+
+    return clicks;
+};
+
+Nav.prototype.mobileDisableButton = function () {
+    var clicks = through.obj();
+
+    this.container
+        .addEventListener('click', function (ev) {
+            console.log('disable');
+            console.log(ev.target.tagName);
+            if ((ev.target.tagName === 'NAV') ||
+                (ev.target.tagName === 'UL') ||
+                (ev.target.tagName === 'LI')) {
+                clicks.push(ev);
+            }
+        });
+
+    return clicks;
+};
+
+Nav.prototype.mobileMenuInActive = function () {
+    this.container.classList.remove('active');
+};
+
+Nav.prototype.mobileMenuActiveS = function () {
+    var self = this;
+    return through.obj(active);
+
+    function active (ev, enc, next) {
+        console.log(self.container);
+        self.container.classList.add('active');
+        this.push(ev);
+        next();
+    }
+};
+
+Nav.prototype.mobileMenuInActiveS = function () {
+    var self = this;
+    return through.obj(inactive);
+
+    function inactive (ev, enc, next) {
+        console.log(self.container);
+        self.container.classList.remove('active');
+        this.push(ev);
+        next();
+    }
+};
+
+Nav.prototype.mobileToggleButtonShow = function () {
+    var self = this;
+
+    return through({ objectMode: true,
+                     allowHalfOpen: true}, show);
+
+    function show (row, enc, next) {
+        self.mobileToggle.classList.add('show');
+        this.push(row);
+        next();
+    }
+};
+
+Nav.prototype.mobileToggleButtonHide = function () {
+    var self = this;
+
+    return through({ objectMode: true,
+                     allowHalfOpen: true}, hide);
+
+    function hide (row, enc, next) {
+        self.mobileToggle.classList.remove('show');
+        this.push(row);
         next();
     }
 };

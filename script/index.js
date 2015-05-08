@@ -18,6 +18,7 @@ router.addRoute('/', function () {
     Info.setInActive();
     Statement.setInActive();
     Lightbox.setInActive();
+    Nav.mobileMenuInActive();
     
     routeClicks();
 });
@@ -29,6 +30,7 @@ router.addRoute('/info', function () {
     
     Statement.setInActive();
     Lightbox.setInActive();
+    Nav.mobileMenuInActive();
     
     routeClicks();
 });
@@ -60,6 +62,7 @@ router.addRoute('/work/department/:department', function (opts) {
 
     Statement.setInActive();
     Info.setInActive();
+    Nav.mobileMenuInActive();
 
     routeClicks();
 });
@@ -72,6 +75,7 @@ router.addRoute('/work/:id', function (opts) {
 
     Statement.setInActive();
     Info.setInActive();
+    Nav.mobileMenuInActive();
 
     routeClicks();
 });
@@ -132,6 +136,21 @@ Work.projectForKeyStream
     ga('send', 'pageview');
 
 })(window.location.pathname);
+
+Nav.mobileEnableButton()
+    .pipe(Nav.mobileMenuActiveS());
+
+Nav.mobileDisableButton()
+    .pipe(Nav.mobileMenuInActiveS());
+
+var scrollerEmitters = scrollEmit();
+scrollerEmitters
+    .belowPoster
+    .pipe(Nav.mobileToggleButtonShow());
+
+scrollerEmitters
+    .inPoster
+    .pipe(Nav.mobileToggleButtonHide());
 
 
 var base = window.location.host;
@@ -237,4 +256,44 @@ function doNotScrollBody () {
         document.body.classList.add('no-scroll');
         next();
     }
+}
+
+function scrollEmit () {
+    var belowPoster = through.obj();
+    var inPoster = through.obj();
+
+    window.onscroll = debounce(onScroll());
+
+    function onScroll () {
+        var poster = document.querySelector('.poster-year');
+
+        return function (ev) {
+            var bounding = poster.getBoundingClientRect();
+            if (bounding.bottom < 0) {
+                belowPoster.push({});
+            } else {
+                inPoster.push({});
+            }
+        };
+    }
+
+    return {
+        belowPoster: belowPoster,
+        inPoster: inPoster
+    };
+}
+
+function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+        var context = this, args = arguments;
+        var later = function() {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
 }
