@@ -138,10 +138,12 @@ Work.projectForKeyStream
 })(window.location.pathname);
 
 Nav.mobileEnableButton()
-    .pipe(Nav.mobileMenuActiveS());
+    .pipe(Nav.mobileMenuActiveS())
+    .pipe(doNotScrollBody());
 
 Nav.mobileDisableButton()
-    .pipe(Nav.mobileMenuInActiveS());
+    .pipe(Nav.mobileMenuInActiveS())
+    .pipe(scrollBody());
 
 var scrollerEmitters = scrollEmit();
 scrollerEmitters
@@ -245,6 +247,7 @@ function scrollBody () {
 
     function scroll (row, enc, next) {
         document.body.classList.remove('no-scroll');
+        this.push(row);
         next();
     }
 }
@@ -254,6 +257,7 @@ function doNotScrollBody () {
 
     function noScroll (row, enc, next) {
         document.body.classList.add('no-scroll');
+        this.push(row);
         next();
     }
 }

@@ -1682,19 +1682,28 @@ nav {
       nav .mobile-toggle {
         display: none;
         cursor: default; } }
-  nav section {
-    margin-top: 36px; }
-    @media screen and (min-width: 768px) {
-      nav section {
-        margin-top: 0; } }
   nav svg {
     width: 100%; }
     nav svg path {
       fill: #f05367; }
+  nav section {
+    margin-top: -100vh; }
+    @media screen and (min-width: 768px) {
+      nav section {
+        margin-top: 0; } }
   nav.active {
-    bottom: 0; }
+    bottom: 0;
+    overflow-y: scroll; }
     nav.active .mobile-toggle {
       display: none; }
+    nav.active section {
+      margin-top: 36px; }
+      @media screen and (min-width: 768px) {
+        nav.active section {
+          margin-top: 0; } }
+    @media screen and (min-width: 768px) {
+      nav.active {
+        overflow: hidden; } }
   @media screen and (min-width: 768px) {
     nav {
       bottom: inherit; } }

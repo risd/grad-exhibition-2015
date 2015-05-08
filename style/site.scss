@@ -1207,14 +1207,6 @@ nav {
         }
     }
 
-    section {
-        margin-top: $mobile-single-handle-gutter;
-
-        @media screen and (min-width: 768px) {
-            margin-top: 0;
-        }
-    }
-
     svg {
         width: 100%;
         path {
@@ -1222,12 +1214,34 @@ nav {
         }
     }
 
+
+    section {
+        margin-top: -100vh;
+
+        @media screen and (min-width: 768px) {
+            margin-top: 0;
+        }
+    }
+
     transition: bottom, 0.28s, ease-in-out;
     bottom: 100vh;
     &.active {
         bottom: 0;
+        overflow-y: scroll;
+
         .mobile-toggle {
             display: none;
+        }
+
+        section {
+            margin-top: $mobile-single-handle-gutter;
+            @media screen and (min-width: 768px) {
+                margin-top: 0;
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            overflow: hidden;
         }
     }
 
