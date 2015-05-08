@@ -53702,7 +53702,7 @@ router.addRoute('/', function () {
     Info.setInActive();
     Statement.setInActive();
     Lightbox.setInActive();
-    Nav.mobileMenuInActive();
+    // Nav.mobileMenuInActive();
     
     routeClicks();
 });
@@ -53714,7 +53714,7 @@ router.addRoute('/info', function () {
     
     Statement.setInActive();
     Lightbox.setInActive();
-    Nav.mobileMenuInActive();
+    // Nav.mobileMenuInActive();
     
     routeClicks();
 });
