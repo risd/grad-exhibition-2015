@@ -47,6 +47,10 @@ function Work (selector) {
 
     this.projectForKeyStream = through.obj();
     this.projectsForDepartmentStream = through.obj();
+
+    // while clearing, you want to stop
+    // the render function from being fired.
+    this.pauseRender = false;
 }
 
 Work.prototype.projectForKey = function (id) {
@@ -106,10 +110,12 @@ Work.prototype.rerenderForDepartmentFilter = function (department) {
 
     if (findDepartment.length === 1) {
         self.activeFilter = findDepartment[0];
+        console.log(self.activeFilter);
         return true;
     }
     else if (department === 'all') {
         self.activeFilter = 'all';
+        console.log(self.activeFilter);
         return true;
     }
     else {
@@ -213,18 +219,46 @@ Work.prototype.fetchMeta = function() {
 
 Work.prototype.clear = function () {
     var self = this;
+    var stream = through.obj();
+
     var allPieces = self.container
         .querySelectorAll('.piece');
+
+    // pause the render while the
+    // clear function does its thing
+    self.pauseRender = true;
+    
     self.packery.remove(allPieces);
+    self.packery.once('removeComplete', handleRemove);
+
+    function handleRemove (removed) {
+        self.pauseRender = false;
+        Array.prototype.forEach.call(
+            self.container.querySelectorAll('.piece'),
+            function (node) {
+                node.parentNode.removeChild(node);
+            });
+        console.log('push!');
+        stream.push({});
+    }
+
+    return stream;
 };
 
 Work.prototype.list = function () {
     var self = this;
-    var stream = through.obj();
-    self.projects.forEach(function (project) {
-        stream.push(project);
-    });
-    return stream;
+
+    return through.obj(lst);
+
+    function lst (notification, enc, next) {
+        var stream = this;
+        console.log('project count: ', self.projects.length);
+        self.projects
+            .forEach(function (project) {
+                stream.push(project);
+            });
+        next();
+    }
 };
 
 Work.prototype.feedPages = function () {
@@ -268,10 +302,28 @@ Work.prototype.applyNavFilterToProjects = function () {
     return through.obj(fltr);
 
     function fltr (project, enc, next) {
+        var madeIt = false;
         if (self.activeFilter === 'all') {
             this.push(project);
+            madeIt = true;
         }
         else if (self.activeFilter === project.risd_program_class) {
+            this.push(project);
+            madeIt = true;
+        }
+        // console.log(madeIt);
+        // console.log(project.risd_program_class);
+        next();
+    }
+};
+
+Work.prototype.checkPauseForFilter = function () {
+    var self = this;
+
+    return through.obj(pause);
+
+    function pause (project, enc, next) {
+        if (self.pauseRender === false) {
             this.push(project);
         }
         next();
@@ -286,26 +338,33 @@ Work.prototype.render = function () {
     function rndr (project, enc, next) {
         var stream = this;
 
-        var toRender = hyperglue(pieceTemplate, {
+        if ((self.pauseRender === false) &&
+            ((self.activeFilter === 'all') || (
+              self.activeFilter === project.risd_program_class))) {
+
+            var toRender = hyperglue(pieceTemplate, {
                 '[class=student-name]': project.student_name,
                 '[class=risd-program]': project.risd_program
             });
 
-        var cover_image = toRender.querySelector('img');
-        toRender.classList.add(project.risd_program_class);
-        cover_image.src = project.cover.src;
-        var appended = self.container.appendChild(toRender);
-        appended.style.visibility = 'hidden';
+            var cover_image = toRender.querySelector('img');
+            toRender.classList.add(project.risd_program_class);
+            cover_image.src = project.cover.src;
+            var appended = self.container.appendChild(toRender);
+            appended.style.visibility = 'hidden';
 
-        cover_image.addEventListener('load', function () {
-            self.packery.appended(toRender);
-            self.packery.layout();
-            
-            appended.style.visibility = 'visible';
+            cover_image.addEventListener('load', function () {
+                self.packery.appended(toRender);
+                self.packery.layout();
+                
+                appended.style.visibility = 'visible';
 
-            stream.push({ el: appended, data: project });
+                stream.push({ el: appended, data: project });
+                next();
+            });
+        } else {
             next();
-        });
+        }
     }
 };
 

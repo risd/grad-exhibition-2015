@@ -21,20 +21,6 @@ function Nav (selector) {
     this.departments = [];
 }
 
-Nav.prototype.ensureDepartment = function (departmentToEnsure) {
-    var result = false;
-    var check = this.departments
-        .map(escape_department)
-        .filter(function (department) {
-            return departmentToEnsure === department;
-        });
-    if (check.length === 1) {
-        result = true;
-    }
-
-    return result;
-};
-
 Nav.prototype.render = function () {
     var self = this;
 
@@ -84,8 +70,6 @@ Nav.prototype.mobileDisableButton = function () {
 
     this.container
         .addEventListener('click', function (ev) {
-            console.log('disable');
-            console.log(ev.target.tagName);
             if ((ev.target.tagName === 'NAV') ||
                 (ev.target.tagName === 'UL') ||
                 (ev.target.tagName === 'LI')) {

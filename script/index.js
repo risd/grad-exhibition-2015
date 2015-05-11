@@ -42,6 +42,7 @@ router.addRoute('/statement', function () {
 
     Info.setInActive();
     Lightbox.setInActive();
+    // Nav.mobileMenuInActive();
     
     routeClicks();
 });
@@ -50,10 +51,8 @@ router.addRoute('/work/department/:department', function (opts) {
     console.log('route: /work/department');
 
     var re = Work.rerenderForDepartmentFilter(opts.params.department);
-    if (re) {
-        Work.clear();
-        Work.list()
-            .pipe(Work.applyNavFilterToProjects())
+    if (re) {Work.clear()
+            .pipe(Work.list())
             .pipe(Work.render())
             .pipe(WorkInteraction());
     }
@@ -111,7 +110,6 @@ Work.projectForKeyStream
     workMeta
         .pipe(Work.feedPages())
         .pipe(Work.fetchProjects())
-        .pipe(Work.applyNavFilterToProjects())
         .pipe(Work.render())
         .pipe(WorkInteraction());
 
