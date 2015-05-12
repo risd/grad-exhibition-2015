@@ -1242,17 +1242,30 @@ nav {
         height: auto;
 
         background-color: transparent;
+
+        section.fixed {
+            width: calc(100% - #{$tablet-combined-handle-gutter});
+        }
     }
 
     @media screen and (min-width: 1024px) {
         width: 70%;
         max-width: 875px;
+
+        section.fixed {
+            width: 70%;
+            max-width: 875px;
+        }
     }
 
     @media screen and (min-width: 1280px) {
         // 520/1280
         // 0.41
         width: 56%;
+
+        section.fixed {
+            width: 56%;            
+        }
     }
 
     .mobile-toggle {
@@ -1287,9 +1300,19 @@ nav {
 
     section {
         margin-top: -100vh;
+        box-sizing: border-box;
+
+        padding-bottom: $mobile-content-gutter;
 
         @media screen and (min-width: 768px) {
             margin-top: 0;
+            padding-bottom: $tablet-content-gutter;
+
+            &.fixed {
+                position: fixed;
+                top: 0;
+                margin-top: 25px;
+            }
         }
     }
 
@@ -1329,6 +1352,8 @@ nav {
 
     ul {
         text-align: center;
+        margin-top: 0;
+        margin-bottom: 0;
     }
     li {
         display: block;

@@ -148,15 +148,53 @@ Nav.mobileDisableButton()
 var scrollerEmitters = scrollEmit();
 scrollerEmitters
     .belowPoster
-    .pipe(Nav.mobileToggleButtonShow());
+    .pipe(Nav.mobileToggleButtonShow())
+    .pipe(Nav.addFixedClass())
+    .pipe(through({ objectMode: true,
+                     allowHalfOpen: true},
+        function addWorkMargin (row, enc, next) {
+            var height = 0;
+            if (row.navSectionHeight) {
+                height = row.navSectionHeight;
+            }
+
+            if (window.innerWidth > 768) {
+                Work.container
+                    .style
+                    .marginTop = 'calc(100vh + ' + height + 'px)';
+            }
+            else {
+                Work.container
+                    .style
+                    .marginTop = '100vh';
+            }
+
+            this.push(row);
+            next();
+        })
+    );
 
 scrollerEmitters
     .inPoster
-    .pipe(Nav.mobileToggleButtonHide());
-
-// Lightbox
-//     .activeScroll()
-//     .pipe(Lightbox.fixElements());
+    .pipe(Nav.mobileToggleButtonHide())
+    .pipe(Nav.removeFixedClass())
+    .pipe(through({ objectMode: true,
+                     allowHalfOpen: true},
+        function rmWorkMargin (row, enc, next) {
+            if (window.innerWidth > 768) {
+                Work.container
+                    .style
+                    .marginTop = '0';
+            }
+            else {
+                Work.container
+                    .style
+                    .marginTop = '100vh';
+            }
+            this.push(row);
+            next();
+        })
+    );
 
 
 var base = window.location.host;

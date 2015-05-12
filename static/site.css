@@ -1703,14 +1703,21 @@ nav {
       width: calc(100% - 124px);
       max-width: 870px;
       height: auto;
-      background-color: transparent; } }
+      background-color: transparent; }
+      nav section.fixed {
+        width: calc(100% - 124px); } }
   @media screen and (min-width: 1024px) {
     nav {
       width: 70%;
-      max-width: 875px; } }
+      max-width: 875px; }
+      nav section.fixed {
+        width: 70%;
+        max-width: 875px; } }
   @media screen and (min-width: 1280px) {
     nav {
-      width: 56%; } }
+      width: 56%; }
+      nav section.fixed {
+        width: 56%; } }
   nav .mobile-toggle {
     cursor: default;
     position: fixed;
@@ -1732,10 +1739,17 @@ nav {
     nav svg path {
       fill: #f05367; }
   nav section {
-    margin-top: -100vh; }
+    margin-top: -100vh;
+    box-sizing: border-box;
+    padding-bottom: 12px; }
     @media screen and (min-width: 768px) {
       nav section {
-        margin-top: 0; } }
+        margin-top: 0;
+        padding-bottom: 12px; }
+        nav section.fixed {
+          position: fixed;
+          top: 0;
+          margin-top: 25px; } }
   nav.active {
     bottom: 0;
     overflow-y: scroll; }
@@ -1753,7 +1767,9 @@ nav {
     nav {
       bottom: inherit; } }
   nav ul {
-    text-align: center; }
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0; }
   nav li {
     display: block;
     margin-top: 12px; }

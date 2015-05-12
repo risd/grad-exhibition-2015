@@ -80,6 +80,54 @@ Nav.prototype.mobileDisableButton = function () {
     return clicks;
 };
 
+Nav.prototype.addFixedClass = function () {
+    var self = this;
+    return through({ objectMode: true,
+                     allowHalfOpen: true}, addFixed);
+
+    function addFixed (row, enc, next) {
+        var section = self
+                .container
+                .querySelector('section');
+
+        row.navSectionHeight = false;
+
+        if (section) {
+            section
+                .classList
+                .add('fixed');
+
+            row.navSectionHeight =
+                section
+                    .getBoundingClientRect()
+                    .height;
+        }
+
+        this.push(row);
+        next();
+    }
+};
+
+Nav.prototype.removeFixedClass = function () {
+    var self = this;
+    return through({ objectMode: true,
+                     allowHalfOpen: true}, rmFixed);
+
+    function rmFixed (row, enc, next) {
+        var section = self
+                .container
+                .querySelector('section');
+        if (section) {
+            section
+                .classList
+                .remove('fixed');
+        }
+
+        this.push(row);
+        next();
+    }
+};
+
 Nav.prototype.mobileMenuInActive = function () {
     this.container.classList.remove('active');
 };
