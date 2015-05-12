@@ -30,6 +30,17 @@ function Lightbox (selector) {
     var self = this;
 
     this.container = document.querySelector(selector);
+    this.wrapper = function () {
+        return self
+            .container
+            .querySelector(selector + '-wrapper');
+    };
+    this.fixedElements = function () {
+        return [
+            self.container.querySelector('.name-tag'),
+            self.container.querySelector('.close')
+        ];
+    };
 
     this.closeStream = through.obj(function close (row, enc, next) {
         console.log('lightbox.close');
@@ -38,6 +49,46 @@ function Lightbox (selector) {
         next();
     });
 }
+
+// Lightbox.prototype.activeScroll = function () {
+//     var self = this;
+
+//     var events = through.obj();
+
+//     self.container.onscroll = debounce(onScroll());
+
+//     function onScroll () {
+//         return function (ev) {
+//             if (self.container.classList.contains('active')) {
+//                 events.push({});
+//             }
+//         };
+//     }
+
+//     return events;
+// };
+
+// Lightbox.prototype.fixElements = function () {
+//     var self = this;
+//     return through({ objectMode: true,
+//                      allowHalfOpen: true}, check);
+
+//     function check (row, enc, next) {
+//         if (window.innerWidth > 768) {
+//             var bbox = self.wrapper().getBoundingClientRect();
+//             var marginTop = '0px';
+//             if (bbox.top < 0) {
+//                 marginTop = (bbox.top * -1) + 'px';
+//             }
+//             self.fixedElements()
+//                 .forEach(function (element) {
+//                     element.style.marginTop = marginTop;
+//                 });
+//             this.push(bbox);
+//         }
+//         next();
+//     }
+// };
 
 Lightbox.prototype.setActiveStream = function () {
     var self = this;
@@ -146,4 +197,19 @@ function createEmbedModule (module) {
 
 function projectKey (project) {
     return project.id;
+}
+
+function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+        var context = this, args = arguments;
+        var later = function() {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
 }

@@ -1402,11 +1402,11 @@ body.no-scroll {
     color: #f05367;
     -webkit-font-smoothing: antialiased;
     font-family: 'Founders Grotesk Bold', sans-serif;
-    font-size: 15pt;
-    line-height: 17pt; }
+    font-size: 12pt;
+    line-height: 14pt; }
     @media screen and (min-width: 768px) {
       .work p {
-        font-size: 17.6pt; } }
+        font-size: 13pt; } }
   .work .meta p {
     margin-top: 0; }
 
@@ -1449,6 +1449,14 @@ body.no-scroll {
         font-size: 17.6pt; } }
   .lightbox a {
     text-decoration: none; }
+  .lightbox .description, .lightbox .project .module-text p, .lightbox .risd-program, .lightbox .website a {
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Founders Grotesk Bold', sans-serif;
+    font-size: 12pt;
+    line-height: 14pt; }
+    @media screen and (min-width: 768px) {
+      .lightbox .description, .lightbox .project .module-text p, .lightbox .risd-program, .lightbox .website a {
+        font-size: 13pt; } }
   .lightbox .name-tag, .lightbox .close, .lightbox .project {
     flex: initial; }
   .lightbox .name-tag {
@@ -1458,7 +1466,7 @@ body.no-scroll {
       width: calc(100% - 12px); }
     @media screen and (min-width: 768px) {
       .lightbox .name-tag {
-        width: 15%;
+        width: 25%;
         order: 1; } }
   .lightbox .close {
     width: 10%;
@@ -1475,7 +1483,11 @@ body.no-scroll {
     width: 100%; }
     @media screen and (min-width: 768px) {
       .lightbox .project {
-        width: 80%;
+        width: 70%;
+        order: 2; } }
+    @media screen and (min-width: 768px) {
+      .lightbox .project {
+        max-width: 625px;
         order: 2; } }
   .lightbox .websites {
     margin: 0;
@@ -1523,14 +1535,16 @@ nav {
       margin-left: auto;
       margin-right: auto;
       width: calc(100% - 124px);
+      max-width: 870px;
       height: auto;
       background-color: transparent; } }
   @media screen and (min-width: 1024px) {
     nav {
-      width: 55%; } }
+      width: 70%;
+      max-width: 875px; } }
   @media screen and (min-width: 1280px) {
     nav {
-      width: 45%; } }
+      width: 56%; } }
   nav .mobile-toggle {
     cursor: default;
     position: fixed;

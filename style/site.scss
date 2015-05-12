@@ -82,8 +82,22 @@ $tablet-poster-year-five-offset: 250px;
 
     @media screen and (min-width: 768px) {
         font-size: 17.6pt;
+    } 
+}
+
+@mixin type--body--small {
+    -webkit-font-smoothing: antialiased;
+
+    font: {
+        family: 'Founders Grotesk Bold', sans-serif;
+        size: 12pt;
     }
-    
+
+    line-height: 14pt;
+
+    @media screen and (min-width: 768px) {
+        font-size: 13pt;
+    } 
 }
 
 body {
@@ -1015,7 +1029,7 @@ body {
 
     p {
         color: $red;
-        @include type--body;
+        @include type--body--small;
     }
 
     .meta p {
@@ -1038,9 +1052,31 @@ body {
 
     &.active{
         top: 0;
+        .close {
+            transition: top, 0.28s, ease-in-out;
+            top: $mobile-single-handle-gutter;
+        }
+        @media screen and (min-width: 768px) {
+            .name-tag,
+            .close {
+                transition: top, 0.28s, ease-in-out;
+                top: $tablet-single-handle-gutter;
+            }
+        }
     }
     &.inActive {
         top: 100vh;
+        .close {
+            transition: top, 0.28s, ease-in-out;
+            top: calc(100vh + #{$mobile-single-handle-gutter});
+        }
+        @media screen and (min-width: 768px) {
+            .name-tag,
+            .close {
+                transition: top, 0.28s, ease-in-out;
+                top: calc(100vh + #{$tablet-single-handle-gutter});
+            }
+        }
     }
     .lightbox-wrapper {
         width: calc(100% - #{$mobile-combined-handle-gutter});
@@ -1068,6 +1104,13 @@ body {
     a {
         text-decoration: none;
     }
+    .description,
+    .project .module-text p,
+    .risd-program,
+    .website a {
+        @include type--body--small;
+
+    }
     // .name-tag,
     // .close,
     // .project {
@@ -1079,6 +1122,23 @@ body {
         flex: initial;
     }
 
+    .name-tag,
+    .close {
+        @media screen and (min-width: 768px) {
+            position: fixed;
+        }
+    }
+    .name-tag p,
+    .close p {
+        margin-top: 0;
+    }
+    .project .name {
+        @media screen and (min-width: 768px) {
+            margin-top: 0;
+        }
+    }
+
+
     .name-tag {
         margin-top: 0;
         width: 90%;
@@ -1088,17 +1148,20 @@ body {
         }
 
         @media screen and (min-width: 768px) {
-            width: 15%;
+            width: 25%;
             order: 1;
         }
     }
     .close {
+        position: fixed;
+        top: $mobile-single-handle-gutter;
+
         width: 10%;
         cursor: pointer;
         text-align: right;
+
         p {
             font-size: 3em;
-            margin-top: 1rem;
         }
 
         @media screen and (min-width: 768px) {
@@ -1109,7 +1172,12 @@ body {
     .project {
         width: 100%;
         @media screen and (min-width: 768px) {
-            width: 80%;
+            margin-left: 25%;
+            width: 70%;
+            order: 2;
+        }
+        @media screen and (min-width: 768px) {
+            max-width: 625px;
             order: 2;
         }
     }
@@ -1169,20 +1237,22 @@ nav {
         position: relative;
         margin-left: auto;
         margin-right: auto;
-        width: calc(100% - #{$tablet-combined-handle-gutter});        
+        width: calc(100% - #{$tablet-combined-handle-gutter});
+        max-width: 870px;
         height: auto;
 
         background-color: transparent;
     }
 
     @media screen and (min-width: 1024px) {
-        width: 55%;
+        width: 70%;
+        max-width: 875px;
     }
 
     @media screen and (min-width: 1280px) {
         // 520/1280
         // 0.41
-        width: 45%;
+        width: 56%;
     }
 
     .mobile-toggle {

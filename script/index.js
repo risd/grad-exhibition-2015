@@ -59,6 +59,8 @@ router.addRoute('/work/department/:department', function (opts) {
 
     window.scrollTo(0, window.innerHeight);
 
+    scrollBodyF();
+
     Statement.setInActive();
     Info.setInActive();
     Nav.mobileMenuInActive();
@@ -151,6 +153,10 @@ scrollerEmitters
 scrollerEmitters
     .inPoster
     .pipe(Nav.mobileToggleButtonHide());
+
+// Lightbox
+//     .activeScroll()
+//     .pipe(Lightbox.fixElements());
 
 
 var base = window.location.host;
@@ -250,6 +256,10 @@ function scrollBody () {
     }
 }
 
+function scrollBodyF () {
+    document.body.classList.remove('no-scroll');
+}
+
 function doNotScrollBody () {
     return through.obj(noScroll);
 
@@ -263,6 +273,7 @@ function doNotScrollBody () {
 function scrollEmit () {
     var belowPoster = through.obj();
     var inPoster = through.obj();
+    var allScroll = through.obj();
 
     window.onscroll = debounce(onScroll());
 
@@ -276,12 +287,14 @@ function scrollEmit () {
             } else {
                 inPoster.push({});
             }
+            allScroll.push({});
         };
     }
 
     return {
         belowPoster: belowPoster,
-        inPoster: inPoster
+        inPoster: inPoster,
+        allScroll: allScroll
     };
 }
 
