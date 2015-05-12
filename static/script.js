@@ -53702,7 +53702,6 @@ router.addRoute('/', function () {
     Info.setInActive();
     Statement.setInActive();
     Lightbox.setInActive();
-    // Nav.mobileMenuInActive();
     
     routeClicks();
 });
@@ -53714,7 +53713,6 @@ router.addRoute('/info', function () {
     
     Statement.setInActive();
     Lightbox.setInActive();
-    // Nav.mobileMenuInActive();
     
     routeClicks();
 });
@@ -53726,7 +53724,6 @@ router.addRoute('/statement', function () {
 
     Info.setInActive();
     Lightbox.setInActive();
-    // Nav.mobileMenuInActive();
     
     routeClicks();
 });
@@ -53735,7 +53732,8 @@ router.addRoute('/work/department/:department', function (opts) {
     console.log('route: /work/department');
 
     var re = Work.rerenderForDepartmentFilter(opts.params.department);
-    if (re) {Work.clear()
+    if (re) {
+        Work.clear()
             .pipe(Work.list())
             .pipe(Work.render())
             .pipe(WorkInteraction());
@@ -53743,7 +53741,7 @@ router.addRoute('/work/department/:department', function (opts) {
 
     window.scrollTo(0, window.innerHeight);
 
-    scrollBodyF();
+    scrollBodyFn();
 
     Statement.setInActive();
     Info.setInActive();
@@ -53978,7 +53976,7 @@ function scrollBody () {
     }
 }
 
-function scrollBodyF () {
+function scrollBodyFn () {
     document.body.classList.remove('no-scroll');
 }
 

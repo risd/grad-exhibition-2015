@@ -1,0 +1,13 @@
+RewriteEngine on
+
+RewriteCond %{HTTP_HOST} gradexhibition\.risd\.edu [NC]
+RewriteCond %{REQUEST_URI} /info
+RewriteRule ^(.*)$ / [L]
+
+RewriteCond %{HTTP_HOST} gradexhibition\.risd\.edu [NC]
+RewriteCond %{REQUEST_URI} /statement
+RewriteRule ^(.*)$ / [L]
+
+RewriteCond %{HTTP_HOST} gradexhibition\.risd\.edu [NC]
+RewriteCond %{REQUEST_URI} /work
+RewriteRule ^(.*)$ / [L]
