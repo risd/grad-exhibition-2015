@@ -679,6 +679,9 @@ h1 {
   font-style: normal;
   font-stretch: normal; }
 
+body.no-scroll {
+  overflow: hidden; }
+
 .poster-year {
   z-index: 1;
   box-sizing: border-box;
@@ -1053,7 +1056,7 @@ h1 {
   transition-delay: 0;
   transition-duration: 0.26s;
   transition-timing-function: ease-in-out;
-  z-index: 4;
+  z-index: 5;
   font-family: 'Founders Grotesk Bold', sans-serif;
   font-size: 14pt;
   font-weight: normal;
@@ -1102,7 +1105,7 @@ h1 {
   transition-delay: 0;
   transition-duration: 0.26s;
   transition-timing-function: ease-in-out;
-  z-index: 4;
+  z-index: 5;
   font-family: 'Founders Grotesk Bold', sans-serif;
   font-size: 14pt;
   font-weight: normal;
@@ -1129,7 +1132,6 @@ h1 {
     .statement-foreground article p {
       color: white;
       -webkit-font-smoothing: antialiased;
-      color: white;
       font-family: 'Founders Grotesk Bold', sans-serif;
       font-size: 15pt;
       line-height: 17pt; }
@@ -1203,7 +1205,7 @@ h1 {
   transition-delay: 0;
   transition-duration: 0.26s;
   transition-timing-function: ease-in-out;
-  z-index: 4;
+  z-index: 5;
   font-family: 'Founders Grotesk Bold', sans-serif;
   font-size: 14pt;
   font-weight: normal;
@@ -1251,7 +1253,7 @@ h1 {
   transition-delay: 0;
   transition-duration: 0.26s;
   transition-timing-function: ease-in-out;
-  z-index: 4;
+  z-index: 5;
   font-family: 'Founders Grotesk Bold', sans-serif;
   font-size: 14pt;
   font-weight: normal;
@@ -1278,7 +1280,6 @@ h1 {
     .info-foreground article p {
       color: white;
       -webkit-font-smoothing: antialiased;
-      color: white;
       font-family: 'Founders Grotesk Bold', sans-serif;
       font-size: 15pt;
       line-height: 17pt; }
@@ -1358,3 +1359,286 @@ h1 {
     .info-foreground .third p {
       max-width: 400px;
       margin-left: 51%; } }
+
+.work {
+  padding: 0;
+  position: relative;
+  margin-bottom: 72px;
+  margin-left: 36px;
+  margin-right: 36px;
+  margin-top: 100vh;
+  box-sizing: border-box;
+  z-index: 3; }
+  @media screen and (min-width: 768px) {
+    .work {
+      margin-top: 0;
+      margin-bottom: 124px;
+      margin-left: 62px;
+      margin-right: 62px; } }
+  .work .piece {
+    box-sizing: border-box;
+    cursor: pointer;
+    width: 100%; }
+    @media screen and (min-width: 500px) {
+      .work .piece {
+        width: 50%; } }
+    @media screen and (min-width: 768px) {
+      .work .piece {
+        width: 33.3333%; } }
+    @media screen and (min-width: 1024px) {
+      .work .piece {
+        width: 25%; } }
+    @media screen and (min-width: 1280px) {
+      .work .piece {
+        width: 20%; } }
+  .work .piece-wrapper {
+    box-sizing: border-box;
+    width: 100%; }
+    @media screen and (min-width: 500px) {
+      .work .piece-wrapper {
+        width: calc(100% - 6px);
+        padding-left: 6px; } }
+  .work p {
+    color: #f05367;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Founders Grotesk Bold', sans-serif;
+    font-size: 12pt;
+    line-height: 14pt; }
+    @media screen and (min-width: 768px) {
+      .work p {
+        font-size: 13pt; } }
+  .work .meta p {
+    margin-top: 0; }
+
+.lightbox {
+  position: fixed;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow-y: scroll;
+  background-color: white;
+  transition: top, 0.28s, ease-in-out;
+  z-index: 4; }
+  .lightbox.active {
+    top: 0; }
+    .lightbox.active .close {
+      transition: top, 0.28s, ease-in-out;
+      top: 36px; }
+    @media screen and (min-width: 768px) {
+      .lightbox.active .name-tag, .lightbox.active .close {
+        transition: top, 0.28s, ease-in-out;
+        top: 62px; } }
+  .lightbox.inActive {
+    top: 100vh; }
+    .lightbox.inActive .close {
+      transition: top, 0.28s, ease-in-out;
+      top: calc(100vh + 36px); }
+    @media screen and (min-width: 768px) {
+      .lightbox.inActive .name-tag, .lightbox.inActive .close {
+        transition: top, 0.28s, ease-in-out;
+        top: calc(100vh + 62px); } }
+  .lightbox .lightbox-wrapper {
+    width: calc(100% - 72px);
+    height: calc(100% - mobile-combined-handle-gutter);
+    margin-left: 36px;
+    margin-top: 36px;
+    overflow-y: scroll;
+    display: flex;
+    flex-flow: row wrap; }
+    @media screen and (min-width: 768px) {
+      .lightbox .lightbox-wrapper {
+        width: calc(100% - 124px);
+        height: calc(100% - tablet-combined-handle-gutter);
+        margin-left: 62px;
+        margin-top: 62px; } }
+  .lightbox p, .lightbox a {
+    color: #f05367;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Founders Grotesk Bold', sans-serif;
+    font-size: 15pt;
+    line-height: 17pt; }
+    @media screen and (min-width: 768px) {
+      .lightbox p, .lightbox a {
+        font-size: 17.6pt; } }
+  .lightbox a {
+    text-decoration: none; }
+  .lightbox .description, .lightbox .project .module-text p, .lightbox .risd-program, .lightbox .website a {
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Founders Grotesk Bold', sans-serif;
+    font-size: 12pt;
+    line-height: 14pt; }
+    @media screen and (min-width: 768px) {
+      .lightbox .description, .lightbox .project .module-text p, .lightbox .risd-program, .lightbox .website a {
+        font-size: 13pt; } }
+  .lightbox .name-tag, .lightbox .close, .lightbox .project {
+    flex: initial; }
+  @media screen and (min-width: 768px) {
+    .lightbox .name-tag, .lightbox .close {
+      position: fixed; } }
+  .lightbox .name-tag p, .lightbox .close p {
+    margin-top: 0; }
+  @media screen and (min-width: 768px) {
+    .lightbox .project .name {
+      margin-top: 0; } }
+  .lightbox .name-tag {
+    margin-top: 0;
+    width: 90%; }
+    .lightbox .name-tag * {
+      width: calc(100% - 12px); }
+    @media screen and (min-width: 768px) {
+      .lightbox .name-tag {
+        width: 25%;
+        order: 1; } }
+  .lightbox .close {
+    position: fixed;
+    top: 36px;
+    width: 10%;
+    cursor: pointer;
+    text-align: right; }
+    .lightbox .close p {
+      font-size: 3em; }
+    @media screen and (min-width: 768px) {
+      .lightbox .close {
+        width: 5%;
+        order: 3; } }
+  .lightbox .project {
+    width: 100%; }
+    @media screen and (min-width: 768px) {
+      .lightbox .project {
+        margin-left: 25%;
+        width: 70%;
+        order: 2; } }
+    @media screen and (min-width: 768px) {
+      .lightbox .project {
+        max-width: 625px;
+        order: 2; } }
+  .lightbox .websites {
+    margin: 0;
+    padding: 0;
+    list-style: none; }
+  .lightbox .project .name, .lightbox .project .description {
+    width: 100%; }
+    @media screen and (min-width: 600px) {
+      .lightbox .project .name, .lightbox .project .description {
+        width: 80%; } }
+    @media screen and (min-width: 768px) {
+      .lightbox .project .name, .lightbox .project .description {
+        max-width: 400px; } }
+    @media screen and (min-width: 1024px) {
+      .lightbox .project .name, .lightbox .project .description {
+        max-width: 550px; } }
+  .lightbox .module-text {
+    width: 100%; }
+    @media screen and (min-width: 600px) {
+      .lightbox .module-text {
+        width: 80%; } }
+    @media screen and (min-width: 768px) {
+      .lightbox .module-text {
+        max-width: 400px; } }
+    @media screen and (min-width: 1024px) {
+      .lightbox .module-text {
+        max-width: 550px; } }
+  .lightbox .module-text, .lightbox .module-image, .lightbox .module-embed {
+    margin: 12px 0; }
+
+nav {
+  z-index: 4;
+  position: fixed;
+  height: 100%;
+  margin-top: 100vh;
+  margin-left: 36px;
+  margin-right: 36px;
+  width: calc(100% - 72px);
+  background-color: white;
+  transition: bottom, 0.28s, ease-in-out;
+  bottom: 100vh; }
+  @media screen and (min-width: 768px) {
+    nav {
+      position: relative;
+      margin-left: auto;
+      margin-right: auto;
+      width: calc(100% - 124px);
+      max-width: 870px;
+      height: auto;
+      background-color: transparent; } }
+  @media screen and (min-width: 1024px) {
+    nav {
+      width: 70%;
+      max-width: 875px; } }
+  @media screen and (min-width: 1280px) {
+    nav {
+      width: 56%; } }
+  nav .mobile-toggle {
+    cursor: default;
+    position: fixed;
+    top: 36px;
+    right: 36px;
+    width: 30px;
+    opacity: 0;
+    pointer-events: none; }
+    nav .mobile-toggle.show {
+      opacity: 1;
+      pointer-events: all;
+      cursor: pointer; }
+    @media screen and (min-width: 768px) {
+      nav .mobile-toggle {
+        display: none;
+        cursor: default; } }
+  nav svg {
+    width: 100%; }
+    nav svg path {
+      fill: #f05367; }
+  nav section {
+    margin-top: -100vh; }
+    @media screen and (min-width: 768px) {
+      nav section {
+        margin-top: 0; } }
+  nav.active {
+    bottom: 0;
+    overflow-y: scroll; }
+    nav.active .mobile-toggle {
+      display: none; }
+    nav.active section {
+      margin-top: 36px; }
+      @media screen and (min-width: 768px) {
+        nav.active section {
+          margin-top: 0; } }
+    @media screen and (min-width: 768px) {
+      nav.active {
+        overflow: hidden; } }
+  @media screen and (min-width: 768px) {
+    nav {
+      bottom: inherit; } }
+  nav ul {
+    text-align: center; }
+  nav li {
+    display: block;
+    margin-top: 12px; }
+    @media screen and (min-width: 768px) {
+      nav li {
+        display: inline-block;
+        margin-top: 0; } }
+  nav a {
+    color: #f05367;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Founders Grotesk Bold', sans-serif;
+    font-size: 15pt;
+    line-height: 17pt;
+    text-decoration: none; }
+    @media screen and (min-width: 768px) {
+      nav a {
+        font-size: 17.6pt; } }
+    @media screen and (min-width: 768px) {
+      nav a:after {
+        position: relative;
+        display: inline-block;
+        margin-left: 6px;
+        margin-right: 6px;
+        content: '|';
+        color: #b5b5b5; } }
+  @media screen and (min-width: 768px) {
+    nav li:last-child a:after {
+      display: none;
+      content: "";
+      margin: 0; } }
