@@ -13,6 +13,8 @@ $red: rgb(240, 83, 103);
 // -------
 $mobile-handle: 24px;
 $mobile-content-gutter: 12px;
+$mobile-half-content-gutter: 12px/2;
+$mobile-third-content-gutter: 12px/3;
 $mobile-single-handle-gutter: $mobile-handle + $mobile-content-gutter;
 // = 36
 $mobile-combined-handle-single-gutter: ($mobile-handle * 2) + $mobile-content-gutter;
@@ -71,8 +73,6 @@ $tablet-poster-year-five-offset: 250px;
 @mixin type--body {
     -webkit-font-smoothing: antialiased;
 
-    color: $white;
-
     font: {
         family: 'Founders Grotesk Bold', sans-serif;
         size: 15pt;
@@ -82,8 +82,28 @@ $tablet-poster-year-five-offset: 250px;
 
     @media screen and (min-width: 768px) {
         font-size: 17.6pt;
+    } 
+}
+
+@mixin type--body--small {
+    -webkit-font-smoothing: antialiased;
+
+    font: {
+        family: 'Founders Grotesk Bold', sans-serif;
+        size: 12pt;
     }
-    
+
+    line-height: 14pt;
+
+    @media screen and (min-width: 768px) {
+        font-size: 13pt;
+    } 
+}
+
+body {
+    &.no-scroll {
+        overflow: hidden;
+    }
 }
 
 
@@ -657,7 +677,7 @@ $tablet-poster-year-five-offset: 250px;
 @mixin slide-in {
     @include slide-in-transition;
 
-    z-index: 4;
+    z-index: 5;
 
     font: {
         family: 'Founders Grotesk Bold', sans-serif;
@@ -953,6 +973,419 @@ $tablet-poster-year-five-offset: 250px;
                 max-width: 400px;
                 margin-left: 51%;
             }
+        }
+    }
+}
+
+.work {
+    padding: 0;
+    position: relative;
+
+    margin-bottom: $mobile-combined-handle-gutter;
+    margin-left: $mobile-single-handle-gutter;
+    margin-right: $mobile-single-handle-gutter;
+
+    margin-top: 100vh;
+
+    @media screen and (min-width: 768px) {
+        margin-top: 0;
+        margin-bottom: $tablet-combined-handle-gutter;
+        margin-left: $tablet-single-handle-gutter;
+        margin-right: $tablet-single-handle-gutter;
+    }
+
+    box-sizing: border-box;
+
+    z-index: 3;
+
+    .piece {
+        box-sizing: border-box;
+        cursor: pointer;
+
+        width: 100%;
+
+        @media screen and (min-width: 500px) {
+            width: 50%;
+        }
+        @media screen and (min-width: 768px) {
+            width: 33.3333%;
+        }
+        @media screen and (min-width: 1024px) {
+            width: 25%;
+        }
+        @media screen and (min-width: 1280px) {
+            width: 20%;
+        }
+    }
+
+    .piece-wrapper {
+        box-sizing: border-box;
+        width: 100%;
+        @media screen and (min-width: 500px) {
+            width: calc(100% - #{$mobile-half-content-gutter});
+            padding-left: $mobile-half-content-gutter;
+        }
+    }
+
+    p {
+        color: $red;
+        @include type--body--small;
+    }
+
+    .meta p {
+        margin-top: 0;
+    }
+}
+
+.lightbox {
+    position: fixed;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow-y: scroll;
+    background-color: $white;
+
+    transition: top, 0.28s, ease-in-out;
+
+    z-index: 4;
+
+    &.active{
+        top: 0;
+        .close {
+            transition: top, 0.28s, ease-in-out;
+            top: $mobile-single-handle-gutter;
+        }
+        @media screen and (min-width: 768px) {
+            .name-tag,
+            .close {
+                transition: top, 0.28s, ease-in-out;
+                top: $tablet-single-handle-gutter;
+            }
+        }
+    }
+    &.inActive {
+        top: 100vh;
+        .close {
+            transition: top, 0.28s, ease-in-out;
+            top: calc(100vh + #{$mobile-single-handle-gutter});
+        }
+        @media screen and (min-width: 768px) {
+            .name-tag,
+            .close {
+                transition: top, 0.28s, ease-in-out;
+                top: calc(100vh + #{$tablet-single-handle-gutter});
+            }
+        }
+    }
+    .lightbox-wrapper {
+        width: calc(100% - #{$mobile-combined-handle-gutter});
+        height: calc(100% - #{mobile-combined-handle-gutter});
+        margin-left: $mobile-single-handle-gutter;
+        margin-top: $mobile-single-handle-gutter;
+        
+        overflow-y: scroll;
+
+        display: flex;
+        flex-flow: row wrap;
+
+        @media screen and (min-width: 768px) {
+            width: calc(100% - #{$tablet-combined-handle-gutter});
+            height: calc(100% - #{tablet-combined-handle-gutter});
+            margin-left: $tablet-single-handle-gutter;
+            margin-top: $tablet-single-handle-gutter;
+        }
+    }
+    p,
+    a {
+        color: $red;
+        @include type--body;
+    }
+    a {
+        text-decoration: none;
+    }
+    .description,
+    .project .module-text p,
+    .risd-program,
+    .website a {
+        @include type--body--small;
+
+    }
+    // .name-tag,
+    // .close,
+    // .project {
+    //     flex: 1 auto;
+    // }
+    .name-tag,
+    .close,
+    .project {
+        flex: initial;
+    }
+
+    .name-tag,
+    .close {
+        @media screen and (min-width: 768px) {
+            position: fixed;
+        }
+    }
+    .name-tag p,
+    .close p {
+        margin-top: 0;
+    }
+    .project .name {
+        @media screen and (min-width: 768px) {
+            margin-top: 0;
+        }
+    }
+
+
+    .name-tag {
+        margin-top: 0;
+        width: 90%;
+
+        * {
+            width: calc(100% - #{$mobile-content-gutter});
+        }
+
+        @media screen and (min-width: 768px) {
+            width: 25%;
+            order: 1;
+        }
+    }
+    .close {
+        position: fixed;
+        top: $mobile-single-handle-gutter;
+
+        width: 10%;
+        cursor: pointer;
+        text-align: right;
+
+        p {
+            font-size: 3em;
+        }
+
+        @media screen and (min-width: 768px) {
+            width: 5%;
+            order: 3;
+        }
+    }
+    .project {
+        width: 100%;
+        @media screen and (min-width: 768px) {
+            margin-left: 25%;
+            width: 70%;
+            order: 2;
+        }
+        @media screen and (min-width: 768px) {
+            max-width: 625px;
+            order: 2;
+        }
+    }
+    .websites {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    .project {
+        .name,
+        .description {
+            width: 100%;
+            @media screen and (min-width: 600px) {
+                width: 80%
+            }
+            @media screen and (min-width: 768px) {
+                max-width: 400px;
+            }
+            @media screen and (min-width: 1024px) {
+                max-width: 550px;
+            }
+        }
+    }
+    .module-text {
+        width: 100%;
+        @media screen and (min-width: 600px) {
+            width: 80%
+        }
+        @media screen and (min-width: 768px) {
+            max-width: 400px;
+        }
+        @media screen and (min-width: 1024px) {
+            max-width: 550px;
+        }
+    }
+    .module-text,
+    .module-image,
+    .module-embed {
+        margin: $mobile-content-gutter 0;
+    }
+}
+
+nav {
+    z-index: 4;
+    position: fixed;
+    height: 100%;
+
+    margin-top: 100vh;
+    margin-left: $mobile-single-handle-gutter;
+    margin-right: $mobile-single-handle-gutter;
+
+    width: calc(100% - #{$mobile-combined-handle-gutter});
+
+    background-color: $white;
+
+    @media screen and (min-width: 768px) {
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        width: calc(100% - #{$tablet-combined-handle-gutter});
+        max-width: 870px;
+        height: auto;
+
+        background-color: transparent;
+
+        section.fixed {
+            width: calc(100% - #{$tablet-combined-handle-gutter});
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        width: 70%;
+        max-width: 875px;
+
+        section.fixed {
+            width: 70%;
+            max-width: 875px;
+        }
+    }
+
+    @media screen and (min-width: 1280px) {
+        // 520/1280
+        // 0.41
+        width: 56%;
+
+        section.fixed {
+            width: 56%;            
+        }
+    }
+
+    .mobile-toggle {
+        cursor: default;
+        position: fixed;
+        top: $mobile-single-handle-gutter;
+        right: $mobile-single-handle-gutter;
+        width: 30px;
+
+        opacity: 0;
+        pointer-events: none;
+
+        &.show {
+            opacity: 1;
+            pointer-events: all;
+            cursor: pointer;
+        }
+
+        @media screen and (min-width: 768px) {
+            display: none;
+            cursor: default;
+        }
+    }
+
+    svg {
+        width: 100%;
+        path {
+            fill: $red;
+        }
+    }
+
+
+    section {
+        margin-top: -100vh;
+        box-sizing: border-box;
+
+        padding-bottom: $mobile-content-gutter;
+
+        @media screen and (min-width: 768px) {
+            margin-top: 0;
+            padding-bottom: $tablet-content-gutter;
+
+            &.fixed {
+                position: fixed;
+                top: 0;
+                margin-top: 25px;
+            }
+        }
+    }
+
+    transition: bottom, 0.28s, ease-in-out;
+    bottom: 100vh;
+    &.active {
+        bottom: 0;
+        overflow-y: scroll;
+
+        .mobile-toggle {
+            display: none;
+        }
+
+        section {
+            margin-top: $mobile-single-handle-gutter;
+            @media screen and (min-width: 768px) {
+                margin-top: 0;
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            overflow: hidden;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        bottom: inherit;
+    }
+
+    // h1 {
+    //     z-index: 10;
+    //     @include type--body;
+    //     text-transform: uppercase;
+    //     color: $red;
+    // }
+
+
+    ul {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    li {
+        display: block;
+        margin-top: $mobile-content-gutter;
+
+        @media screen and (min-width: 768px) {
+            display: inline-block;
+            margin-top: 0;
+        }
+    }
+    a {
+        color: $red;
+        @include type--body;
+        text-decoration: none;
+        @media screen and (min-width: 768px) {
+            &:after {
+                position: relative;
+                display: inline-block;
+                margin-left: 6px;
+                margin-right: 6px;
+                content: '|';
+                color: $grey;
+            }   
+        }
+    }
+    li:last-child {
+        @media screen and (min-width: 768px) {
+            a:after {
+                display: none;
+                content: "";
+                margin: 0;
+            }   
         }
     }
 }

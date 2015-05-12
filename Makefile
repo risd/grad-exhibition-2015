@@ -13,6 +13,7 @@ package:
 	npm run build-js
 	npm run build-css
 	cp -r static/* .dist/static/
+	cp .htaccess .dist/.htaccess
 
 clean:
 	rm -rf .dist
