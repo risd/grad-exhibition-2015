@@ -50,46 +50,6 @@ function Lightbox (selector) {
     });
 }
 
-// Lightbox.prototype.activeScroll = function () {
-//     var self = this;
-
-//     var events = through.obj();
-
-//     self.container.onscroll = debounce(onScroll());
-
-//     function onScroll () {
-//         return function (ev) {
-//             if (self.container.classList.contains('active')) {
-//                 events.push({});
-//             }
-//         };
-//     }
-
-//     return events;
-// };
-
-// Lightbox.prototype.fixElements = function () {
-//     var self = this;
-//     return through({ objectMode: true,
-//                      allowHalfOpen: true}, check);
-
-//     function check (row, enc, next) {
-//         if (window.innerWidth > 768) {
-//             var bbox = self.wrapper().getBoundingClientRect();
-//             var marginTop = '0px';
-//             if (bbox.top < 0) {
-//                 marginTop = (bbox.top * -1) + 'px';
-//             }
-//             self.fixedElements()
-//                 .forEach(function (element) {
-//                     element.style.marginTop = marginTop;
-//                 });
-//             this.push(bbox);
-//         }
-//         next();
-//     }
-// };
-
 Lightbox.prototype.setActiveStream = function () {
     var self = this;
 

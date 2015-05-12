@@ -225,6 +225,11 @@ function toggleHandleState () {
         route.fn.apply(window, [route]);
         window.history.pushState({href: href}, '', href);
 
+        if (ga) {
+            ga('set', 'page', href);
+            ga('send', 'pageview');
+        }
+
         next();
     }
 }
