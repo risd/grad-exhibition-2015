@@ -1,6 +1,6 @@
 {
   "name": "risd-grad-thesis-exhibition-2015",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Front end for the RISD Grad Thesis Exhibition Show.",
   "main": "script/index.js",
   "scripts": {
