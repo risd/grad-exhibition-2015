@@ -1542,23 +1542,29 @@ body.no-scroll {
     .lightbox.active .close {
       -webkit-transition: top, 0.28s, ease-in-out;
               transition: top, 0.28s, ease-in-out;
-      top: 36px; }
+      top: 36px;
+      right: 36px; }
     @media screen and (min-width: 768px) {
       .lightbox.active .name-tag, .lightbox.active .close {
         -webkit-transition: top, 0.28s, ease-in-out;
                 transition: top, 0.28s, ease-in-out;
-        top: 62px; } }
+        top: 62px; }
+      .lightbox.active .close {
+        right: 62px; } }
   .lightbox.inActive {
     top: 100vh; }
     .lightbox.inActive .close {
       -webkit-transition: top, 0.28s, ease-in-out;
               transition: top, 0.28s, ease-in-out;
-      top: calc(100vh + 36px); }
+      top: calc(100vh + 36px);
+      right: 36px; }
     @media screen and (min-width: 768px) {
       .lightbox.inActive .name-tag, .lightbox.inActive .close {
         -webkit-transition: top, 0.28s, ease-in-out;
                 transition: top, 0.28s, ease-in-out;
-        top: calc(100vh + 62px); } }
+        top: calc(100vh + 62px); }
+      .lightbox.inActive .close {
+        right: 62px; } }
   .lightbox .lightbox-wrapper {
     width: calc(100% - 72px);
     height: calc(100% - mobile-combined-handle-gutter);
