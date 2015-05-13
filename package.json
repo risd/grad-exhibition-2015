@@ -1,6 +1,6 @@
 {
   "name": "risd-grad-thesis-exhibition-2015",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Front end for the RISD Grad Thesis Exhibition Show.",
   "main": "script/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "watch-js": "watchify -t brfs script/index.js -o static/script.js -v",
     "watch-css": "watch 'node-sass style/site.scss static/site.css  && autoprefixer -o static/site.css static/site.css' style/",
     "dev": "nf --procfile Procfile.dev start",
-    "deploy": "make package && ./bin/deploy.js && make clean"
+    "deploy": "make packageS3 && ./bin/deploy.js && make clean"
   },
   "repository": {
     "type": "git",
