@@ -15,6 +15,8 @@ var workMeta = Work.fetchMeta();
 router.addRoute('/', function () {
     console.log('route: /');
 
+    scrollBodyFn();
+
     Info.setInActive();
     Statement.setInActive();
     Lightbox.setInActive();
@@ -26,6 +28,8 @@ router.addRoute('/info', function () {
     console.log('route: /info');
     
     Info.setActive();
+
+    scrollBodyFn();
     
     Statement.setInActive();
     Lightbox.setInActive();
@@ -37,6 +41,8 @@ router.addRoute('/statement', function () {
     console.log('route: /info');
     
     Statement.setActive();
+
+    scrollBodyFn();
 
     Info.setInActive();
     Lightbox.setInActive();
@@ -224,6 +230,11 @@ function toggleHandleState () {
         var route = router.match(href);
         route.fn.apply(window, [route]);
         window.history.pushState({href: href}, '', href);
+
+        if (ga) {
+            ga('set', 'page', href);
+            ga('send', 'pageview');
+        }
 
         next();
     }

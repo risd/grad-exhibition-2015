@@ -1055,12 +1055,16 @@ body {
         .close {
             transition: top, 0.28s, ease-in-out;
             top: $mobile-single-handle-gutter;
+            right: $mobile-single-handle-gutter;
         }
         @media screen and (min-width: 768px) {
             .name-tag,
             .close {
                 transition: top, 0.28s, ease-in-out;
                 top: $tablet-single-handle-gutter;
+            }
+            .close {
+                right: $tablet-single-handle-gutter;
             }
         }
     }
@@ -1069,12 +1073,16 @@ body {
         .close {
             transition: top, 0.28s, ease-in-out;
             top: calc(100vh + #{$mobile-single-handle-gutter});
+            right: $mobile-single-handle-gutter;
         }
         @media screen and (min-width: 768px) {
             .name-tag,
             .close {
                 transition: top, 0.28s, ease-in-out;
                 top: calc(100vh + #{$tablet-single-handle-gutter});
+            }
+            .close {
+                right: $tablet-single-handle-gutter;
             }
         }
     }
