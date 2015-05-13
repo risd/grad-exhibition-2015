@@ -53699,6 +53699,8 @@ var workMeta = Work.fetchMeta();
 router.addRoute('/', function () {
     console.log('route: /');
 
+    scrollBodyFn();
+
     Info.setInActive();
     Statement.setInActive();
     Lightbox.setInActive();
@@ -53710,6 +53712,8 @@ router.addRoute('/info', function () {
     console.log('route: /info');
     
     Info.setActive();
+
+    scrollBodyFn();
     
     Statement.setInActive();
     Lightbox.setInActive();
@@ -53721,6 +53725,8 @@ router.addRoute('/statement', function () {
     console.log('route: /info');
     
     Statement.setActive();
+
+    scrollBodyFn();
 
     Info.setInActive();
     Lightbox.setInActive();
@@ -53908,6 +53914,11 @@ function toggleHandleState () {
         var route = router.match(href);
         route.fn.apply(window, [route]);
         window.history.pushState({href: href}, '', href);
+
+        if (ga) {
+            ga('set', 'page', href);
+            ga('send', 'pageview');
+        }
 
         next();
     }
@@ -54135,46 +54146,6 @@ function Lightbox (selector) {
         next();
     });
 }
-
-// Lightbox.prototype.activeScroll = function () {
-//     var self = this;
-
-//     var events = through.obj();
-
-//     self.container.onscroll = debounce(onScroll());
-
-//     function onScroll () {
-//         return function (ev) {
-//             if (self.container.classList.contains('active')) {
-//                 events.push({});
-//             }
-//         };
-//     }
-
-//     return events;
-// };
-
-// Lightbox.prototype.fixElements = function () {
-//     var self = this;
-//     return through({ objectMode: true,
-//                      allowHalfOpen: true}, check);
-
-//     function check (row, enc, next) {
-//         if (window.innerWidth > 768) {
-//             var bbox = self.wrapper().getBoundingClientRect();
-//             var marginTop = '0px';
-//             if (bbox.top < 0) {
-//                 marginTop = (bbox.top * -1) + 'px';
-//             }
-//             self.fixedElements()
-//                 .forEach(function (element) {
-//                     element.style.marginTop = marginTop;
-//                 });
-//             this.push(bbox);
-//         }
-//         next();
-//     }
-// };
 
 Lightbox.prototype.setActiveStream = function () {
     var self = this;
